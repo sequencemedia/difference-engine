@@ -289,15 +289,14 @@ var DifferenceEngine	= (function () {
 
 	function DifferenceEngine() {
 
-		this.model	= model;
-		this.order	= order;
-		
-		this.positive	= positive;
-		this.negative	= negative;
-		
 		return this;
 
 	}
+
+	DifferenceEngine.prototype.model	= model;
+	DifferenceEngine.prototype.order	= order;
+	DifferenceEngine.prototype.positive	= positive;
+	DifferenceEngine.prototype.negative	= negative;
 
 	return DifferenceEngine;
 
