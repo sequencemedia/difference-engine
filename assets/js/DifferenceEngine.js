@@ -1,4 +1,3 @@
-
 var DifferenceEngine	= (function () {
 
 	"use strict";
@@ -8,8 +7,7 @@ var DifferenceEngine	= (function () {
 		model,
 		order,
 
-		positive,
-		negative;
+		extract;
 
 	has = (function () {
 
@@ -249,86 +247,58 @@ var DifferenceEngine	= (function () {
 
 	}());
 
-	positive	= (function () {
+	extract	= (function () {
 
-		var extract = (function () {
+		var i,
+			j,
+			key;
 
-			var i,
-				j,
-				key;
+		return function extract(alpha, omega, condition, extracted) {
 
-			return function extract(alpha, omega, extracted) {
-
-				i = 0;
-				j = alpha.length;
-				for (i = i; i < j; i = i + 1) {
-					key = alpha[i];
-					if (has(omega, key) === true) {
-						extracted.push(key);
-					}
+			i = 0;
+			j = alpha.length;
+			for (i = i; i < j; i = i + 1) {
+				key = alpha[i];
+				if (has(omega, key) === condition) {
+					extracted.push(key);
 				}
-				return extracted;
-
-			};
-
-		}());
-
-		return function positive(alpha, omega) {
-
-			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
-				return extract(alpha, omega, []);
 			}
-			return [];
+			return extracted;
 
 		};
 
 	}());
 
-	negative	= (function () {
+	function positive(alpha, omega) {
 
-		var extract = (function () {
+		if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
+			return extract(alpha, omega, true, []);
+		}
+		return [];
 
-			var i,
-				j,
-				key;
+	}
 
-			return function extract(alpha, omega, extracted) {
+	function negative(alpha, omega) {
 
-				i = 0;
-				j = alpha.length;
-				for (i = i; i < j; i = i + 1) {
-					key = alpha[i];
-					if (has(omega, key) === null) {
-						extracted.push(key);
-					}
-				}
-				return extracted;
+		if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
+			return extract(alpha, omega, null, []);
+		}
+		return [];
 
-			};
+	}
 
-		}());
+	function DifferenceEngine() {
 
-		return function negative(alpha, omega) {
+		this.model	= model;
+		this.order	= order;
+		
+		this.positive	= positive;
+		this.negative	= negative;
+		
+		return this;
 
-			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
-				return extract(alpha, omega, []);
-			}
-			return [];
+	}
 
-		};
-
-	}());
-
-	return function DifferenceEngine() {
-
-		this.model = model;
-		this.order = order;
-
-		this.positive = positive;
-		this.negative = negative;
-
-		return true;
-
-	};
+	return DifferenceEngine;
 
 }());
