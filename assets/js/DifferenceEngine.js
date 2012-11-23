@@ -13,15 +13,24 @@ var DifferenceEngine	= (function () {
 
 		var i,
 			j,
-			key;
+			KEY;
 
-		return function has(array, KEY) {
+		/*
+		 *	Accepts one array, "array" and one string, "key";
+		 *	Returns a boolean which describes if "array" contains element "key"
+		 *	@param {array} array
+		 *		[ "A", "B", "C", "D" ]
+		 *	@param {array} key
+		 *		"A"
+		 */
+
+		return function has(array, key) {
 
 			i = 0;
 			j = array.length;
 			for (i = i; i < j; i = i + 1) {
-				key = array[i];
-				if (key === KEY) {
+				KEY = array[i];
+				if (KEY === key) {
 					return true;
 				}
 			}
@@ -45,36 +54,57 @@ var DifferenceEngine	= (function () {
 
 			var i,
 				j,
-				IDENTIFIER;
+				KEY;
 
-			return function find(collection, identifier) {
+			/*
+			 *	Accepts one array, "array", and one string or number, "key";
+			 *	Searches "array" for "key"
+			 *	@param {array} array
+			 *		[ "A", "B", "C", "D" ]
+			 *	@param {string, number} key
+			 *		"D"
+			 */
+
+			return function find(array, key) {
 
 				i = 0;
-				j = collection.length;
+				j = array.length;
 				for (i = i; i < j; i = i + 1) {
-					IDENTIFIER = collection[i];
-					if (IDENTIFIER === identifier) {
+					KEY = array[i];
+					if (KEY === key) {
 						return i;
 					}
 				}
 				return null;
 
 			};
+
 		}());
 
 		L = (function () {
 
 			var j,
 				n,
-				IDENTIFIER;
+				KEY;
 
-			return function L(i, positive, negative) {
+			/*
+			 *	Accepts one integer, "i", and two arrays, "alpha" and "omega";
+			 *	Searches "alpha" to the left for the nearest sibling in "omega"
+			 *	@param {number} i
+			 *		3
+			 *	@param {array} alpha
+			 *		[ "A", "B", "C", "D" ]
+			 *	@param {array} omega
+			 *		[ "A", "B", "C" ]
+			 */
+
+			return function L(i, alpha, omega) {
 
 				j = 0;
 				while (i > j) {
 					i = i - 1;
-					IDENTIFIER = positive[i];
-					if ((n = (find(negative, IDENTIFIER))) !== null) {
+					KEY = alpha[i];
+					if ((n = find(omega, KEY)) !== null) {
 						return n;
 					}
 				}
@@ -88,15 +118,26 @@ var DifferenceEngine	= (function () {
 
 			var j,
 				n,
-				IDENTIFIER;
+				KEY;
 
-			return function R(i, positive, negative) {
+			/*
+			 *	Accepts one integer, "i", and two arrays, "alpha" and "omega";
+			 *	Searches "alpha" to the right for the nearest sibling in "omega"
+			 *	@param {number} i
+			 *		3
+			 *	@param {array} alpha
+			 *		[ "A", "B", "C", "D" ]
+			 *	@param {array} omega
+			 *		[ "A", "B", "C" ]
+			 */
 
-				j = (positive.length - 1);
+			return function R(i, alpha, omega) {
+
+				j = (alpha.length - 1);
 				while (i < j) {
 					i = i + 1;
-					IDENTIFIER = positive[i];
-					if ((n = (find(negative, IDENTIFIER))) !== null) {
+					KEY = alpha[i];
+					if ((n = find(omega, KEY)) !== null) {
 						return n;
 					}
 				}
@@ -106,96 +147,77 @@ var DifferenceEngine	= (function () {
 
 		}());
 
-		return function model(positive, negative, identifier) {
+		/*
+		 *	Accepts two arrays, "alpha" and "omega";
+		 *	Returns an object which describes how to splice "key"
+		 *	which appears in "alpha" into "omega"
+		 *	@param {array} alpha 
+		 *		[ "A", "B", "C", "D" ]
+		 *	@param {array} omega
+		 *		[ "A", "B", "C" ]
+		 *	@param {string, number}
+		 *		"D" 
+		 */
 
-			if (((positive || false).constructor === Array) && ((negative || false).constructor === Array)) {
+		return function model(alpha, omega, key) {
 
-				if ((index = (find(positive, identifier))) !== null) {
+			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
 
-					total = negative.length;
-					if (index === 0) {
+				if ((index = find(alpha, key)) !== null) {
 
-						return {
-							step: "first",
+					total = omega.length;
+
+					return (index === 0) ? {
+
 							index: 0,
-							total: total + 1,
+							total: (total + 1),
 							first: true,
 							last: total === 0,
 							only: total === 0,
 							alpha: null,
-							omega: negative[0] || null,
-							model: positive[identifier] || null
-						};
+							omega: omega[0] || null
+						
+						} : ((value = L(index, alpha, omega, key)) !== null) ? {
 
-					} else {
-
-						if ((value = (L(index, positive, negative, identifier))) !== null) {
-
-							return {
-								step: "insert, L",
 								index: (value + 1),
 								total: (total + 1),
 								first: total === 0,
 								last: total === (value + 1),
 								only: total === 0,
-								alpha: negative[value] || null,
-								omega: negative[value + 1] || null,
-								model: positive[identifier] || null
-							};
+								alpha: omega[value] || null,
+								omega: omega[value + 1] || null
+							
+							} : ((value = R(index, alpha, omega, key)) !== null) ? {
 
-						} else {
-
-							if ((value = (R(index, positive, negative, identifier))) !== null) {
-
-								return {
-									step: "insert, R",
 									index: value,
-									total: total + 1,
+									total: (total + 1),
 									first: value === 0,
 									last: total === 0,
 									only: total === 0,
-									alpha: negative[value - 1] || null,
-									omega: negative[value] || null,
-									model: positive[identifier] || null
-								};
+									alpha: omega[value - 1] || null,
+									omega: omega[value] || null
+								
+								} : (index < total) ? {
 
-							} else {
-
-								if (index < total) {
-
-									return {
-										step: "before",
 										index: 0,
-										total: total + 1,
+										total: (total + 1),
 										first: true,
 										last: total === 0,
 										only: total === 0,
 										alpha: null,
-										omega: negative[0] || null,
-										model: positive[identifier] || null
-									};
+										omega: omega[0] || null
+									
+									} : {
 
-								} else {
-
-									return {
-										step: "append",
 										index: total,
-										total: total + 1,
+										total: (total + 1),
 										first: total === 0,
 										last: true,
 										only: total === 0,
-										alpha: negative[total - 1] || null,
-										omega: null,
-										model: positive[identifier] || null
-									};
-
-								}
-
-							}
-
-						}
-
-					}
+										alpha: omega[total - 1] || null,
+										omega: null
+									
+									} ;
 
 				}
 
@@ -236,10 +258,10 @@ var DifferenceEngine	= (function () {
 
 		}());
 
-		return function order(positive, negative) {
+		return function order(alpha, omega) {
 
-			if (((positive || false).constructor === Array) && ((negative || false).constructor === Array)) {
-				return extract(positive, negative, []);
+			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
+				return extract(alpha, omega, []);
 			}
 			return [];
 
@@ -252,6 +274,19 @@ var DifferenceEngine	= (function () {
 		var i,
 			j,
 			key;
+
+		/*
+		 *	Accepts two arrays, "alpha" and "omega";
+		 *	Returns an array containing elements 
+		 *		1) in "alpha" AND "omega" IF "condition" is "true"
+		 *		2) in "alpha" NOT "omega" IF "condition" is "null" 
+		 *	@param {array} alpha 
+		 *		[ "A", "B", "D" ]
+		 *	@param {array} omega
+		 *		[ "A", "B", "C" ]
+		 *	@param {true, null}
+		 *	@param {array}
+		 */
 
 		return function extract(alpha, omega, condition, extracted) {
 
@@ -269,6 +304,15 @@ var DifferenceEngine	= (function () {
 
 	}());
 
+	/*
+	 *	Accepts two arrays, "alpha" and "omega";
+	 *	Returns an array containing elements in "alpha" AND "omega"
+	 *	@param {array} alpha 
+	 *		[ "A", "B", "D" ]
+	 *	@param {array} omega
+	 *		[ "A", "B", "C" ]
+	 */
+
 	function positive(alpha, omega) {
 
 		if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
@@ -277,6 +321,15 @@ var DifferenceEngine	= (function () {
 		return [];
 
 	}
+
+	/*
+	 *	Accepts two arrays, "alpha" and "omega";
+	 *	Returns an array containing elements in "alpha" NOT "omega"
+	 *	@param {array} alpha 
+	 *		[ "A", "B", "D" ]
+	 *	@param {array} omega
+	 *		[ "A", "B", "C" ]
+	 */
 
 	function negative(alpha, omega) {
 
