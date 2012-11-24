@@ -64,7 +64,7 @@ var DifferenceEngine	= (function () {
 			 *	@param {string, number} key
 			 *		"D"
 			 *
-			 *	Performs moderately faster than array.indexOf() in Chrome, and
+			 *	Performs moderately faster than "array.indexOf()" in Chrome, and
 			 *	performs significantly faster than that method in FF
 			 *	as at 24 November 2012.
 			 */
