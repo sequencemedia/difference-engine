@@ -63,6 +63,10 @@ var DifferenceEngine	= (function () {
 			 *		[ "A", "B", "C", "D" ]
 			 *	@param {string, number} key
 			 *		"D"
+			 *
+			 *	Performs moderately faster than array.indexOf() in Chrome, and
+			 *	performs significantly faster than that method in FF
+			 *	as at 24 November 2012.
 			 */
 
 			return function find(array, key) {
@@ -96,6 +100,10 @@ var DifferenceEngine	= (function () {
 			 *		[ "A", "B", "C", "D" ]
 			 *	@param {array} omega
 			 *		[ "A", "B", "C" ]
+			 *
+			 *	This has the potential to be re-written as an implementation of "array.indexOf()"
+			 *	pending performance comparisons. Presently, this method is assumed to be faster than the
+			 *	native array method because "find" performs better than "array.indexOf()".
 			 */
 
 			return function L(i, alpha, omega) {
@@ -129,6 +137,10 @@ var DifferenceEngine	= (function () {
 			 *		[ "A", "B", "C", "D" ]
 			 *	@param {array} omega
 			 *		[ "A", "B", "C" ]
+			 *
+			 *	This has the potential to be re-written as an implementation of "array.lastIndexOf()"
+			 *	pending performance comparisons. Presently, this method is assumed to be faster than the
+			 *	native array method because "find" performs better than "array.indexOf()".
 			 */
 
 			return function R(i, alpha, omega) {
@@ -151,12 +163,12 @@ var DifferenceEngine	= (function () {
 		 *	Accepts two arrays, "alpha" and "omega";
 		 *	Returns an object which describes how to splice "key"
 		 *	which appears in "alpha" into "omega"
-		 *	@param {array} alpha 
+		 *	@param {array} alpha
 		 *		[ "A", "B", "C", "D" ]
 		 *	@param {array} omega
 		 *		[ "A", "B", "C" ]
 		 *	@param {string, number}
-		 *		"D" 
+		 *		"D"
 		 */
 
 		return function model(alpha, omega, key) {
@@ -176,7 +188,7 @@ var DifferenceEngine	= (function () {
 							only: total === 0,
 							alpha: null,
 							omega: omega[0] || null
-						
+
 						} : ((value = L(index, alpha, omega, key)) !== null) ? {
 
 								index: (value + 1),
@@ -186,7 +198,7 @@ var DifferenceEngine	= (function () {
 								only: total === 0,
 								alpha: omega[value] || null,
 								omega: omega[value + 1] || null
-							
+
 							} : ((value = R(index, alpha, omega, key)) !== null) ? {
 
 									index: value,
@@ -196,7 +208,7 @@ var DifferenceEngine	= (function () {
 									only: total === 0,
 									alpha: omega[value - 1] || null,
 									omega: omega[value] || null
-								
+
 								} : (index < total) ? {
 
 										index: 0,
@@ -206,7 +218,7 @@ var DifferenceEngine	= (function () {
 										only: total === 0,
 										alpha: null,
 										omega: omega[0] || null
-									
+
 									} : {
 
 										index: total,
@@ -216,7 +228,7 @@ var DifferenceEngine	= (function () {
 										only: total === 0,
 										alpha: omega[total - 1] || null,
 										omega: null
-									
+
 									} ;
 
 				}
@@ -277,10 +289,10 @@ var DifferenceEngine	= (function () {
 
 		/*
 		 *	Accepts two arrays, "alpha" and "omega";
-		 *	Returns an array containing elements 
+		 *	Returns an array containing elements
 		 *		1) in "alpha" AND "omega" IF "condition" is "true"
-		 *		2) in "alpha" NOT "omega" IF "condition" is "null" 
-		 *	@param {array} alpha 
+		 *		2) in "alpha" NOT "omega" IF "condition" is "null"
+		 *	@param {array} alpha
 		 *		[ "A", "B", "D" ]
 		 *	@param {array} omega
 		 *		[ "A", "B", "C" ]
@@ -307,7 +319,7 @@ var DifferenceEngine	= (function () {
 	/*
 	 *	Accepts two arrays, "alpha" and "omega";
 	 *	Returns an array containing elements in "alpha" AND "omega"
-	 *	@param {array} alpha 
+	 *	@param {array} alpha
 	 *		[ "A", "B", "D" ]
 	 *	@param {array} omega
 	 *		[ "A", "B", "C" ]
@@ -325,7 +337,7 @@ var DifferenceEngine	= (function () {
 	/*
 	 *	Accepts two arrays, "alpha" and "omega";
 	 *	Returns an array containing elements in "alpha" NOT "omega"
-	 *	@param {array} alpha 
+	 *	@param {array} alpha
 	 *		[ "A", "B", "D" ]
 	 *	@param {array} omega
 	 *		[ "A", "B", "C" ]
