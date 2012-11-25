@@ -213,23 +213,32 @@ var DifferenceEngine	= (function () {
 
 			var i,
 				j,
-				n,
 				ALPHA,
 				OMEGA;
+
+			/*
+			 *	Accepts two arrays, "alpha" and "omega";
+			 *	Returns an array containing elements
+			 *	which have a different order in "alpha" and "omega"
+			 *	@param {array} alpha
+			 *		[ "A", "B", "C", "D" ]
+			 *	@param {array} omega
+			 *		[ "A", "B", "C" ]
+			 *	@param {string, number}
+			 *		"D"
+			 */
 
 			return function extract(alpha, omega, extracted) {
 
 				i = 0;
 				j = alpha.length;
-				n = 0;
 				for (i = i; i < j; i = i + 1) {
 					ALPHA = alpha[i];
-					OMEGA = omega[n];
+					OMEGA = omega[i];
 					if (ALPHA !== OMEGA) {
 						extracted.push(ALPHA);
-					} else {
-						n = n + 1;
 					}
+
 				}
 				return extracted;
 
