@@ -2,50 +2,17 @@ var DifferenceEngine	= (function () {
 
 	"use strict";
 
-	var has,
-
-		model,
+	var model,
 		order,
 
 		extract;
-
-	has = (function () {
-
-		var i,
-			j,
-			KEY;
-
-		/*
-		 *	Accepts one array, "array" and one string, "key";
-		 *	Returns a boolean which describes if "array" contains element "key"
-		 *	@param {array} array
-		 *		[ "A", "B", "C", "D" ]
-		 *	@param {array} key
-		 *		"A"
-		 */
-
-		return function has(array, key) {
-
-			i = 0;
-			j = array.length;
-			for (i = i; i < j; i = i + 1) {
-				KEY = array[i];
-				if (KEY === key) {
-					return true;
-				}
-			}
-
-			return null;
-
-		};
-
-	}());
 
 	model = (function () {
 
 		var index,
 			total,
 			value,
+
 			find,
 			L,
 			R;
@@ -285,7 +252,42 @@ var DifferenceEngine	= (function () {
 
 		var i,
 			j,
-			key;
+			KEY,
+
+			has;
+
+
+		has = (function () {
+
+			var i,
+				j,
+				KEY;
+
+			/*
+			 *	Accepts one array, "array" and one string, "key";
+			 *	Returns a boolean which describes if "array" contains element "key"
+			 *	@param {array} array
+			 *		[ "A", "B", "C", "D" ]
+			 *	@param {array} key
+			 *		"A"
+			 */
+
+			return function has(array, key) {
+
+				i = 0;
+				j = array.length;
+				for (i = i; i < j; i = i + 1) {
+					KEY = array[i];
+					if (KEY === key) {
+						return true;
+					}
+				}
+
+				return null;
+
+			};
+
+		}());
 
 		/*
 		 *	Accepts two arrays, "alpha" and "omega";
@@ -305,9 +307,9 @@ var DifferenceEngine	= (function () {
 			i = 0;
 			j = alpha.length;
 			for (i = i; i < j; i = i + 1) {
-				key = alpha[i];
-				if (has(omega, key) === condition) {
-					extracted.push(key);
+				KEY = alpha[i];
+				if (has(omega, KEY) === condition) {
+					extracted.push(KEY);
 				}
 			}
 			return extracted;
@@ -352,14 +354,13 @@ var DifferenceEngine	= (function () {
 
 	}
 
-	function DifferenceEngine() {
+	/* Constructor */
 
-		return this;
-
-	}
+	function DifferenceEngine() { }
 
 	DifferenceEngine.prototype.model	= model;
 	DifferenceEngine.prototype.order	= order;
+
 	DifferenceEngine.prototype.positive	= positive;
 	DifferenceEngine.prototype.negative	= negative;
 
