@@ -2,10 +2,47 @@ var DifferenceEngine	= (function () {
 
 	"use strict";
 
-	var model,
+	var find,
+
+		model,
 		order,
 
 		extract;
+
+	find = (function () {
+
+		var i,
+			j,
+			KEY;
+
+		/*
+		 *	Accepts one array, "array", and one string or number, "key";
+		 *	Searches "array" for "key"
+		 *	@param {array} array
+		 *		[ "A", "B", "C", "D" ]
+		 *	@param {string, number} key
+		 *		"D"
+		 *
+		 *	Performs moderately faster than "array.indexOf()" in Chrome, and
+		 *	performs significantly faster than that method in FF
+		 *	as at 24 November 2012.
+		 */
+
+		return function find(array, key) {
+
+			i = 0;
+			j = array.length;
+			for (i = i; i < j; i = i + 1) {
+				KEY = array[i];
+				if (KEY === key) {
+					return i;
+				}
+			}
+			return null;
+
+		};
+
+	}());
 
 	model = (function () {
 
@@ -13,44 +50,8 @@ var DifferenceEngine	= (function () {
 			total,
 			value,
 
-			find,
 			L,
 			R;
-
-		find = (function () {
-
-			var i,
-				j,
-				KEY;
-
-			/*
-			 *	Accepts one array, "array", and one string or number, "key";
-			 *	Searches "array" for "key"
-			 *	@param {array} array
-			 *		[ "A", "B", "C", "D" ]
-			 *	@param {string, number} key
-			 *		"D"
-			 *
-			 *	Performs moderately faster than "array.indexOf()" in Chrome, and
-			 *	performs significantly faster than that method in FF
-			 *	as at 24 November 2012.
-			 */
-
-			return function find(array, key) {
-
-				i = 0;
-				j = array.length;
-				for (i = i; i < j; i = i + 1) {
-					KEY = array[i];
-					if (KEY === key) {
-						return i;
-					}
-				}
-				return null;
-
-			};
-
-		}());
 
 		L = (function () {
 
@@ -213,6 +214,7 @@ var DifferenceEngine	= (function () {
 
 			var i,
 				j,
+				n,
 				ALPHA,
 				OMEGA;
 
@@ -232,11 +234,15 @@ var DifferenceEngine	= (function () {
 
 				i = 0;
 				j = alpha.length;
+				n = 0;
 				for (i = i; i < j; i = i + 1) {
 					ALPHA = alpha[i];
-					OMEGA = omega[i];
-					if (ALPHA !== OMEGA) {
-						extracted.push(ALPHA);
+					OMEGA = omega[n];
+					if (ALPHA === OMEGA) { 
+						n = n + 1;
+					} else {
+						extracted.push(ALPHA);					
+						n = ((n = find(omega, ALPHA)) !== null) ? n + 1 : i + 1;
 					}
 
 				}
