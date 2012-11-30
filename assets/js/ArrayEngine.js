@@ -95,13 +95,11 @@ var ArrayEngine	= (function () {
 
 			ARRAY	= array;
 
-			return true;
+			return this;
 
 		} else {
 
-			reset();
-
-			return false;
+			return reset();
 
 		}
 
@@ -116,7 +114,7 @@ var ArrayEngine	= (function () {
 
 		ARRAY	= [];
 
-		return true;
+		return this;
 
 	}
 
