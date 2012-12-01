@@ -89,11 +89,9 @@ var ArrayEngine	= (function () {
 		if ((array || false).constructor === Array) {
 
 			i	= 0;
-			j	= array.length;
+			j	= (ARRAY = array).length;
 			n	= -1;
 			m	= -1;
-
-			ARRAY	= array;
 
 			return this;
 
@@ -108,11 +106,9 @@ var ArrayEngine	= (function () {
 	function reset() {
 
 		i	= 0;
-		j	= 0;
+		j	= (ARRAY = []).length;
 		n	= -1;
 		m	= -1;
-
-		ARRAY	= [];
 
 		return this;
 
