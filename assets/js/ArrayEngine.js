@@ -56,9 +56,10 @@ var ArrayEngine	= (function () {
 
 				/*
 				 * Seek L - R
-				 * Either start at 0 or start at previous i (which is n)
+				 * Either start at 0 or start at previous n + 1
 				 */
-				for (i = (n === m ? 0 : i + 1 > j ? j : i + 1); i < j; i = i + 1) {
+				i = (n === m ? 0 : n + 1 > j ? j : n + 1);
+				for (i = i; i < j; i = i + 1) {
 					KEY = ARRAY[i];
 					if (KEY === key) {
 						return (n = i);
@@ -67,9 +68,10 @@ var ArrayEngine	= (function () {
 
 				/*
 				 * Seek R - L
-				 * Either start at j - 1 or start at previous i (which is n) - 1
+				 * Either start at j - 1 or start at previous n - 1
 				 */
-				for (i = (n === m ? j - 1 : n - 1 > m ? n - 1 : j - 1); i > m; i = i - 1) {
+				i = (n === m ? j - 1 : n - 1 > m ? n - 1 : m);
+				for (i = i; i > m; i = i - 1) {
 					KEY = ARRAY[i];
 					if (KEY === key) {
 						return (n = i);
