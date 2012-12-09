@@ -231,7 +231,6 @@ var ArrayEngine	= (function () {
 						method.call(ARRAY, z, ARRAY[z], j);
 
 					} while (++z < j);
-
 					return true;
 
 				}
@@ -259,10 +258,9 @@ var ArrayEngine	= (function () {
 						method.call(ARRAY, z, ARRAY[z], j);
 
 					} while (m < --z);
+					return true;
 
 				}
-
-				return true;
 
 			}
 
