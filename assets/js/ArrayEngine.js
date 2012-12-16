@@ -27,68 +27,70 @@ var ArrayEngine	= (function () {
 		j,
 
 		n,
+		KEY,
 		m,
 
 		ARRAY,
-
-		indexOf,
 
 		map,
 		max,
 		min;
 
-	indexOf = (function () {
+	/*
+	 *	Accepts one string or number, "key";
+	 *	Searches "ARRAY" for "key"
+	 *	@param {string, number} key
+	 *		"D"
+	 *
+	 *	Performs moderately slower than "DifferenceEngine.indexFor()"
+	 *	According to jsperf.com, December 2012, "for" performs faster
+	 *	than "do"
+	 */
+	function indexOf(key) {
 
-		var KEY;
+		var a, z;
 
-		/*
-		 *	Accepts one string or number, "key";
-		 *	Searches "ARRAY" for "key"
-		 *	@param {string, number} key
-		 *		"D"
-		 *
-		 *	Performs moderately slower than "DifferenceEngine.indexFor()"
-		 */
+		if (KEY === key) {
 
-		return function (key) {
+			return n;
 
-			if (KEY === key) {
+		} else {
 
-				return i;
+			a = ARRAY;
 
-			} else {
+			/*
+			 * Seek L - R
+			 * Either start at 0 or start at previous z + 1
+			 */
+			z = (n === m ? 0 : (z = n + 1) > j ? j : z);
+			for (z = z; z < j; z = z + 1) {
 
-				/*
-				 * Seek L - R
-				 * Either start at 0 or start at previous n + 1
-				 */
-				i = (n === m ? 0 : n + 1 > j ? j : n + 1);
-				for (i = i; i < j; i = i + 1) {
-					KEY = ARRAY[i];
-					if (KEY === key) {
-						return (n = i);
-					}
+				if (a[z] === key) {
+					KEY = key;
+					return (n = z);
 				}
-
-				/*
-				 * Seek R - L
-				 * Either start at j - 1 or start at previous n - 1
-				 */
-				i = (n === m ? j - 1 : n - 1 > m ? n - 1 : m);
-				for (i = i; i > m; i = i - 1) {
-					KEY = ARRAY[i];
-					if (KEY === key) {
-						return (n = i);
-					}
-				}
-
-				return null;
 
 			}
 
-		};
+			/*
+			 * Seek R - L
+			 * Either start at j - 1 or start at previous z - 1
+			 */
+			z = (z === m ? j - 1 : (z = n - 1) > m ? z : m);
+			for (z = z; z > m; z = z - 1) {
 
-	}());
+				if (a[z] === key) {
+					KEY = key;
+					return (n = z);
+				}
+
+			}
+
+			return null;
+
+		}
+
+	}
 
 	function begin(array) {
 
@@ -97,6 +99,7 @@ var ArrayEngine	= (function () {
 			i	= 0;
 			j	= (ARRAY = array.slice()).length;
 			n	= -1;
+			KEY = null;
 			m	= -1;
 
 			return this;
@@ -114,6 +117,7 @@ var ArrayEngine	= (function () {
 		i	= 0;
 		j	= (ARRAY = []).length;
 		n	= -1;
+		KEY = null;
 		m	= -1;
 
 		return this;
