@@ -313,7 +313,7 @@ var ArrayEngine	= (function () {
 			var x = a[0], z = 1, y;
 			do {
 
-				if ((y = ARRAY[z]) < x) x = y;
+				if ((y = a[z]) < x) x = y;
 
 			} while (++z < j);
 			return x;
