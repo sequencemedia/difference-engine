@@ -41,20 +41,20 @@ var DifferenceEngine	= (function () {
 	 *	performs significantly faster than that method in FF
 	 *	as at 24 November 2012.
 	 */
-
-	function indexFor(array, key) {
+	function indexOf(array, key) {
 
 		var i = 0,
-			j = array.length,
-			KEY;
+			j = array.length;
+		/*
+		 *	According to jsperf.com, December 2012, "for" performs
+		 *	faster than "while" or "do"
+		 */
 		for (i = i; i < j; i = i + 1) {
-			KEY = array[i];
-			if (KEY === key) {
+			if (array[i] === key) {
 				return i;
 			}
 		}
 		return null;
-
 	}
 
 	mapKey = (function () {
@@ -71,16 +71,17 @@ var DifferenceEngine	= (function () {
 		 *
 		 *	This has the potential to be re-written as an implementation of "array.indexOf()"
 		 *	pending performance comparisons. Presently, this method is assumed to be faster than the
-		 *	native array method because "indexFor" performs better than "array.indexOf()".
+		 *	native array method because "indexOf" performs better than "array.indexOf()".
 		 */
-
 		function L(i, alpha, omega) {
 
-			var j = 0, n, KEY;
-			while (i > j) {
-				i = i - 1;
-				KEY = alpha[i];
-				if ((n = indexFor(omega, KEY)) !== null) {
+			var j = 0, n;
+			/*
+			 *	According to jsperf.com, December 2012, "while" performs
+			 *	faster than "for" or "do"
+			 */
+			while (--i > j) {
+				if ((n = indexOf(omega, alpha[i])) !== null) {
 					return n;
 				}
 			}
@@ -100,16 +101,17 @@ var DifferenceEngine	= (function () {
 		 *
 		 *	This has the potential to be re-written as an implementation of "array.lastIndexOf()"
 		 *	pending performance comparisons. Presently, this method is assumed to be faster than the
-		 *	native array method because "indexFor" performs better than "array.indexOf()".
+		 *	native array method because "indexOf" performs better than "array.indexOf()".
 		 */
-
 		function R(i, alpha, omega) {
 
-			var j = (alpha.length - 1), n, KEY;
-			while (i < j) {
-				i = i + 1;
-				KEY = alpha[i];
-				if ((n = indexFor(omega, KEY)) !== null) {
+			var j = (alpha.length - 1), n;
+			/*
+			 *	According to jsperf.com, December 2012, "while" performs
+			 *	faster than "for" or "do"
+			 */
+			while (++i < j) {
+				if ((n = indexOf(omega, alpha[i])) !== null) {
 					return n;
 				}
 			}
@@ -137,7 +139,7 @@ var DifferenceEngine	= (function () {
 
 			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
 
-				if ((index = indexFor(alpha, key)) !== null) {
+				if ((index = indexOf(alpha, key)) !== null) {
 
 					total = omega.length;
 
@@ -234,13 +236,11 @@ var DifferenceEngine	= (function () {
 				ALPHA,
 				OMEGA;
 			for (i = i; i < j; i = i + 1) {
-				ALPHA = alpha[i];
-				OMEGA = omega[n];
-				if (ALPHA === OMEGA) {
+				if ((ALPHA = alpha[i]) === (OMEGA = omega[n])) {
 					n = n + 1;
 				} else {
 					extracted.push(ALPHA);
-					n = ((n = indexFor(omega, ALPHA)) !== null) ? n + 1 : i + 1;
+					n = ((n = indexOf(omega, ALPHA)) !== null) ? n + 1 : i + 1;
 				}
 
 			}
@@ -269,15 +269,12 @@ var DifferenceEngine	= (function () {
 		 *	@param {array} key
 		 *		"A"
 		 */
-
 		function hasKey(array, key) {
 
 			var i = 0,
-				j = array.length,
-				KEY;
+				j = array.length;
 			for (i = i; i < j; i = i + 1) {
-				KEY = array[i];
-				if (KEY === key) {
+				if (array[i] === key) {
 					return true;
 				}
 			}
@@ -300,16 +297,14 @@ var DifferenceEngine	= (function () {
 		 *	@param {array} extracted
 		 *		[ ]
 		 */
-
 		return function (alpha, omega, condition, extracted) {
 
 			var i = 0,
 				j = alpha.length,
-				KEY;
+				ALPHA;
 			for (i = i; i < j; i = i + 1) {
-				KEY = alpha[i];
-				if (hasKey(omega, KEY) === condition) {
-					extracted.push(KEY);
+				if (hasKey(omega, (ALPHA = alpha[i])) === condition) {
+					extracted.push(ALPHA);
 				}
 			}
 			return extracted;
