@@ -23,131 +23,99 @@ var DifferenceEngine	= (function () {
 
 	"use strict";
 
-	var indexFor,
-
-		mapKey,
+	var mapKey,
 
 		sequence,
 
 		extract;
 
-	indexFor = (function () {
+	/*
+	 *	Accepts one array, "array", and one string or number, "key";
+	 *	Searches "array" for "key"
+	 *	@param {array} array
+	 *		[ "A", "B", "C", "D" ]
+	 *	@param {string, number} key
+	 *		"D"
+	 *
+	 *	Performs moderately faster than "array.indexOf()" in Chrome, and
+	 *	performs significantly faster than that method in FF
+	 *	as at 24 November 2012.
+	 */
 
-		var i,
-			j,
+	function indexFor(array, key) {
+
+		var i = 0,
+			j = array.length,
 			KEY;
+		for (i = i; i < j; i = i + 1) {
+			KEY = array[i];
+			if (KEY === key) {
+				return i;
+			}
+		}
+		return null;
+
+	}
+
+	mapKey = (function () {
 
 		/*
-		 *	Accepts one array, "array", and one string or number, "key";
-		 *	Searches "array" for "key"
-		 *	@param {array} array
+		 *	Accepts one integer, "i", and two arrays, "alpha" and "omega";
+		 *	Searches "alpha" to the left for the nearest sibling in "omega"
+		 *	@param {number} i
+		 *		3
+		 *	@param {array} alpha
 		 *		[ "A", "B", "C", "D" ]
-		 *	@param {string, number} key
-		 *		"D"
+		 *	@param {array} omega
+		 *		[ "A", "B", "C" ]
 		 *
-		 *	Performs moderately faster than "array.indexOf()" in Chrome, and
-		 *	performs significantly faster than that method in FF
-		 *	as at 24 November 2012.
+		 *	This has the potential to be re-written as an implementation of "array.indexOf()"
+		 *	pending performance comparisons. Presently, this method is assumed to be faster than the
+		 *	native array method because "indexFor" performs better than "array.indexOf()".
 		 */
 
-		return function indexFor(array, key) {
+		function L(i, alpha, omega) {
 
-			i = 0;
-			j = array.length;
-			for (i = i; i < j; i = i + 1) {
-				KEY = array[i];
-				if (KEY === key) {
-					return i;
+			var j = 0, n, KEY;
+			while (i > j) {
+				i = i - 1;
+				KEY = alpha[i];
+				if ((n = indexFor(omega, KEY)) !== null) {
+					return n;
 				}
 			}
 			return null;
 
-		};
+		}
 
-	}());
+		/*
+		 *	Accepts one integer, "i", and two arrays, "alpha" and "omega";
+		 *	Searches "alpha" to the right for the nearest sibling in "omega"
+		 *	@param {number} i
+		 *		3
+		 *	@param {array} alpha
+		 *		[ "A", "B", "C", "D" ]
+		 *	@param {array} omega
+		 *		[ "A", "B", "C" ]
+		 *
+		 *	This has the potential to be re-written as an implementation of "array.lastIndexOf()"
+		 *	pending performance comparisons. Presently, this method is assumed to be faster than the
+		 *	native array method because "indexFor" performs better than "array.indexOf()".
+		 */
 
-	mapKey = (function () {
+		function R(i, alpha, omega) {
 
-		var index,
-			total,
-			value,
-
-			L,
-			R;
-
-		L = (function () {
-
-			var j,
-				n,
-				KEY;
-
-			/*
-			 *	Accepts one integer, "i", and two arrays, "alpha" and "omega";
-			 *	Searches "alpha" to the left for the nearest sibling in "omega"
-			 *	@param {number} i
-			 *		3
-			 *	@param {array} alpha
-			 *		[ "A", "B", "C", "D" ]
-			 *	@param {array} omega
-			 *		[ "A", "B", "C" ]
-			 *
-			 *	This has the potential to be re-written as an implementation of "array.indexOf()"
-			 *	pending performance comparisons. Presently, this method is assumed to be faster than the
-			 *	native array method because "indexFor" performs better than "array.indexOf()".
-			 */
-
-			return function L(i, alpha, omega) {
-
-				j = 0;
-				while (i > j) {
-					i = i - 1;
-					KEY = alpha[i];
-					if ((n = indexFor(omega, KEY)) !== null) {
-						return n;
-					}
+			var j = (alpha.length - 1), n, KEY;
+			while (i < j) {
+				i = i + 1;
+				KEY = alpha[i];
+				if ((n = indexFor(omega, KEY)) !== null) {
+					return n;
 				}
-				return null;
+			}
+			return null;
 
-			};
-
-		}());
-
-		R = (function () {
-
-			var j,
-				n,
-				KEY;
-
-			/*
-			 *	Accepts one integer, "i", and two arrays, "alpha" and "omega";
-			 *	Searches "alpha" to the right for the nearest sibling in "omega"
-			 *	@param {number} i
-			 *		3
-			 *	@param {array} alpha
-			 *		[ "A", "B", "C", "D" ]
-			 *	@param {array} omega
-			 *		[ "A", "B", "C" ]
-			 *
-			 *	This has the potential to be re-written as an implementation of "array.lastIndexOf()"
-			 *	pending performance comparisons. Presently, this method is assumed to be faster than the
-			 *	native array method because "indexFor" performs better than "array.indexOf()".
-			 */
-
-			return function R(i, alpha, omega) {
-
-				j = (alpha.length - 1);
-				while (i < j) {
-					i = i + 1;
-					KEY = alpha[i];
-					if ((n = indexFor(omega, KEY)) !== null) {
-						return n;
-					}
-				}
-				return null;
-
-			};
-
-		}());
+		}
 
 		/*
 		 *	Accepts two arrays, "alpha" and "omega";
@@ -161,7 +129,11 @@ var DifferenceEngine	= (function () {
 		 *		"D"
 		 */
 
-		return function mapKey(alpha, omega, key) {
+		return function (alpha, omega, key) {
+
+			var index,
+				total,
+				value;
 
 			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
 
@@ -242,49 +214,41 @@ var DifferenceEngine	= (function () {
 
 	sequence = (function () {
 
-		var extract = (function () {
+		/*
+		 *	Accepts three arrays, "alpha", "omega" and "extracted";
+		 *	Returns an array containing elements in "alpha" and "omega"
+		 *	NOT in order
+		 *	@param {array} alpha
+		 *		[ "A", "B", "C", "D" ]
+		 *	@param {array} omega
+		 *		[ "A", "B", "D", "C" ]
+		 *	@param {array} extracted
+		 *		[ ]
+		 */
 
-			var i,
-				j,
-				n,
+		function extract(alpha, omega, extracted) {
+
+			var i = 0,
+				j = alpha.length,
+				n = 0,
 				ALPHA,
 				OMEGA;
-
-			/*
-			 *	Accepts three arrays, "alpha", "omega" and "extracted";
-			 *	Returns an array containing elements in "alpha" and "omega"
-			 *	NOT in order
-			 *	@param {array} alpha
-			 *		[ "A", "B", "C", "D" ]
-			 *	@param {array} omega
-			 *		[ "A", "B", "D", "C" ]
-			 *	@param {array} extracted
-			 *		[ ]
-			 */
-
-			return function extract(alpha, omega, extracted) {
-
-				i = 0;
-				j = alpha.length;
-				n = 0;
-				for (i = i; i < j; i = i + 1) {
-					ALPHA = alpha[i];
-					OMEGA = omega[n];
-					if (ALPHA === OMEGA) {
-						n = n + 1;
-					} else {
-						extracted.push(ALPHA);
-						n = ((n = indexFor(omega, ALPHA)) !== null) ? n + 1 : i + 1;
-					}
-
+			for (i = i; i < j; i = i + 1) {
+				ALPHA = alpha[i];
+				OMEGA = omega[n];
+				if (ALPHA === OMEGA) {
+					n = n + 1;
+				} else {
+					extracted.push(ALPHA);
+					n = ((n = indexFor(omega, ALPHA)) !== null) ? n + 1 : i + 1;
 				}
-				return extracted;
 
-			};
+			}
+			return extracted;
 
-		}());
+		}
 
-		return function sequence(alpha, omega) {
+		return function (alpha, omega) {
 
 			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
 				return extract(alpha, omega, []);
@@ -297,44 +261,30 @@ var DifferenceEngine	= (function () {
 
 	extract	= (function () {
 
-		var i,
-			j,
-			KEY,
+		/*
+		 *	Accepts one array, "array" and one string, "key";
+		 *	Returns a boolean which describes if "array" contains element "key"
+		 *	@param {array} array
+		 *		[ "A", "B", "C", "D" ]
+		 *	@param {array} key
+		 *		"A"
+		 */
 
-			hasKey;
+		function hasKey(array, key) {
 
-
-		hasKey = (function () {
-
-			var i,
-				j,
+			var i = 0,
+				j = array.length,
 				KEY;
-
-			/*
-			 *	Accepts one array, "array" and one string, "key";
-			 *	Returns a boolean which describes if "array" contains element "key"
-			 *	@param {array} array
-			 *		[ "A", "B", "C", "D" ]
-			 *	@param {array} key
-			 *		"A"
-			 */
-
-			return function hasKey(array, key) {
-
-				i = 0;
-				j = array.length;
-				for (i = i; i < j; i = i + 1) {
-					KEY = array[i];
-					if (KEY === key) {
-						return true;
-					}
+			for (i = i; i < j; i = i + 1) {
+				KEY = array[i];
+				if (KEY === key) {
+					return true;
 				}
+			}
 
-				return null;
+			return null;
 
-			};
-
-		}());
+		}
 
 		/*
 		 *	Accepts two arrays, "alpha" and "omega";
@@ -351,10 +301,11 @@ var DifferenceEngine	= (function () {
 		 *		[ ]
 		 */
 
-		return function extract(alpha, omega, condition, extracted) {
+		return function (alpha, omega, condition, extracted) {
 
-			i = 0;
-			j = alpha.length;
+			var i = 0,
+				j = alpha.length,
+				KEY;
 			for (i = i; i < j; i = i + 1) {
 				KEY = alpha[i];
 				if (hasKey(omega, KEY) === condition) {
