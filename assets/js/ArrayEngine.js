@@ -36,7 +36,6 @@ var ArrayEngine	= (function () {
 
 		ARRAY,
 
-		map,
 		max,
 		min;
 
@@ -84,7 +83,7 @@ var ArrayEngine	= (function () {
 			 *	According to jsperf.com, December 2012, assignment
 			 *	from a ternary performs faster than "Math.max"
 			 */
-			i = (lastIndex === m ? upperBound : (i = lastIndex - 1) > m ? i : m); //Math.max(m, lastIndex - 1)); //(i = lastIndex - 1) > m ? i : m);
+			i = (lastIndex === m ? upperBound : (i = lastIndex - 1) > m ? i : m); //Math.max(m, lastIndex - 1));
 			for (i = i; i > m; i = i - 1) {
 
 				if (a[i] === v) {
@@ -107,7 +106,7 @@ var ArrayEngine	= (function () {
 			i	= 0;
 			j	= (ARRAY = array.slice()).length;
 
-			lowerBound	= 0;
+			lowerBound	= i;
 			upperBound	= j - 1;
 
 			lastIndex	= -1;
@@ -130,7 +129,7 @@ var ArrayEngine	= (function () {
 		i	= 0;
 		j	= (ARRAY = []).length;
 
-		lowerBound	= 0;
+		lowerBound	= i;
 		upperBound	= j - 1;
 
 		lastIndex	= -1;
@@ -144,9 +143,17 @@ var ArrayEngine	= (function () {
 
 	function bite(x, y) {
 
-		var a = ARRAY, pow = Math.pow, N = Number.NEGATIVE_INFINITY, max = Math.max, min = Math.min, l = lowerBound, u = upperBound;
+		var pow, N, a, max, min, l, u;
 
 		if (typeof x === "number") {
+
+			pow = Math.pow;
+			N = Number.NEGATIVE_INFINITY;
+			a = ARRAY;
+			max = Math.max;
+			min = Math.min;
+			l = lowerBound;
+			u = upperBound;
 
 			if (typeof y === "number") {
 
@@ -240,39 +247,30 @@ var ArrayEngine	= (function () {
 	}
 	*/
 
-	/*
-	 * Safari performs significantly faster with anonymous functions returned from
-	 * the self-executing function according to jsperf.com, December 2012. FF and
-	 * Chrome moderately favour named functions (but the difference to Safari is an
-	 * order of magnitude)
-	 */
-	map = (function () {
+	function map(method) {
 
-		var z, array;
+		var z, array, a;
 
-		return function (method) {
+		if ((method || false).constructor === Function) {
 
-			if ((method || false).constructor === Function) {
+			if ((z = lowerBound) < j) {
 
-				if ((z = lowerBound) < j) {
+				array = [];
+				a = ARRAY;
+				do {
 
-					array = [];
-					do {
+					array.push(method.call(a, z, a[z], j));
 
-						array.push(method.call(ARRAY, z, ARRAY[z], j));
-
-					} while (++z < j);
-					return array;
-
-				}
+				} while (++z < j);
+				return array;
 
 			}
 
-			return [];
-
 		}
 
-	}());
+		return [];
+
+	}
 
 	/*
 	 * While array.sort().pop() performs significantly faster at identifying the "largest"
@@ -281,15 +279,12 @@ var ArrayEngine	= (function () {
 	 */
 	max	= (function () {
 
-		var x, y, z;
+		function MAX(a) {
 
-		function MAX() {
-
-			x = ARRAY[0];
-			z = 1;
+			var x = a[0], z = 1, y;
 			do {
 
-				if ((y = ARRAY[z]) > x) x = y;
+				if ((y = a[z]) > x) x = y;
 
 			} while (++z < j);
 			return x;
@@ -298,7 +293,9 @@ var ArrayEngine	= (function () {
 
 		return function () {
 
-			return isNaN(z = Math.max.apply(ARRAY, ARRAY)) ? MAX() : z ; //array.slice().sort().pop() : z ;
+			var z, max = Math.max, a = ARRAY;
+
+			return isNaN(z = max.apply(a, a)) ? MAX(a) : z ; //array.slice().sort().pop() : z ;
 
 		}
 
@@ -311,12 +308,9 @@ var ArrayEngine	= (function () {
 	 */
 	min	= (function () {
 
-		var x, y, z;
+		function MIN(a) {
 
-		function MIN() {
-
-			x = ARRAY[0];
-			z = 1;
+			var x = a[0], z = 1, y;
 			do {
 
 				if ((y = ARRAY[z]) < x) x = y;
@@ -328,7 +322,9 @@ var ArrayEngine	= (function () {
 
 		return function () {
 
-			return isNaN(z = Math.min.apply(ARRAY, ARRAY)) ? MIN() : z ; //array.slice().sort().shift() : z ;
+			var z, min = Math.min, a = ARRAY;
+
+			return isNaN(z = min.apply(a, a)) ? MIN(a) : z ; //array.slice().sort().shift() : z ;
 
 		}
 
@@ -338,7 +334,7 @@ var ArrayEngine	= (function () {
 
 		if ((method || false).constructor === Function) {
 
-			throw "Not Implimented";
+			throw "Not implimented";
 			return true;
 
 		}
@@ -349,15 +345,16 @@ var ArrayEngine	= (function () {
 
 	function iterateForward(method) {
 
-		var z;
+		var z, a;
 
 		if ((method || false).constructor === Function) {
 
 			if ((z = lowerBound) < j) {
 
+				a = ARRAY;
 				do {
 
-					method.call(ARRAY, z, ARRAY[z], j);
+					method.call(a, z, a[z], j);
 
 				} while (++z < j);
 				return true;
@@ -372,15 +369,16 @@ var ArrayEngine	= (function () {
 
 	function iterateReverse(method) {
 
-		var z;
+		var z, a;
 
 		if ((method || false).constructor === Function) {
 
 			if ((z = upperBound) > m) {
 
+				a = ARRAY;
 				do {
 
-					method.call(ARRAY, z, ARRAY[z], j);
+					method.call(a, z, a[z], j);
 
 				} while (m < --z);
 				return true;
@@ -395,9 +393,12 @@ var ArrayEngine	= (function () {
 
 	function iterateBetween(x, y, method) {
 
-		var l = lowerBound, u = upperBound, z; //, max = Math.max, min = Math.min;
+		var l, u, z, a; //, max = Math.max, min = Math.min;
 
 		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
+
+			l = lowerBound;
+			u = upperBound;
 
 			if (x < y) {
 
@@ -405,9 +406,10 @@ var ArrayEngine	= (function () {
 				y = (l > (z = (j < y ? j : y))) ? l : z;
 				z = (j < (z = (y + 1))) ? j : z;
 
+				a = ARRAY;
 				do {
 
-					method.call(ARRAY, x, ARRAY[x], y);
+					method.call(a, x, a[x], y);
 
 				} while (++x < z);
 				return true;
@@ -417,9 +419,10 @@ var ArrayEngine	= (function () {
 				y = max(l, min(j, y));
 				z = min(j, (y + 1));
 
+				a = ARRAY;
 				do {
 
-					if (method.call(ARRAY, x, ARRAY[x], y) === false)  {
+					if (method.call(a, x, a[x], y) === false)  {
 
 						return false;
 
@@ -435,9 +438,10 @@ var ArrayEngine	= (function () {
 				y = (m > y) ? m : y;
 				z = (m > (z = (y - 1))) ? m : z;
 
+				a = ARRAY;
 				do {
 
-					method.call(ARRAY, x, ARRAY[x], y);
+					method.call(a, x, a[x], y);
 
 				} while (z < --x);
 				return true;
@@ -447,9 +451,10 @@ var ArrayEngine	= (function () {
 				y = max(m, y);
 				z = max(m, (y - 1));
 
+				a = ARRAY;
 				do {
 
-					if (method.call(ARRAY, x, ARRAY[x], y) === false) {
+					if (method.call(a, x, a[x], y) === false) {
 
 						return false;
 
