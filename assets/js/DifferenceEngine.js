@@ -130,7 +130,6 @@ var DifferenceEngine	= (function () {
 		 *	@param {string, number}
 		 *		"D"
 		 */
-
 		return function (alpha, omega, key) {
 
 			var index,
@@ -213,7 +212,6 @@ var DifferenceEngine	= (function () {
 	 *	@param {array} omega
 	 *		[ "A", "B", "C" ]
 	 */
-
 	sequence = (function () {
 
 		/*
@@ -227,7 +225,6 @@ var DifferenceEngine	= (function () {
 		 *	@param {array} extracted
 		 *		[ ]
 		 */
-
 		function extract(alpha, omega, extracted) {
 
 			var i = 0,
@@ -321,7 +318,6 @@ var DifferenceEngine	= (function () {
 	 *	@param {array} omega
 	 *		[ "A", "B", "C" ]
 	 */
-
 	function positive(alpha, omega) {
 
 		if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
@@ -339,7 +335,6 @@ var DifferenceEngine	= (function () {
 	 *	@param {array} omega
 	 *		[ "A", "B", "C" ]
 	 */
-
 	function negative(alpha, omega) {
 
 		if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {

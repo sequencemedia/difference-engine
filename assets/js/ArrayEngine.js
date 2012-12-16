@@ -246,7 +246,6 @@ var ArrayEngine	= (function () {
 	 * Chrome moderately favour named functions (but the difference to Safari is an
 	 * order of magnitude)
 	 */
-
 	map = (function () {
 
 		var z, array;
@@ -280,7 +279,6 @@ var ArrayEngine	= (function () {
 	 * string value than an iterative comparison, using array.slice() to duplicate the array
 	 * negates that benefit
 	 */
-
 	max	= (function () {
 
 		var x, y, z;
@@ -311,7 +309,6 @@ var ArrayEngine	= (function () {
 	 * string value than an iterative comparison, using array.slice() to duplicate the array
 	 * negates that benefit
 	 */
-
 	min	= (function () {
 
 		var x, y, z;
