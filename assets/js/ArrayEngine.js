@@ -26,8 +26,12 @@ var ArrayEngine	= (function () {
 	var i,
 		j,
 
-		n,
-		KEY,
+		lowerBound,
+		upperBound,
+
+		lastValue,
+		lastIndex,
+
 		m,
 
 		ARRAY,
@@ -37,51 +41,55 @@ var ArrayEngine	= (function () {
 		min;
 
 	/*
-	 *	Accepts one string or number, "key";
-	 *	Searches "ARRAY" for "key"
-	 *	@param {string, number} key
+	 *	Accepts one string or number, "v";
+	 *	Searches "ARRAY" for "v"
+	 *	@param {string, number} v
 	 *		"D"
 	 *
 	 *	Performs moderately slower than "DifferenceEngine.indexFor()"
 	 *	According to jsperf.com, December 2012, "for" performs faster
 	 *	than "do"
 	 */
-	function indexOf(key) {
+	function indexOf(v) {
 
-		var a, z;
+		var a, i;
 
-		if (KEY === key) {
+		if (lastValue === v) {
 
-			return n;
+			return lastIndex;
 
 		} else {
 
 			a = ARRAY;
 
 			/*
-			 * Seek L - R
-			 * Either start at 0 or start at previous z + 1
+			 *	Seek L - R
+			 *	Either start at lowerBound or start at previous lastIndex + 1
+			 *	According to jsperf.com, December 2012, assignment
+			 *	from a ternary performs faster than "Math.min"
 			 */
-			z = (n === m ? 0 : (z = n + 1) > j ? j : z);
-			for (z = z; z < j; z = z + 1) {
+			i = (lastIndex === m ? lowerBound : (i = lastIndex + 1) > j ? j : i); //Math.min(j, lastIndex + 1))
+			for (i = i; i < j; i = i + 1) {
 
-				if (a[z] === key) {
-					KEY = key;
-					return (n = z);
+				if (a[i] === v) {
+					lastValue = v;
+					return (lastIndex = i);
 				}
 
 			}
 
 			/*
-			 * Seek R - L
-			 * Either start at j - 1 or start at previous z - 1
+			 *	Seek R - L
+			 *	Either start at upperBound or start at previous lastIndex - 1
+			 *	According to jsperf.com, December 2012, assignment
+			 *	from a ternary performs faster than "Math.max"
 			 */
-			z = (z === m ? j - 1 : (z = n - 1) > m ? z : m);
-			for (z = z; z > m; z = z - 1) {
+			i = (lastIndex === m ? upperBound : (i = lastIndex - 1) > m ? i : m); //Math.max(m, lastIndex - 1)); //(i = lastIndex - 1) > m ? i : m);
+			for (i = i; i > m; i = i - 1) {
 
-				if (a[z] === key) {
-					KEY = key;
-					return (n = z);
+				if (a[i] === v) {
+					lastValue = v;
+					return (lastIndex = i);
 				}
 
 			}
@@ -98,8 +106,13 @@ var ArrayEngine	= (function () {
 
 			i	= 0;
 			j	= (ARRAY = array.slice()).length;
-			n	= -1;
-			KEY = null;
+
+			lowerBound	= 0;
+			upperBound	= j - 1;
+
+			lastIndex	= -1;
+			lastValue	= null;
+
 			m	= -1;
 
 			return this;
@@ -116,8 +129,13 @@ var ArrayEngine	= (function () {
 
 		i	= 0;
 		j	= (ARRAY = []).length;
-		n	= -1;
-		KEY = null;
+
+		lowerBound	= 0;
+		upperBound	= j - 1;
+
+		lastIndex	= -1;
+		lastValue	= null;
+
 		m	= -1;
 
 		return this;
@@ -126,7 +144,7 @@ var ArrayEngine	= (function () {
 
 	function bite(x, y) {
 
-		var a = ARRAY, max = Math.max, min = Math.min, pow = Math.pow, N = Number.NEGATIVE_INFINITY, l = 0, u = (j - 1);
+		var a = ARRAY, pow = Math.pow, N = Number.NEGATIVE_INFINITY, max = Math.max, min = Math.min, l = lowerBound, u = upperBound;
 
 		if (typeof x === "number") {
 
@@ -237,7 +255,7 @@ var ArrayEngine	= (function () {
 
 			if ((method || false).constructor === Function) {
 
-				if ((z = 0) < j) {
+				if ((z = lowerBound) < j) {
 
 					array = [];
 					do {
@@ -338,7 +356,7 @@ var ArrayEngine	= (function () {
 
 		if ((method || false).constructor === Function) {
 
-			if ((z = 0) < j) {
+			if ((z = lowerBound) < j) {
 
 				do {
 
@@ -361,7 +379,7 @@ var ArrayEngine	= (function () {
 
 		if ((method || false).constructor === Function) {
 
-			if ((z = (j - 1)) > m) {
+			if ((z = upperBound) > m) {
 
 				do {
 
