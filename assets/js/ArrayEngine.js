@@ -395,23 +395,28 @@ var ArrayEngine	= (function () {
 
 	function iterateBetween(x, y, method) {
 
-		var z, max = Math.max, min = Math.min;
+		var l = lowerBound, u = upperBound, z; //, max = Math.max, min = Math.min;
 
 		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
 
 			if (x < y) {
 
-				x = max(0, x);
-				y = max(0, min(j, y));
-				z = min(j, (y + 1));
+				x = (l > x) ? l : x;
+				y = (l > (z = (j < y ? j : y))) ? l : z;
+				z = (j < (z = (y + 1))) ? j : z;
 
 				do {
 
 					method.call(ARRAY, x, ARRAY[x], y);
 
 				} while (++x < z);
+				return true;
 
 				/*
+				x = max(l, x);
+				y = max(l, min(j, y));
+				z = min(j, (y + 1));
+
 				do {
 
 					if (method.call(ARRAY, x, ARRAY[x], y) === false)  {
@@ -421,21 +426,27 @@ var ArrayEngine	= (function () {
 					}
 
 				} while (++x < z);
+				return true;
 				*/
 
 			} else {
 
-				x = max(m, min(j, x));
-				y = max(m, y);
-				z = max(m, (y - 1));
+				x = (m > (z = (u < x ? u : x))) ? m : z;
+				y = (m > y) ? m : y;
+				z = (m > (z = (y - 1))) ? m : z;
 
 				do {
 
 					method.call(ARRAY, x, ARRAY[x], y);
 
 				} while (z < --x);
+				return true;
 
 				/*
+				x = max(m, min(u, x));
+				y = max(m, y);
+				z = max(m, (y - 1));
+
 				do {
 
 					if (method.call(ARRAY, x, ARRAY[x], y) === false) {
@@ -445,11 +456,10 @@ var ArrayEngine	= (function () {
 					}
 
 				} while (z < --x);
+				return true;
 				*/
 
 			}
-
-			return true;
 
 		}
 
