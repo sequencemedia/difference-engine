@@ -81,7 +81,7 @@ var StringEngine	= (function () {
 
 	function StringEngine() {
 
-		return stringEngine || (this instanceof StringEngine ? stringEngine = this : stringEngine = new StringEngine());
+		return stringEngine || (this instanceof StringEngine ? stringEngine = this : new StringEngine());
 
 	}
 
