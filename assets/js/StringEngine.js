@@ -92,4 +92,6 @@ var StringEngine	= (function () {
 	StringEngine.prototype.fromCharCode	= fromCharCode;
 	StringEngine.prototype.fromHtmlCode	= fromHtmlCode;
 
+	return StringEngine;
+
 }());

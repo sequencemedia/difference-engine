@@ -25,8 +25,10 @@ var ObjectEngine	= (function () {
 
 	function ObjectEngine() {
 
-		return ObjectEngine || (this instanceof ObjectEngine ? objectEngine = this : new ObjectEngine());
+		return objectEngine || (this instanceof ObjectEngine ? objectEngine = this : new ObjectEngine());
 
 	}
+
+	return ObjectEngine;
 
 }());

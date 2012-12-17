@@ -25,8 +25,10 @@ var NumberEngine	= (function () {
 
 	function NumberEngine() {
 
-		return NumberEngine || (this instanceof NumberEngine ? numberEngine = this : numberEngine = new NumberEngine());
+		return numberEngine || (this instanceof NumberEngine ? numberEngine = this : new NumberEngine());
 
 	}
+
+	return NumberEngine;
 
 }());
