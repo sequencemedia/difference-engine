@@ -51,7 +51,7 @@ var ArrayEngine	= (function () {
 	 */
 	function indexOf(v) {
 
-		var a, i;
+		var a, i, l;
 
 		if (lastValue === v) {
 
@@ -67,7 +67,7 @@ var ArrayEngine	= (function () {
 			 *	According to jsperf.com, December 2012, assignment
 			 *	from a ternary performs faster than "Math.min"
 			 */
-			i = (lastIndex === m ? lowerBound : (i = lastIndex + 1) > j ? j : i); //Math.min(j, lastIndex + 1))
+			i = ((l = lastIndex) === m ? lowerBound : (i = l + 1) > j ? j : i); //Math.min(j, lastIndex + 1))
 			for (i = i; i < j; i = i + 1) {
 
 				if (a[i] === v) {
@@ -83,7 +83,7 @@ var ArrayEngine	= (function () {
 			 *	According to jsperf.com, December 2012, assignment
 			 *	from a ternary performs faster than "Math.max"
 			 */
-			i = (lastIndex === m ? upperBound : (i = lastIndex - 1) > m ? i : m); //Math.max(m, lastIndex - 1));
+			i = ((l = lastIndex) === m ? upperBound : (i = l - 1) > m ? i : m); //Math.max(m, lastIndex - 1));
 			for (i = i; i > m; i = i - 1) {
 
 				if (a[i] === v) {
@@ -273,11 +273,16 @@ var ArrayEngine	= (function () {
 	}
 
 	/*
-	 * While array.sort().pop() performs significantly faster at identifying the "largest"
-	 * string value than an iterative comparison, using array.slice() to duplicate the array
-	 * negates that benefit
+	 *	While array.sort().pop() performs significantly faster at identifying the "largest"
+	 *	string value than an iterative comparison, using array.slice() to duplicate the array
+	 *	negates that benefit
+	 *
+	 *	According to jsperf.com, December 2012, IE and FF favour variables scoped within the
+	 *	self-executing function. Chrome outperforms them regardless
 	 */
 	max	= (function () {
+
+		var z, min = Math.min, a;
 
 		function MAX(a) {
 
@@ -293,9 +298,7 @@ var ArrayEngine	= (function () {
 
 		return function () {
 
-			var z, max = Math.max, a = ARRAY;
-
-			return isNaN(z = max.apply(a, a)) ? MAX(a) : z ; //array.slice().sort().pop() : z ;
+			return isNaN(z = max.apply((a = ARRAY), a)) ? MAX(a) : z ; //array.slice().sort().pop() : z ;
 
 		}
 
@@ -305,8 +308,13 @@ var ArrayEngine	= (function () {
 	 * While array.sort().shift() performs significantly faster at identifying the "smallest"
 	 * string value than an iterative comparison, using array.slice() to duplicate the array
 	 * negates that benefit
+	 *
+	 *	According to jsperf.com, December 2012, IE and FF favour variables scoped within the
+	 *	self-executing function. Chrome outperforms them regardless
 	 */
 	min	= (function () {
+
+		var z, min = Math.min, a;
 
 		function MIN(a) {
 
@@ -322,9 +330,7 @@ var ArrayEngine	= (function () {
 
 		return function () {
 
-			var z, min = Math.min, a = ARRAY;
-
-			return isNaN(z = min.apply(a, a)) ? MIN(a) : z ; //array.slice().sort().shift() : z ;
+			return isNaN(z = min.apply((a = ARRAY), a)) ? MIN(a) : z ; //array.slice().sort().shift() : z ;
 
 		}
 
