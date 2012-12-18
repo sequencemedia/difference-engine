@@ -21,13 +21,44 @@
  */
 var NumberEngine	= (function () {
 
-	var numberEngine;
+	var numberEngine,
+
+		fib;
+
+	fib = (function () {
+
+		var FIBONACCI = [ 0, 1 ],
+			fibonacci;
+
+		/*
+		 *	No implementation for negative fibonacci numbers
+		 */
+		function f(n) {
+
+			return (typeof (fibonacci = FIBONACCI[n]) === "number") ? fibonacci : (FIBONACCI[n] = (f(n - 1) + f(n - 2)));
+
+		}
+
+		return function (n) {
+
+			return (typeof n === "number") ? (n > 0) ? f(n) : 0 : null;
+
+		};
+
+	}());
+
+	function fromHexToDec(s) {
+		return (typeof s === "string") ? parseInt(s, 16) : null;
+	}
 
 	function NumberEngine() {
 
 		return numberEngine || (this instanceof NumberEngine ? numberEngine = this : new NumberEngine());
 
 	}
+
+	NumberEngine.prototype.fib = fib;
+	NumberEngine.prototype.fromHexToDec = fromHexToDec;
 
 	return NumberEngine;
 

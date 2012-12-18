@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+
+		<title>NumberEngine</title>
+		<meta charset="utf-8"/>
+		<meta name="author" content="Jonathan Perry"/>
+		<meta name="description" content="Jonathan Perry is a senior web developer specialising in JavaScript applications."/>
+		<meta name="keywords" content="jonathan perry, sequence media, web, developer, web developer, twitter, flickr, github, wordpress, javavscript, html5, css3, singleton, singleton pattern"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	</head><body>
+
+		<script type="text/javascript" src="assets/js/NumberEngine.js"></script>
+		<script type="text/javascript">
+
+			var numberEngine = new NumberEngine();
+
+			var i = 0, j = 10;
+			do {
+				console.log(numberEngine.fib(i));
+			} while (i++ < j);
+
+		</script>
+
+	</body>
+</html>

@@ -23,17 +23,25 @@ var StringEngine	= (function () {
 
 	var stringEngine,
 
-		CHAR = [],
-		HTML = [];
+		CHARCODE = [],
+		HTMLCODE = [],
+		HTMLNAME = [];
 
-	function charFor(i) {
+	function charCodeFor(i) {
 
 		throw "Not implemented";
 		return null;
 
 	}
 
-	function htmlFor(s) {
+	function htmlCodeFor(s) {
+
+		throw "Not implemented";
+		return null;
+
+	}
+
+	function htmlNameFor(s) {
 
 		throw "Not implemented";
 		return null;
@@ -70,13 +78,24 @@ var StringEngine	= (function () {
 
 	function fromCharCode(i) {
 
-		return CHAR[i] || (CHAR[i] = charFor(i));
+		return CHARCODE[i] || (CHARCODE[i] = charCodeFor(i));
 
 	}
+
 	function fromHtmlCode(s) {
 
-		return HTML[s] || (HTML[s] = htmlFor(s));
+		return HTMLCODE[s] || (HTMLCODE[s] = htmlCodeFor(s));
 
+	}
+
+	function fromHtmlName(s) {
+
+		return HTMLNAME[s] || (HTMLNAME[s] = htmlNameFor(s));
+
+	}
+
+	function fromDecToHex(i) {
+		return (typeof i === "number") ? i.toString(16) : null;
 	}
 
 	function StringEngine() {
@@ -91,6 +110,9 @@ var StringEngine	= (function () {
 	StringEngine.prototype.htmlAt	= htmlAt;
 	StringEngine.prototype.fromCharCode	= fromCharCode;
 	StringEngine.prototype.fromHtmlCode	= fromHtmlCode;
+	StringEngine.prototype.fromHtmlName	= fromHtmlName;
+
+	StringEngine.prototype.fromDecToHex	= fromDecToHex;
 
 	return StringEngine;
 
