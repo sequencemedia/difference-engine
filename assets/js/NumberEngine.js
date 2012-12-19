@@ -21,6 +21,8 @@
  */
 var NumberEngine	= (function () {
 
+	"use strict";
+
 	var numberEngine,
 
 		fib;
@@ -31,17 +33,28 @@ var NumberEngine	= (function () {
 			fibonacci;
 
 		/*
-		 *	No implementation for negative fibonacci numbers
+		 *	No implementation for negative fibonacci numbers (yet)
 		 */
-		function f(n) {
+		function negative(n) {
 
-			return (typeof (fibonacci = FIBONACCI[n]) === "number") ? fibonacci : (FIBONACCI[n] = (f(n - 1) + f(n - 2)));
+			throw "Not implemented";
+			return 0;
+
+		}
+
+		function positive(n) {
+
+			return (typeof (fibonacci = FIBONACCI[n]) === "number") ? fibonacci : (FIBONACCI[n] = (positive(n - 1) + positive(n - 2)));
 
 		}
 
 		return function (n) {
 
-			return (typeof n === "number") ? (n > 0) ? f(n) : 0 : null;
+			/*
+			 *	Conditions where truth is explicit generally perform faster than
+			 *	conditions where truthiness is implied; so (n > 0) is better than (n)
+			 */
+			return (typeof n === "number") ? (n > 0) ? positive(n) : 0 : null;
 
 		};
 
@@ -49,6 +62,10 @@ var NumberEngine	= (function () {
 
 	function fromHexToDec(s) {
 		return (typeof s === "string") ? parseInt(s, 16) : null;
+	}
+
+	function fromOctToDec(s) {
+		return (typeof s === "string") ? parseInt(s, 8) : null;
 	}
 
 	function NumberEngine() {
@@ -59,6 +76,7 @@ var NumberEngine	= (function () {
 
 	NumberEngine.prototype.fib = fib;
 	NumberEngine.prototype.fromHexToDec = fromHexToDec;
+	NumberEngine.prototype.fromOctToDec = fromOctToDec;
 
 	return NumberEngine;
 

@@ -21,6 +21,8 @@
  */
 var StringEngine	= (function () {
 
+	"use strict";
+
 	var stringEngine,
 
 		CHARCODE = [],
