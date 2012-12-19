@@ -27,7 +27,11 @@ var StringEngine	= (function () {
 
 		CHARCODE = [],
 		HTMLCODE = [],
-		HTMLNAME = [];
+		HTMLNAME = [],
+
+		OCT = 8,
+		DEC = 10,
+		HEX = 16;
 
 	function charCodeFor(i) {
 
@@ -96,8 +100,12 @@ var StringEngine	= (function () {
 
 	}
 
-	function fromDecToHex(i) {
-		return (typeof i === "number") ? i.toString(16) : null;
+	function fromDecToHex(v) {
+		return (typeof v === "number") ? v.toString(HEX) : (typeof v === "string") ? isNaN(v = parseInt(v, DEC)) ? null : v.toString(HEX) : null;
+	}
+
+	function fromDecToOct(v) {
+		return (typeof v === "number") ? v.toString(OCT) : (typeof v === "string") ? isNaN(v = parseInt(v, DEC)) ? null : v.toString(OCT) : null;
 	}
 
 	function StringEngine() {
@@ -110,11 +118,13 @@ var StringEngine	= (function () {
 	StringEngine.prototype.htmlOf	= htmlOf;
 	StringEngine.prototype.charAt	= charAt;
 	StringEngine.prototype.htmlAt	= htmlAt;
+
 	StringEngine.prototype.fromCharCode	= fromCharCode;
 	StringEngine.prototype.fromHtmlCode	= fromHtmlCode;
 	StringEngine.prototype.fromHtmlName	= fromHtmlName;
 
 	StringEngine.prototype.fromDecToHex	= fromDecToHex;
+	StringEngine.prototype.fromDecToOct	= fromDecToOct;
 
 	return StringEngine;
 

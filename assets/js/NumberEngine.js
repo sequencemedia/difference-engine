@@ -25,6 +25,10 @@ var NumberEngine	= (function () {
 
 	var numberEngine,
 
+		OCT = 8,
+		HEX = 16,
+		DEC = 10,
+
 		fib;
 
 	fib = (function () {
@@ -60,12 +64,12 @@ var NumberEngine	= (function () {
 
 	}());
 
-	function fromHexToDec(s) {
-		return (typeof s === "string") ? parseInt(s, 16) : null;
+	function fromHexToDec(v) {
+		return (typeof v === "string") ? parseInt(v, HEX) : (typeof v === "number") ? v : NaN ;
 	}
 
-	function fromOctToDec(s) {
-		return (typeof s === "string") ? parseInt(s, 8) : null;
+	function fromOctToDec(v) {
+		return (typeof v === "string") ? parseInt(v, OCT) : (typeof v === "number") ? v : NaN ;
 	}
 
 	function NumberEngine() {
