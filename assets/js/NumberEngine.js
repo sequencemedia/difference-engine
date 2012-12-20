@@ -26,8 +26,8 @@ var NumberEngine	= (function () {
 	var numberEngine,
 
 		OCT = 8,
-		HEX = 16,
 		DEC = 10,
+		HEX = 16,
 
 		fib;
 
