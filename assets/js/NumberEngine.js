@@ -29,7 +29,8 @@ var NumberEngine	= (function () {
 		DEC = 10,
 		HEX = 16,
 
-		fib;
+		fib,
+		hav;
 
 	fib = (function () {
 
@@ -64,6 +65,78 @@ var NumberEngine	= (function () {
 
 	}());
 
+	hav = (function () {
+
+		var sin 	= Math.sin,
+			cos 	= Math.cos,
+			atan2	= Math.atan2,
+			sqrt	= Math.sqrt,
+
+			PI 		= Math.PI;
+
+		function radians(n) {
+
+			return (n * PI) / 180;
+
+		}
+
+		function haversine(points, radius) {
+
+			var to,
+				from,
+				LAT,
+				LNG,
+				lat,
+				lng,
+				a, c;
+
+			if ((points || false).constructor === Object) {
+
+				to 		= points.to;
+				from 	= points.from;
+
+				if ((to || false).constructor === Object && (from || false).constructor === Object) {
+
+					LAT 	= radians(to.lat - from.lat);
+					LNG 	= radians(to.lng - from.lng);
+					lat 	= LAT / 2;
+					lng 	= LNG / 2;
+
+					a = sin(lat) * sin(lat) + cos(radians(from.lat)) * cos(radians(to.lat)) * sin(lng) * sin(lng),
+					c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+					return (radius * c).toFixed(2);
+
+				}
+
+			}
+
+			return NaN;
+
+		}
+
+		return function (points) {
+
+			return {
+
+				km: function () {
+
+					return haversine(points, 6378);
+
+				},
+
+				mi: function () {
+
+					return haversine(points, 3963);
+
+				}
+
+			}
+
+		}
+
+	}());
+
 	function fromHexToDec(v) {
 		return (typeof v === "string") ? parseInt(v, HEX) : (typeof v === "number") ? v : NaN ;
 	}
@@ -79,6 +152,7 @@ var NumberEngine	= (function () {
 	}
 
 	NumberEngine.prototype.fib = fib;
+	NumberEngine.prototype.hav = hav;
 	NumberEngine.prototype.fromHexToDec = fromHexToDec;
 	NumberEngine.prototype.fromOctToDec = fromOctToDec;
 
