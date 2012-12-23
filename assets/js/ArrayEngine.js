@@ -143,15 +143,13 @@ var ArrayEngine	= (function () {
 
 	function bite(x, y) {
 
-		var pow, N, a, max, min, l, u;
+		var pow, N, a, max, min, l, u, z;
 
 		if (typeof x === "number") {
 
 			pow = Math.pow;
 			N = Number.NEGATIVE_INFINITY;
 			a = ARRAY;
-			max = Math.max;
-			min = Math.min;
 			l = lowerBound;
 			u = upperBound;
 
@@ -166,7 +164,8 @@ var ArrayEngine	= (function () {
 				 *
 				 *	Massage the second argument to slice
 				 */
-				return pow(x, m) === N && pow(y, m) === N ? a.slice(0).reverse() : (x = max(l, min(u, x > m ? x : x + u))) > (y = min(u, max(l, y > m ? y : y + u))) ? a.slice(y, x + 1).reverse() : a.slice(x, y + 1);
+
+				return pow(x, m) === N && pow(y, m) === N ? a.slice(l).reverse() : (x = (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z) > (y = (u < (z = (l > (z = (y > m ? y : y + u)) ? l : z))) ? u : z) ? a.slice(y, x + 1).reverse() : a.slice(x, y + 1);
 
 			}
 
@@ -178,7 +177,8 @@ var ArrayEngine	= (function () {
 			 *	l is lower bound 0
 			 *	u is upper bound (j - 1)
 			 */
-			return pow(x, m) === N ? a.slice(u) : a.slice(max(l, min(u, x > m ? x : x + u)));
+
+			return pow(x, m) === N ? a.slice(u) : a.slice((l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z);
 
 		}
 
@@ -197,7 +197,7 @@ var ArrayEngine	= (function () {
 
 				if ((pow(x, m) === N) && (pow(y, m) === N)) {
 
-					return a.slice(0).reverse();
+					return a.slice(l).reverse();
 
 				} else {
 
@@ -216,7 +216,9 @@ var ArrayEngine	= (function () {
 
 			} else {
 
-				return a.slice(max(l, min(u, x > m ? x : x + u)));
+				x	= max(l, min(u, x > m ? x : x + u));
+
+				return a.slice(x);
 
 			}
 
@@ -262,7 +264,7 @@ var ArrayEngine	= (function () {
 	 */
 	max	= (function () {
 
-		var z, min = Math.min, a;
+		var z, max = Math.max, a;
 
 		function MAX(a) {
 
