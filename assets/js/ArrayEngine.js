@@ -141,6 +141,88 @@ var ArrayEngine	= (function () {
 
 	}
 
+	/*
+	 *	According to jsperf.com, December 2012, the less idiosyncratic
+	 *	multiple-line ternary performs slightly better than the more idiosyncratic
+	 *	single-line ternary across a range of values and, surprisingly,
+	 *	the formulation with "Math.min()" and "Math.max()" remains competitive.
+	 *
+	 *	According to jsperf.com, December 2012 again, direct comparison of
+	 *	ternary and "Math.max" with "Math.min" formulations favours ternary
+	 *	significantly. Perhaps the performance reduction can be ascribed to the
+	 *	other operations, particularly "Array.slice()", which may obscure gains
+	 *	elsewhere.
+	 */
+
+	function bite(x, y) {
+
+		var pow, N, a, max, min, l, u, z;
+
+		if (typeof x === "number") {
+
+			pow	= Math.pow;
+			N	= Number.NEGATIVE_INFINITY;
+			a	= ARRAY;
+			l	= lowerBound;
+			u	= upperBound;
+
+			if (typeof y === "number") {
+
+				/*
+				 *	Negative zero slices lower bound 0
+				 *
+				 *	Massage x and y to acceptable values
+				 *	l is lower bound 0
+				 *	u is upper bound (j - 1)
+				 *
+				 *	Massage the second argument to slice
+				 */
+
+				if (pow(x, m) === N && pow(y, m) === N) {
+
+					return a.slice(l).reverse();
+
+				} else {
+
+					x	= (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z;
+					y	= (u < (z = (l > (z = (y > m ? y : y + u)) ? l : z))) ? u : z;
+
+					return x > y ? a.slice(y, x + 1).reverse() : a.slice(x, y + 1);
+
+				}
+
+			}
+
+			/*
+			 *	Negative zero slices upper bound (j - 1)
+			 *	Positive zero slices lower bound 0
+			 *
+			 *	Massage x to an acceptable value
+			 *	l is lower bound 0
+			 *	u is upper bound (j - 1)
+			 */
+
+			if (pow(x, m) === N) {
+
+				return a.slice(u);
+
+			} else {
+
+				x	= (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z;
+
+				return a.slice(x);
+
+			}
+
+		}
+
+		return [];
+
+	}
+
+
+	/*
+
 	function bite(x, y) {
 
 		var pow, N, a, max, min, l, u, z;
@@ -155,28 +237,9 @@ var ArrayEngine	= (function () {
 
 			if (typeof y === "number") {
 
-				/*
-				 *	Negative zero slices lower bound 0
-				 *
-				 *	Massage x and y to acceptable values
-				 *	l is lower bound 0
-				 *	u is upper bound (j - 1)
-				 *
-				 *	Massage the second argument to slice
-				 */
-
 				return pow(x, m) === N && pow(y, m) === N ? a.slice(l).reverse() : (x = (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z) > (y = (u < (z = (l > (z = (y > m ? y : y + u)) ? l : z))) ? u : z) ? a.slice(y, x + 1).reverse() : a.slice(x, y + 1);
 
 			}
-
-			/*
-			 *	Negative zero slices upper bound (j - 1)
-			 *	Positive zero slices lower bound 0
-			 *
-			 *	Massage x to an acceptable value
-			 *	l is lower bound 0
-			 *	u is upper bound (j - 1)
-			 */
 
 			return pow(x, m) === N ? a.slice(u) : a.slice((l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z);
 
@@ -186,12 +249,19 @@ var ArrayEngine	= (function () {
 
 	}
 
-	/*
 	function bite(x, y) {
 
-		var a = ARRAY, max = Math.max, min = Math.min, pow = Math.pow, N = Number.NEGATIVE_INFINITY, l = 0, u = (j - 1);
+		var pow, N, a, max, min, l, u, z;
 
 		if (typeof x === "number") {
+
+			pow = Math.pow;
+			N = Number.NEGATIVE_INFINITY;
+			a = ARRAY;
+			max	= Math.max;
+			min	= Math.min;
+			l = lowerBound;
+			u = upperBound;
 
 			if (typeof y === "number") {
 
