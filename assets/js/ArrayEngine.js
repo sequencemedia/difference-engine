@@ -149,9 +149,8 @@ var ArrayEngine	= (function () {
 	 *
 	 *	According to jsperf.com, December 2012 again, direct comparison of
 	 *	ternary and "Math.max" with "Math.min" formulations favours ternary
-	 *	significantly. Perhaps the performance reduction can be ascribed to the
-	 *	other operations, particularly "Array.slice()", which may obscure gains
-	 *	elsewhere.
+	 *	significantly. Since "Array.slice()" is a slow operation presumably it
+	 *	consumes gains made elsewhere.
 	 */
 
 	function bite(x, y) {
@@ -325,8 +324,8 @@ var ArrayEngine	= (function () {
 	}
 
 	/*
-	 *	While array.sort().pop() performs significantly faster at identifying the "largest"
-	 *	string value than an iterative comparison, using array.slice() to duplicate the array
+	 *	While "Array.sort().pop()" performs significantly faster at identifying the "largest"
+	 *	string value than an iterative comparison, using "Array.slice()" to duplicate the array
 	 *	negates that benefit
 	 *
 	 *	According to jsperf.com, December 2012, IE and FF favour variables scoped within the
@@ -357,8 +356,8 @@ var ArrayEngine	= (function () {
 	}());
 
 	/*
-	 *	While array.sort().shift() performs significantly faster at identifying the "smallest"
-	 *	string value than an iterative comparison, using array.slice() to duplicate the array
+	 *	While "Array.sort().shift()" performs significantly faster at identifying the "smallest"
+	 *	string value than an iterative comparison, using "Array.slice()" to duplicate the array
 	 *	negates that benefit
 	 *
 	 *	According to jsperf.com, December 2012, IE and FF favour variables scoped within the
