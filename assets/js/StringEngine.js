@@ -769,7 +769,84 @@ var StringEngine	= (function () {
 
 		OCT = 8,
 		DEC = 10,
-		HEX = 16;
+		HEX = 16,
+
+		X = /\u0026[\w]+\u003b|\u0026\u0024[\d]+\u003b|\u0026+/,
+		A = "\u0026";
+
+	function charAt(i, s) {
+
+		var x, m, v, c;
+
+		if (typeof i === "number") {
+
+			(x = X).lastIndex = i;
+
+			if (typeof s === "string") {
+
+				return (v = s.charAt(i)) === A ? ((m = x.exec(s)) === null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s : v ;
+
+			}
+
+		}
+
+		return null ;
+
+	}
+
+	/*
+
+	function charAt(i, s) {
+
+		var x, m, v, c;
+
+		if (typeof i === "number") {
+
+			(x = X).lastIndex = i;
+
+			if (typeof s === "string") {
+
+				if ((v = s.charAt(i)) === A) {
+
+					return ((m = x.exec(s)) === null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
+
+				} else {
+
+					return v ;
+
+				}
+
+			}
+
+		}
+
+		return null ;
+
+	}
+
+	*/
+
+	function charCodeAt(i) {
+
+		throw "Not implemented";
+		return null;
+
+	}
+
+
+	function htmlCodeAt(s, i) {
+
+		throw "Not implemented";
+		return null;
+
+	}
+
+	function htmlNameAt(s, i) {
+
+		throw "Not implemented";
+		return null;
+
+	}
 
 	function charOf(s) {
 
@@ -785,12 +862,14 @@ var StringEngine	= (function () {
 
 	}
 
+	/*
 	function charAt(i) {
 
 		throw "Not implemented";
 		return null;
 
 	}
+	*/
 
 	function htmlAt(i) {
 
@@ -800,7 +879,7 @@ var StringEngine	= (function () {
 	}
 
 	/*
-	 *	String from index
+	 *	Character from index
 	 */
 	function fromCharCode(i) {
 
@@ -811,7 +890,7 @@ var StringEngine	= (function () {
 	}
 
 	/*
-	 *	String from HTML code
+	 *	Character from HTML code
 	 */
 	function fromHtmlCode(s) {
 
@@ -822,7 +901,7 @@ var StringEngine	= (function () {
 	}
 
 	/*
-	 *	String from HTML name
+	 *	Character from HTML name
 	 */
 	function fromHtmlName(s) {
 
@@ -965,7 +1044,7 @@ var StringEngine	= (function () {
 	*/
 
 	/*
-	 *	HTML name from String
+	 *	HTML code from character
 	 */
 	function htmlCodeFrom(s) {
 
@@ -976,9 +1055,31 @@ var StringEngine	= (function () {
 	}
 
 	/*
-	 *	HTML code from String
+	 *	HTML name from chracter
 	 */
 	function htmlNameFrom(s) {
+
+		var c;
+
+		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLNAMEFROM[s]) === "string") ? c : s : null ;
+
+	}
+
+	/*
+	 *	As "htmlCodeFrom"
+	 */
+	function htmlCodeOf(s) {
+
+		var c;
+
+		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLCODEFROM[s]) === "string") ? c : s : null ;
+
+	}
+
+	/*
+	 *	As "htmlNameFrom"
+	 */
+	function htmlNameOf(s) {
 
 		var c;
 
@@ -1031,7 +1132,12 @@ var StringEngine	= (function () {
 
 	StringEngine.prototype.charOf	= charOf;
 	StringEngine.prototype.htmlOf	= htmlOf;
+
 	StringEngine.prototype.charAt	= charAt;
+	StringEngine.prototype.charCodeAt	= charCodeAt;
+	StringEngine.prototype.htmlCodeAt	= htmlCodeAt;
+	StringEngine.prototype.htmlNameOf	= htmlNameAt;
+
 	StringEngine.prototype.htmlAt	= htmlAt;
 
 	StringEngine.prototype.fromCharCode	= fromCharCode;
@@ -1043,6 +1149,9 @@ var StringEngine	= (function () {
 
 	StringEngine.prototype.htmlCodeFrom	= htmlCodeFrom;
 	StringEngine.prototype.htmlNameFrom	= htmlNameFrom;
+
+	StringEngine.prototype.htmlCodeOf	= htmlCodeOf;
+	StringEngine.prototype.htmlNameOf	= htmlNameOf;
 
 	StringEngine.prototype.fromDecToHex	= fromDecToHex;
 	StringEngine.prototype.fromDecToOct	= fromDecToOct;
