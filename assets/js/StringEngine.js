@@ -776,42 +776,16 @@ var StringEngine	= (function () {
 
 	function charAt(i, s) {
 
-		var x, m, v, c;
-
-		if (typeof i === "number") {
-
-			(x = X).lastIndex = i;
-
-			if (typeof s === "string") {
-
-				return (v = s.charAt(i)) === A ? ((m = x.exec(s)) === null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s : v ;
-
-			}
-
-		}
-
-		return null ;
-
-	}
-
-/*
-	function charAt(i, s) {
-
-		var v, ampe = A, x, m, c;
+		var v, a = A, x = X, m, c;
 
 		if (typeof i === "number" && typeof s === "string") {
 
 			v = s.charAt(i);
 
-console.log(v);
+			if (v === a) {
 
-			if (v === ampe) {
-
-				(x = X).lastIndex = i;
-
+				x.lastIndex = i;
 				m = x.exec(s);
-
-console.log(x, m, s);
 
 				if (m === null) {
 
@@ -823,12 +797,20 @@ console.log(x, m, s);
 
 					if (v.length === 1) {
 
+						return v ;
+
+					} else {
+
 						return (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
 
 					}
 
 				}
 
+			} else {
+
+				return v;
+
 			}
 
 		}
@@ -836,31 +818,20 @@ console.log(x, m, s);
 		return null ;
 
 	}
-	*/
 
 	/*
 
 	function charAt(i, s) {
 
-		var x, m, v, c;
+		var x = X, a = A, m, v, c;
 
 		if (typeof i === "number") {
 
-			(x = X).lastIndex = i;
+			x.lastIndex = i;
 
 			if (typeof s === "string") {
 
-				v = s.charAt(i);
-
-				if (v === A) {
-
-					return ((m = x.exec(s)) === null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
-
-				} else {
-
-					return v ;
-
-				}
+				return ((v = s.charAt(i)) === a) ? ((m = x.exec(s)) === null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s : v ;
 
 			}
 
@@ -872,23 +843,70 @@ console.log(x, m, s);
 
 	function charAt(i, s) {
 
-		var x, m, v, c;
+		var v, a, x, m, c;
 
-		if (typeof i === "number") {
+		if (typeof i === "number" && typeof s === "string") {
 
-			(x = X).lastIndex = i;
+			v = s.charAt(i);
+			a = A;
 
-			if (typeof s === "string") {
+			if (v === a) {
 
-				if ((v = s.charAt(i)) === A) {
+				x = X;
+				x.lastIndex = i;
 
-					return ((m = x.exec(s)) === null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
+				return ((m = x.exec(s))=== null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
+
+			} else {
+
+				return v;
+
+			}
+
+		}
+
+		return null ;
+
+	}
+
+	function charAt(i, s) {
+
+		var v, a, x, m, c;
+
+		if (typeof i === "number" && typeof s === "string") {
+
+			v = s.charAt(i);
+			a = A;
+
+			if (v === a) {
+
+				x = X;
+				x.lastIndex = i;
+				m = x.exec(s);
+
+				if (m === null) {
+
+					return s ;
 
 				} else {
 
-					return v ;
+					v = m.shift();
+
+					if (v.length === 1) {
+
+						return v ;
+
+					} else {
+
+						return (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
+
+					}
 
 				}
+
+			} else {
+
+				return v;
 
 			}
 
