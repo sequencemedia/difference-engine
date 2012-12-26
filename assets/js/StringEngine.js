@@ -771,7 +771,7 @@ var StringEngine	= (function () {
 		DEC = 10,
 		HEX = 16,
 
-		X = /\u0026[\w]+\u003b|\u0026\u0024[\d]+\u003b|\u0026+/,
+		X = /\u0026[\w]+\u003b|\u0026\u0023[\d]+\u003b|\u0026+/,
 		A = "\u0026";
 
 	function charAt(i, s) {
@@ -794,7 +794,81 @@ var StringEngine	= (function () {
 
 	}
 
+/*
+	function charAt(i, s) {
+
+		var v, ampe = A, x, m, c;
+
+		if (typeof i === "number" && typeof s === "string") {
+
+			v = s.charAt(i);
+
+console.log(v);
+
+			if (v === ampe) {
+
+				(x = X).lastIndex = i;
+
+				m = x.exec(s);
+
+console.log(x, m, s);
+
+				if (m === null) {
+
+					return s ;
+
+				} else {
+
+					v = m.shift();
+
+					if (v.length === 1) {
+
+						return (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
+
+					}
+
+				}
+
+			}
+
+		}
+
+		return null ;
+
+	}
+	*/
+
 	/*
+
+	function charAt(i, s) {
+
+		var x, m, v, c;
+
+		if (typeof i === "number") {
+
+			(x = X).lastIndex = i;
+
+			if (typeof s === "string") {
+
+				v = s.charAt(i);
+
+				if (v === A) {
+
+					return ((m = x.exec(s)) === null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
+
+				} else {
+
+					return v ;
+
+				}
+
+			}
+
+		}
+
+		return null ;
+
+	}
 
 	function charAt(i, s) {
 
