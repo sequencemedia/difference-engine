@@ -771,45 +771,52 @@ var StringEngine	= (function () {
 		DEC = 10,
 		HEX = 16,
 
-		X = /\u0026[\w]+\u003b|\u0026\u0023[\d]+\u003b|\u0026+/,
-		A = "\u0026";
+		X = /\u0026[\w]+\u003b|\u0026\u0023[\d]+\u003b+/g, //|\u0026
+		A = "\u0026", N = 38;
 
 	function charAt(i, s) {
 
-		var v, a = A, x = X, m, c;
+		var v, a, x, m, c;
 
 		if (typeof i === "number" && typeof s === "string") {
 
 			v = s.charAt(i);
+			a = A;
 
 			if (v === a) {
 
+				/*
+				 *	The first character at this position is an ampersand. "String.charAt()" is fast
+				 *	and execution for characters not HTML encoded will exit at the "else", below. Otherwise
+				 *	the string will be matched against an HTML encoding pattern regular expression
+				 */
+
+				x = X;
 				x.lastIndex = i;
 				m = x.exec(s);
 
 				if (m === null) {
 
-					return s ;
+					/*
+					 *	The adjacent characters do match the HTML encoding pattern so execution can return
+					 *	an ampersand
+					 */
+					return a ;
 
 				} else {
 
+					/*
+					 *	The regular expression must have a match. Retrieve it
+					 */
 					v = m.shift();
 
-					if (v.length === 1) {
-
-						return v ;
-
-					} else {
-
-						return (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
-
-					}
+					return (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : a ;
 
 				}
 
 			} else {
 
-				return v;
+				return v ;
 
 			}
 
@@ -918,22 +925,69 @@ var StringEngine	= (function () {
 
 	*/
 
-	function charCodeAt(i) {
+	function charCodeAt(i, s) {
+
+		var v, n, x, m, c;
+
+		if (typeof i === "number" && typeof s === "string") {
+
+			v = s.charCodeAt(i);
+			n = N;
+
+			if (v === n) {
+
+				/*
+				 *	The first character at this position is an ampersand. "String.charCodeAt()" is fast
+				 *	and execution for characters not HTML encoded will exit at the "else", below. Otherwise
+				 *	the string will be matched against an HTML encoding pattern regular expression
+				 */
+
+				x = X;
+				x.lastIndex = i;
+				m = x.exec(s);
+
+				if (m === null) {
+
+					/*
+					 *	The adjacent characters do match the HTML encoding pattern so execution can return
+					 *	the index for ampersand
+					 */
+					return n ;
+
+				} else {
+
+
+					/*
+					 *	The regular expression must have a match. Retrieve it
+					 */
+					v = m.shift();
+
+					return (typeof (c = FROMHTMLNAME[v]) === "string") ? c.charCodeAt(0) : (typeof (c = FROMHTMLCODE[v]) === "string") ? c.charCodeAt(0) : n ;
+
+				}
+
+			} else {
+
+				return v ;
+
+			}
+
+		}
+
+		return null ;
+
+
+	}
+
+
+	function htmlCodeAt(i, s) {
 
 		throw "Not implemented";
 		return null;
 
 	}
 
-
-	function htmlCodeAt(s, i) {
-
-		throw "Not implemented";
-		return null;
-
-	}
-
-	function htmlNameAt(s, i) {
+	function htmlNameAt(i, s) {
 
 		throw "Not implemented";
 		return null;
@@ -1180,11 +1234,15 @@ var StringEngine	= (function () {
 	}
 
 	function fromDecToHex(v) {
+
 		return (typeof v === "number") ? v.toString(HEX) : (typeof v === "string") ? isNaN(v = parseInt(v, DEC)) ? null : v.toString(HEX) : null;
+
 	}
 
 	function fromDecToOct(v) {
+
 		return (typeof v === "number") ? v.toString(OCT) : (typeof v === "string") ? isNaN(v = parseInt(v, DEC)) ? null : v.toString(OCT) : null;
+
 	}
 
 	/*
@@ -1192,7 +1250,6 @@ var StringEngine	= (function () {
 	 *	degrades performance: but sparse arrays perform better than populated arrays where elements
 	 *	are accessed within unsparse sections.
 	 */
-
 	(function (RANGES) {
 
 		var range, i, j; //, s, h, v = "&#i;";
