@@ -138,11 +138,36 @@ var NumberEngine	= (function () {
 	}());
 
 	function fromHexToDec(v) {
+
 		return (typeof v === "string") ? parseInt(v, HEX) : (typeof v === "number") ? v : NaN ;
+
 	}
 
 	function fromOctToDec(v) {
+
 		return (typeof v === "string") ? parseInt(v, OCT) : (typeof v === "number") ? v : NaN ;
+
+	}
+
+	function convert(amount) {
+
+		throw "Not implemented";
+		return {
+
+			from: function (F) {
+
+				return {
+
+					to: function (T) {
+
+					}
+
+				}
+
+			}
+
+		}
+
 	}
 
 	function NumberEngine() {
@@ -155,6 +180,7 @@ var NumberEngine	= (function () {
 	NumberEngine.prototype.hav = hav;
 	NumberEngine.prototype.fromHexToDec = fromHexToDec;
 	NumberEngine.prototype.fromOctToDec = fromOctToDec;
+	NumberEngine.prototype.convert = convert;
 
 	return NumberEngine;
 
