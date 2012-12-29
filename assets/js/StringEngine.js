@@ -780,15 +780,17 @@ var StringEngine	= (function () {
 
 		if (typeof i === "number" && typeof s === "string") {
 
+			/*
+			 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
+			 */
 			v = s.charAt(i);
 			a = A;
 
 			if (v === a) {
 
 				/*
-				 *	The first character at this position is an ampersand. "String.charAt()" is fast
-				 *	and execution for characters not HTML encoded will exit at the "else", below. Otherwise
-				 *	the string will be matched against an HTML encoding pattern regular expression
+				 *	The character at position i is an ampersand. Examine the rest of the string with an HTML
+				 *	encoding pattern regular expression
 				 */
 				x = X;
 				x.lastIndex = i;
@@ -815,6 +817,9 @@ var StringEngine	= (function () {
 
 			} else {
 
+				/*
+				 * The character at position i is not an ampersand, so return it
+				 */
 				return v ;
 
 			}
@@ -825,120 +830,24 @@ var StringEngine	= (function () {
 
 	}
 
-	/*
-
-	function charAt(i, s) {
-
-		var x = X, a = A, m, v, c;
-
-		if (typeof i === "number") {
-
-			x.lastIndex = i;
-
-			if (typeof s === "string") {
-
-				return ((v = s.charAt(i)) === a) ? ((m = x.exec(s)) === null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s : v ;
-
-			}
-
-		}
-
-		return null ;
-
-	}
-
-	function charAt(i, s) {
-
-		var v, a, x, m, c;
-
-		if (typeof i === "number" && typeof s === "string") {
-
-			v = s.charAt(i);
-			a = A;
-
-			if (v === a) {
-
-				x = X;
-				x.lastIndex = i;
-
-				return ((m = x.exec(s))=== null) ? s : ((v = m.shift()).length === 1) ? v : (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
-
-			} else {
-
-				return v;
-
-			}
-
-		}
-
-		return null ;
-
-	}
-
-	function charAt(i, s) {
-
-		var v, a, x, m, c;
-
-		if (typeof i === "number" && typeof s === "string") {
-
-			v = s.charAt(i);
-			a = A;
-
-			if (v === a) {
-
-				x = X;
-				x.lastIndex = i;
-				m = x.exec(s);
-
-				if (m === null) {
-
-					return s ;
-
-				} else {
-
-					v = m.shift();
-
-					if (v.length === 1) {
-
-						return v ;
-
-					} else {
-
-						return (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : s ;
-
-					}
-
-				}
-
-			} else {
-
-				return v;
-
-			}
-
-		}
-
-		return null ;
-
-	}
-
-	*/
-
 	function charCodeAt(i, s) {
 
 		var v, n, x, m, c;
 
 		if (typeof i === "number" && typeof s === "string") {
 
+			/*
+			 *	"String.charCodeAt()" is fast so retrieve the character at position i and compare to
+			 *	the index of ampersand
+			 */
 			v = s.charCodeAt(i);
 			n = N;
 
 			if (v === n) {
 
 				/*
-				 *	The first character at this position is an ampersand. "String.charCodeAt()" is fast
-				 *	and execution for characters not HTML encoded will exit at the "else", below. Otherwise
-				 *	the string will be matched against an HTML encoding pattern regular expression
+				 *	The character at position i is an ampersand. Examine the rest of the string with an HTML
+				 *	encoding pattern regular expression
 				 */
 				x = X;
 				x.lastIndex = i;
@@ -948,7 +857,7 @@ var StringEngine	= (function () {
 
 					/*
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
-					 *	the index for ampersand
+					 *	the index of ampersand
 					 */
 					return n ;
 
@@ -966,6 +875,9 @@ var StringEngine	= (function () {
 
 			} else {
 
+				/*
+				 * The index at position i is not the index of an ampersand, so return the index
+				 */
 				return v ;
 
 			}
@@ -1007,18 +919,41 @@ var StringEngine	= (function () {
 	}
 
 	/*
-	function charAt(i) {
+	 *	Either code or name
+	 */
+	function htmlAt(i, s) {
 
-		throw "Not implemented";
-		return null;
+		var v, a, x, m;
 
-	}
-	*/
+		if (typeof i === "number" && typeof s === "string") {
 
-	function htmlAt(i) {
+			/*
+			 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
+			 */
+			v = s.charAt(i);
+			a = A;
 
-		throw "Not implemented";
-		return null;
+			if (v === a) {
+
+				x = X;
+				x.lastIndex = i;
+				m = x.exec(s);
+
+				/*
+				 *	Either the adjacent characters do match the HTML encoding pattern so execution can return
+				 *	an ampersand or the HTML encoded characters
+				 */
+				return (m === null) ? a : m.shift();
+
+			} else {
+
+				return v ;
+
+			}
+
+		}
+
+		return null ;
 
 	}
 
@@ -1081,46 +1016,6 @@ var StringEngine	= (function () {
 
 	}
 
-	/*
-
-	function toHtmlCode(s) {
-
-		var i, j, c, h, r;
-
-		if (typeof s === "string") {
-
-			i = 0;
-			j = s.length;
-			r = "";
-
-			for (i = i; i < j; i = i + 1) {
-
-				r += (typeof (h = HTMLCODEFROM[(c = s.charAt(i))]) === "string") ? h : c ;
-
-			}
-
-			return r;
-
-		}
-
-		return null;
-
-	}
-
-	function toHtmlCode(s) {
-
-		return (typeof s === "string") ? s.replace(/./g, function (s) {
-
-			var c;
-
-			return (typeof (c = HTMLCODEFROM[s]) === "string") ? c : s ;
-
-		}) : s ;
-
-	}
-
-	*/
-
 	function toHtmlName(s) {
 
 		var i, j, c, h, r;
@@ -1146,46 +1041,6 @@ var StringEngine	= (function () {
 		return null;
 
 	}
-
-	/*
-
-	function toHtmlName(s) {
-
-		var i, j, c, h, r;
-
-		if (typeof s === "string") {
-
-			i = 0;
-			j = s.length;
-			r = "";
-
-			for (i = i; i < j; i = i + 1) {
-
-				r += (typeof (h = HTMLNAMEFROM[(c = s.charAt(i))]) === "string") ? h : c ;
-
-			}
-
-			return r;
-
-		}
-
-		return null;
-
-	}
-
-	function toHtmlName(s) {
-
-		return (typeof s === "string") ? s.replace(/./g, function (s) {
-
-			var c;
-
-			return (typeof (c = HTMLNAMEFROM[s]) === "string") ? c : s ;
-
-		}) : s ;
-
-	}
-
-	*/
 
 	/*
 	 *	HTML code from character
