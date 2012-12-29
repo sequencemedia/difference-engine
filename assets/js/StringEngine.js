@@ -771,7 +771,7 @@ var StringEngine	= (function () {
 		DEC = 10,
 		HEX = 16,
 
-		X = /\u0026[\w]+\u003b|\u0026\u0023[\d]+\u003b+/g, //|\u0026
+		X = /\u0026[\w]+\u003b|\u0026\u0023[\d]+\u003b+/g,
 		A = "\u0026", N = 38;
 
 	function charAt(i, s) {
@@ -790,7 +790,6 @@ var StringEngine	= (function () {
 				 *	and execution for characters not HTML encoded will exit at the "else", below. Otherwise
 				 *	the string will be matched against an HTML encoding pattern regular expression
 				 */
-
 				x = X;
 				x.lastIndex = i;
 				m = x.exec(s);
@@ -941,7 +940,6 @@ var StringEngine	= (function () {
 				 *	and execution for characters not HTML encoded will exit at the "else", below. Otherwise
 				 *	the string will be matched against an HTML encoding pattern regular expression
 				 */
-
 				x = X;
 				x.lastIndex = i;
 				m = x.exec(s);
