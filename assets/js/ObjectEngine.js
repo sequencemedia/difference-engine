@@ -23,34 +23,63 @@ var ObjectEngine	= (function () {
 
 	var objectEngine,
 
-		HASOWNPROPERTY = Object.prototype.hasOwnProperty;
+		HASOWNPROPERTY = Object.prototype.hasOwnProperty,
 
-	function mix(alpha, omega) {
+		mix;
 
-		var keys, k;
+	mix = (function () {
 
-		if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
+		function MIX(o) {
 
-			/*
-			 *	According to jsperf.com, December 2012, "do" performs faster in Safari for both more and less populated objects,
-			 *	while "Array.shift()" performs significantly better for more populated objects in Chrome, FF and Maxthon. Safari
-			 *	performs faster than each of them, but "do" is superior in that browser
-			 *
-			 *	Assigning the value of the property to an intermediary variable offers no benefit, except in Maxthon, and some
-			 *	detriment to FF and Safari
-			 */
-			keys	= Object.keys(omega);
+			var keys	= Object.keys(o), k, v, O = {};
+
 			while (keys.length > 0) {
+
 				k = keys.shift();
-				alpha[k] = omega[k];
+				v = o[k];
+				v = ((v || false).constructor === Object) ? merge(v) : ((v || false).constructor === Array) ? v.slice() : v
+				O[k] = v;
+
 			}
-			return alpha ;
+
+			return O ;
 
 		}
 
-		return null ;
+		return function (alpha, omega) {
 
-	}
+			var keys, k, v;
+
+			if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
+
+				/*
+				 *	According to jsperf.com, December 2012, "do" performs faster in Safari for both more and less populated objects,
+				 *	while "Array.shift()" performs significantly better for more populated objects in Chrome, FF and Maxthon. Safari
+				 *	performs faster than each of them, but "do" is superior in that browser
+				 *
+				 *	Assigning the value of the property to an intermediary variable offers no benefit, except in Maxthon, and some
+				 *	detriment to FF and Safari
+				 */
+				keys	= Object.keys(omega);
+
+				while (keys.length > 0) {
+
+					k = keys.shift();
+					v = omega[k];
+					v = ((v || false).constructor === Object) ? MIX(v) : ((v || false).constructor === Array) ? v.slice() : v ;
+					alpha[k] = v;
+
+				}
+
+				return alpha ;
+
+			}
+
+			return null ;
+
+		}
+
+	}());
 
 	function hasProperty(key, object) {
 
