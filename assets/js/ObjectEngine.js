@@ -21,13 +21,84 @@
  */
 var ObjectEngine	= (function () {
 
-	var objectEngine;
+	var objectEngine,
+
+		HASOWNPROPERTY = Object.prototype.hasOwnProperty;
+
+	function mix(alpha, omega) {
+
+		var keys, k;
+
+		if ((alpha || false).constructor === Object && (alpha || false).constructor === Object) {
+
+			/*
+			 *	According to jsperf.com, December 2012, "do" performs faster in Safari for both more and less populated objects,
+			 *	while "Array.shift()" performs significantly better for more populated objects in Chrome, FF and Maxthon. Safari
+			 *	performs faster than each of them, but "do" is superior in that browser
+			 *
+			 *	Assigning the value of the property to an intermediary offers no benefit, except in Maxthon, and some detriment
+			 *	to FF and Safari
+			 */
+			keys	= Object.keys(omega);
+			while (keys.length > 0) {
+				k = keys.shift();
+				alpha[k] = omega[k];
+			}
+			return alpha ;
+
+		}
+
+		return null ;
+
+	}
+
+	function hasProperty(key, object) {
+
+		if ((object || false).constructor === Object) {
+
+			return (key in object);
+
+		}
+
+	}
+
+
+	function hasProperties(object) {
+
+		var key;
+
+		if ((object || false).constructor === Object) {
+
+			for (key in object) return true ;
+			return false ;
+
+		}
+
+		return false ;
+
+	}
+
+	function hasOwnProperty(key, object) {
+
+		if ((object || false).constructor === Object) {
+
+			return HASOWNPROPERTY.call(object, key);
+
+		}
+
+	}
 
 	function ObjectEngine() {
 
 		return objectEngine || (this instanceof ObjectEngine ? objectEngine = this : new ObjectEngine());
 
 	}
+
+	ObjectEngine.prototype.mix				= mix;
+
+	ObjectEngine.prototype.hasProperty		= hasProperty ;
+	ObjectEngine.prototype.hasProperties	= hasProperties ;
+	ObjectEngine.prototype.hasOwnProperty	= hasOwnProperty ;
 
 	return ObjectEngine;
 
