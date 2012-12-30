@@ -29,15 +29,15 @@ var ObjectEngine	= (function () {
 
 		var keys, k;
 
-		if ((alpha || false).constructor === Object && (alpha || false).constructor === Object) {
+		if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
 
 			/*
 			 *	According to jsperf.com, December 2012, "do" performs faster in Safari for both more and less populated objects,
 			 *	while "Array.shift()" performs significantly better for more populated objects in Chrome, FF and Maxthon. Safari
 			 *	performs faster than each of them, but "do" is superior in that browser
 			 *
-			 *	Assigning the value of the property to an intermediary offers no benefit, except in Maxthon, and some detriment
-			 *	to FF and Safari
+			 *	Assigning the value of the property to an intermediary variable offers no benefit, except in Maxthon, and some
+			 *	detriment to FF and Safari
 			 */
 			keys	= Object.keys(omega);
 			while (keys.length > 0) {
