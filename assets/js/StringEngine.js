@@ -771,7 +771,13 @@ var StringEngine	= (function () {
 		DEC = 10,
 		HEX = 16,
 
-		X = /\u0026[\w]+\u003b|\u0026\u0023[\d]+\u003b+/g,
+		X = /\u0026[\w]+\u003b|\u0026\u0023(?:[1-9]+[\d]+|[1-9])\u003b+/g,
+		XCODE = /\u0026\u0023(?:[1-9]+[\d]+|[1-9]+)\u003b+/g,
+		XNAME = /\u0026[\w]+\u003b+/g,
+		XC = /\u0026\u0023(?:[1-9]+[\d]+|[1-9]+)\u003b+/,
+		XN = /\u0026[\w]+\u003b+/,
+		XNUMBER = /[1-9]+[\d]+|[1-9]+/,
+		XSTRING = /\w/,
 		A = "\u0026", N = 38;
 
 	function charAt(i, s) {
@@ -811,7 +817,30 @@ var StringEngine	= (function () {
 					 */
 					v = m.shift();
 
-					return (typeof (c = FROMHTMLNAME[v]) === "string") ? c : (typeof (c = FROMHTMLCODE[v]) === "string") ? c : a ;
+					if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c ;
+
+					/*
+					 *	Valid patterns are:
+					 *		&#1; ... etc
+					 *		&a;
+					 *		&aa; ... etc
+					 *	If the match has failed to find a character in the arrays then either it is not
+					 *	an HTML name or it is an HTML code that has not been seen before
+					 */
+					x = XC;
+
+					if (x.test(v)) {
+
+						x = XNUMBER;
+						i = parseInt(x.exec(v).shift(), 10);
+
+						return FROMHTMLCODE[v] = String.fromCharCode(i) ;
+
+					} else {
+
+						return a ;
+
+					}
 
 				}
 
@@ -869,7 +898,9 @@ var StringEngine	= (function () {
 					 */
 					v = m.shift();
 
-					return (typeof (c = FROMHTMLNAME[v]) === "string") ? c.charCodeAt(0) : (typeof (c = FROMHTMLCODE[v]) === "string") ? c.charCodeAt(0) : n ;
+					if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c.charCodeAt(0) ;
+
+					return n ;
 
 				}
 
@@ -886,35 +917,6 @@ var StringEngine	= (function () {
 
 		return null ;
 
-
-	}
-
-
-	function htmlCodeAt(i, s) {
-
-		throw "Not implemented";
-		return null;
-
-	}
-
-	function htmlNameAt(i, s) {
-
-		throw "Not implemented";
-		return null;
-
-	}
-
-	function charOf(s) {
-
-		throw "Not implemented";
-		return null;
-
-	}
-
-	function htmlOf(s) {
-
-		throw "Not implemented";
-		return null;
 
 	}
 
@@ -941,7 +943,7 @@ var StringEngine	= (function () {
 
 				/*
 				 *	Either the adjacent characters do match the HTML encoding pattern so execution can return
-				 *	an ampersand or the HTML encoded characters
+				 *	an ampersand or the adjacent characters do match so execution can return them
 				 */
 				return (m === null) ? a : m.shift();
 
@@ -954,6 +956,178 @@ var StringEngine	= (function () {
 		}
 
 		return null ;
+
+	}
+
+	/*
+	 *	Code, ignore name
+	 */
+	function htmlCodeAt(i, s) {
+
+		var v, a, x, m;
+
+		if (typeof i === "number" && typeof s === "string") {
+
+			/*
+			 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
+			 */
+			v = s.charAt(i);
+			a = A;
+
+			if (v === a) {
+
+				x = XCODE;
+				x.lastIndex = i;
+				m = x.exec(s);
+
+				/*
+				 *	Either the adjacent characters do match the HTML encoding pattern so execution can return
+				 *	an ampersand or the adjacent characters do match so execution can return them
+				 */
+				return (m === null) ? a : m.shift();
+
+			} else {
+
+				return v ;
+
+			}
+
+		}
+
+		return null ;
+
+	}
+
+	/*
+	 *	Name, ignore code
+	 */
+	function htmlNameAt(i, s) {
+
+		var v, a, x, m;
+
+		if (typeof i === "number" && typeof s === "string") {
+
+			/*
+			 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
+			 */
+			v = s.charAt(i);
+			a = A;
+
+			if (v === a) {
+
+				x = XNAME;
+				x.lastIndex = i;
+				m = x.exec(s);
+
+				/*
+				 *	Either the adjacent characters do match the HTML encoding pattern so execution can return
+				 *	an ampersand or the adjacent characters do match so execution can return them
+				 */
+				return (m === null) ? a : m.shift();
+
+			} else {
+
+				return v ;
+
+			}
+
+		}
+
+		return null ;
+
+	}
+
+	function charOf(s) {
+
+		var v, a, x, m, c, i;
+
+		if (typeof s === "string") {
+
+			if (s.length < 4) {
+
+				return s.charAt(0);
+
+			} else {
+
+				/*
+				 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
+				 */
+				v = s.charAt(0);
+				a = A;
+
+				if (v === A) {
+
+					/*
+					 *	The character at position i is an ampersand. Examine the rest of the string with an HTML
+					 *	encoding pattern regular expression
+					 */
+					x = X;
+					x.lastIndex = 0;
+					m = x.exec(s);
+
+					if (m === null) {
+
+						/*
+						 *	The adjacent characters do match the HTML encoding pattern so execution can return
+						 *	an ampersand
+						 */
+						return a ;
+
+					} else {
+
+						/*
+						 *	The regular expression must have a match. Retrieve it
+						 */
+						v = m.shift();
+
+						if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c ;
+
+						/*
+						 *	Valid patterns are:
+						 *		&#1; ... etc
+						 *		&a;
+						 *		&aa; ... etc
+						 *	If the match has failed to find a character in the arrays then either it is not
+						 *	an HTML name or it is an HTML code that has not been seen before
+						 */
+						x = XC;
+
+						if (x.test(v)) {
+
+							x = XNUMBER;
+							i = parseInt(x.exec(v).shift(), 10);
+
+							return FROMHTMLCODE[v] = String.fromCharCode(i) ;
+
+						} else {
+
+							return a ;
+
+						}
+
+					}
+
+				} else {
+
+					/*
+					 * The character at position i is not an ampersand, so return it
+					 */
+					return v ;
+
+				}
+
+			}
+
+		}
+
+		return null ;
+
+	}
+
+	function htmlOf(s) {
+
+		throw "Not implemented";
+		return null;
 
 	}
 
@@ -973,9 +1147,9 @@ var StringEngine	= (function () {
 	 */
 	function fromHtmlCode(s) {
 
-		var c;
+		var c, i, xc = XC, xn = XNUMBER, a = A;
 
-		return (typeof s === "string") ? (typeof (c = FROMHTMLCODE[s]) === "string") ? c : s : null ;
+		return (typeof s === "string") ? (typeof (c = FROMHTMLCODE[s]) === "string") ? c : xc.test(s) ? isNaN(i = parseInt(xn.exec(s).shift(), 10)) ? a : FROMHTMLCODE[s] = String.fromCharCode(i) : a : null ;
 
 	}
 
@@ -990,6 +1164,9 @@ var StringEngine	= (function () {
 
 	}
 
+	/*
+	 * Characters to HTML code
+	 */
 	function toHtmlCode(s) {
 
 		var i, j, c, h, r;
@@ -1016,6 +1193,9 @@ var StringEngine	= (function () {
 
 	}
 
+	/*
+	 * Characters to HTML name
+	 */
 	function toHtmlName(s) {
 
 		var i, j, c, h, r;
@@ -1137,10 +1317,10 @@ var StringEngine	= (function () {
 
 	StringEngine.prototype.charAt	= charAt;
 	StringEngine.prototype.charCodeAt	= charCodeAt;
-	StringEngine.prototype.htmlCodeAt	= htmlCodeAt;
-	StringEngine.prototype.htmlNameOf	= htmlNameAt;
 
 	StringEngine.prototype.htmlAt	= htmlAt;
+	StringEngine.prototype.htmlCodeAt	= htmlCodeAt;
+	StringEngine.prototype.htmlNameAt	= htmlNameAt;
 
 	StringEngine.prototype.fromCharCode	= fromCharCode;
 	StringEngine.prototype.fromHtmlCode	= fromHtmlCode;
