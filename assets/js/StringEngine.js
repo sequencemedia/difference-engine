@@ -777,7 +777,7 @@ var StringEngine	= (function () {
 		XC = /\u0026\u0023(?:[1-9]+[\d]+|[1-9]+)\u003b+/,
 		XN = /\u0026[\w]+\u003b+/,
 		XNUMBER = /[1-9]+[\d]+|[1-9]+/,
-		XSTRING = /\w/,
+		XSTRING = /[\w]+/,
 		A = "\u0026", N = 38;
 
 	function charAt(i, s) {
@@ -980,11 +980,47 @@ var StringEngine	= (function () {
 				x.lastIndex = i;
 				m = x.exec(s);
 
-				/*
-				 *	Either the adjacent characters do match the HTML encoding pattern so execution can return
-				 *	an ampersand or the adjacent characters do match so execution can return them
-				 */
-				return (m === null) ? a : m.shift();
+				if (m === null) {
+
+					/*
+					 *	The adjacent characters do match the HTML encoding pattern so execution can return
+					 *	an ampersand
+					 */
+					return a ;
+
+				} else {
+
+					/*
+					 *	The regular expression must have a match. Retrieve it
+					 */
+					v = m.shift();
+
+					if (typeof (c = FROMHTMLCODE[v]) === "string") return c ;
+
+					/*
+					 *	Valid patterns are:
+					 *		&#1; ... etc
+					 *		&a;
+					 *		&aa; ... etc
+					 *	If the match has failed to find a character in the arrays then either it is not
+					 *	an HTML name or it is an HTML code that has not been seen before
+					 */
+					x = XC;
+
+					if (x.test(v)) {
+
+						x = XNUMBER;
+						i = parseInt(x.exec(v).shift(), 10);
+
+						return FROMHTMLCODE[v] = String.fromCharCode(i) ;
+
+					} else {
+
+						return a ;
+
+					}
+
+				}
 
 			} else {
 
@@ -1019,11 +1055,26 @@ var StringEngine	= (function () {
 				x.lastIndex = i;
 				m = x.exec(s);
 
-				/*
-				 *	Either the adjacent characters do match the HTML encoding pattern so execution can return
-				 *	an ampersand or the adjacent characters do match so execution can return them
-				 */
-				return (m === null) ? a : m.shift();
+				if (m === null) {
+
+					/*
+					 *	The adjacent characters do match the HTML encoding pattern so execution can return
+					 *	an ampersand
+					 */
+					return a ;
+
+				} else {
+
+					/*
+					 *	The regular expression must have a match. Retrieve it
+					 */
+					v = m.shift();
+
+					if (typeof (c = FROMHTMLNAME[v]) === "string") return c ;
+
+					return a ;
+
+				}
 
 			} else {
 
