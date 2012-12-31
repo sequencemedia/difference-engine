@@ -27,6 +27,10 @@ var ObjectEngine	= (function () {
 
 		mix;
 
+	/*
+	 *	According to jsperf.com, December 2012, performs twice as fast as jQuery deep copy, but a jQuery shallow copy is ten
+	 *	times faster
+	 */
 	mix = (function () {
 
 		function MIX(o) {
@@ -72,6 +76,105 @@ var ObjectEngine	= (function () {
 				}
 
 				return alpha ;
+
+			}
+
+			return null ;
+
+		}
+
+	}());
+
+	mix = (function () {
+
+		function O(a, o) { console.log("O");
+
+			var k, v;
+
+			for (k in o) {
+
+				v = o[k];
+				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? v.slice() : v ;
+				a[k] = v;
+
+			}
+
+			return a ;
+
+		}
+
+		function A(a) { //console.log("A");
+
+			var i = 0, j = a.length, v;
+
+			for (i = i; i < j; i = i + 1) {
+
+				v = a[i];
+
+				if ((v || false).constructor === Object) a[i] = O({}, v);
+				if ((v || false).constructor === Array) a[i] = A(v.slice()) ;
+
+			}
+
+			return a;
+
+		}
+
+		function A(a, o) { //console.log("A", o);
+
+			var v;
+
+			while (o.length > 0) {
+
+				v = o.shift();
+				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v ;
+				a.push(v);
+
+			}
+
+			return a;
+
+		}
+
+		return function (v1, v2, v3) {
+
+			var alpha, omega, k, v;
+
+			if (v1 === true) {
+
+				alpha = v2;
+				omega = v3;
+
+				if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
+
+					for (k in omega) {
+
+						v = omega[k];
+						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v ;
+						alpha[k] = v;
+
+					}
+
+					return alpha ;
+
+				}
+
+			} else {
+
+				alpha = v1;
+				omega = v2;
+
+				if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
+
+					for (k in omega) {
+
+						alpha[k] = omega[k];
+
+					}
+
+					return alpha ;
+
+				}
 
 			}
 
