@@ -21,61 +21,100 @@
  */
 var ObjectEngine	= (function () {
 
+	"use strict";
+
 	var objectEngine,
 
 		HASOWNPROPERTY = Object.prototype.hasOwnProperty,
 
 		mix;
 
-	/*
-	 *	According to jsperf.com, December 2012, performs twice as fast as jQuery deep copy, but a jQuery shallow copy is ten
-	 *	times faster
-	 */
 	mix = (function () {
 
-		function MIX(o) {
+		function O(a, o) {
 
-			var keys	= Object.keys(o), k, v, O = {};
+			var k, v;
 
-			while (keys.length > 0) {
+			for (k in o) {
 
-				k = keys.shift();
 				v = o[k];
-				v = ((v || false).constructor === Object) ? MIX(v) : ((v || false).constructor === Array) ? v.slice() : v ;
-				O[k] = v;
+				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v) : v ;
+				a[k] = v;
 
 			}
 
-			return O ;
+			return a ;
+
+		}
+
+		function A(a, o) {
+
+			var v;
+
+			o = o.slice();
+
+			while (o.length > 0) {
+
+				v = o.shift();
+				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v ;
+				a.push(v);
+
+			}
+
+			return a ;
 
 		}
 
 		return function (alpha, omega) {
 
-			var keys, k, v;
+			var k, v;
 
-			if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
+			/*
+			 *	According to jsperf.com, December 2012, Chrome and Maxthon favour the duplicated code, below, rather than
+			 *	immediately invoking "O()" or "A()"
+			 *
+			 *	FF and Safari show some preference for using a switch on the constructor of "alpha" to establish the first
+			 *	condition then invoking "O()" or "A()" with a ternary
+			 */
+			if ((alpha || false).constructor === Object) {
 
-				/*
-				 *	According to jsperf.com, December 2012, "do" performs faster in Safari for both more and less populated objects,
-				 *	while "Array.shift()" performs significantly better for more populated objects in Chrome, FF and Maxthon. Safari
-				 *	performs faster than each of them, but "do" is superior in that browser
-				 *
-				 *	Assigning the value of the property to an intermediary variable offers no benefit, except in Maxthon, and some
-				 *	detriment to FF and Safari
-				 */
-				keys	= Object.keys(omega);
+				if ((omega || false).constructor === Object) {
 
-				while (keys.length > 0) {
+					for (k in omega) {
 
-					k = keys.shift();
-					v = omega[k];
-					v = ((v || false).constructor === Object) ? MIX(v) : ((v || false).constructor === Array) ? v.slice() : v ;
-					alpha[k] = v;
+						v = omega[k];
+						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v) : v ;
+						alpha[k] = v;
+
+					}
+
+					return alpha ;
 
 				}
 
-				return alpha ;
+				return null ;
+
+			}
+
+			if ((alpha || false).constructor === Array) {
+
+				if ((omega || false).constructor === Array) {
+
+					omega = omega.slice();
+
+					while (omega.length > 0) {
+
+						v = omega.shift();
+						v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v ;
+						alpha.push(v);
+
+					}
+
+					return alpha ;
+
+				}
+
+				return null ;
 
 			}
 
@@ -85,16 +124,18 @@ var ObjectEngine	= (function () {
 
 	}());
 
+	/*
+
 	mix = (function () {
 
-		function O(a, o) { console.log("O");
+		function O(a, o) {
 
 			var k, v;
 
 			for (k in o) {
 
 				v = o[k];
-				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? v.slice() : v ;
+				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v ;
 				a[k] = v;
 
 			}
@@ -103,24 +144,7 @@ var ObjectEngine	= (function () {
 
 		}
 
-		function A(a) { //console.log("A");
-
-			var i = 0, j = a.length, v;
-
-			for (i = i; i < j; i = i + 1) {
-
-				v = a[i];
-
-				if ((v || false).constructor === Object) a[i] = O({}, v);
-				if ((v || false).constructor === Array) a[i] = A(v.slice()) ;
-
-			}
-
-			return a;
-
-		}
-
-		function A(a, o) { //console.log("A", o);
+		function A(a, o) {
 
 			var v;
 
@@ -183,6 +207,8 @@ var ObjectEngine	= (function () {
 		}
 
 	}());
+
+	*/
 
 	function hasProperty(key, object) {
 
