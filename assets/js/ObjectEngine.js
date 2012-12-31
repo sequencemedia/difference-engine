@@ -37,7 +37,7 @@ var ObjectEngine	= (function () {
 
 				k = keys.shift();
 				v = o[k];
-				v = ((v || false).constructor === Object) ? merge(v) : ((v || false).constructor === Array) ? v.slice() : v
+				v = ((v || false).constructor === Object) ? MIX(v) : ((v || false).constructor === Array) ? v.slice() : v ;
 				O[k] = v;
 
 			}
