@@ -38,12 +38,12 @@ var ObjectEngine	= (function () {
 			for (k in o) {
 
 				v = o[k];
-				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v) : v ;
+				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
 				a[k] = v;
 
 			}
 
-			return a ;
+			return a;
 
 		}
 
@@ -56,12 +56,12 @@ var ObjectEngine	= (function () {
 			while (o.length > 0) {
 
 				v = o.shift();
-				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v ;
+				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
 				a.push(v);
 
 			}
 
-			return a ;
+			return a;
 
 		}
 
@@ -83,16 +83,16 @@ var ObjectEngine	= (function () {
 					for (k in omega) {
 
 						v = omega[k];
-						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v) : v ;
+						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
 						alpha[k] = v;
 
 					}
 
-					return alpha ;
+					return alpha;
 
 				}
 
-				return null ;
+				return null;
 
 			}
 
@@ -105,20 +105,20 @@ var ObjectEngine	= (function () {
 					while (omega.length > 0) {
 
 						v = omega.shift();
-						v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v ;
+						v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
 						alpha.push(v);
 
 					}
 
-					return alpha ;
+					return alpha;
 
 				}
 
-				return null ;
+				return null;
 
 			}
 
-			return null ;
+			return null;
 
 		}
 
@@ -135,12 +135,12 @@ var ObjectEngine	= (function () {
 			for (k in o) {
 
 				v = o[k];
-				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v ;
+				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
 				a[k] = v;
 
 			}
 
-			return a ;
+			return a;
 
 		}
 
@@ -151,7 +151,7 @@ var ObjectEngine	= (function () {
 			while (o.length > 0) {
 
 				v = o.shift();
-				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v ;
+				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
 				a.push(v);
 
 			}
@@ -174,12 +174,12 @@ var ObjectEngine	= (function () {
 					for (k in omega) {
 
 						v = omega[k];
-						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v ;
+						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
 						alpha[k] = v;
 
 					}
 
-					return alpha ;
+					return alpha;
 
 				}
 
@@ -196,13 +196,13 @@ var ObjectEngine	= (function () {
 
 					}
 
-					return alpha ;
+					return alpha;
 
 				}
 
 			}
 
-			return null ;
+			return null;
 
 		}
 
@@ -227,12 +227,12 @@ var ObjectEngine	= (function () {
 
 		if ((object || false).constructor === Object) {
 
-			for (key in object) return true ;
-			return false ;
+			for (key in object) return true;
+			return false;
 
 		}
 
-		return false ;
+		return false;
 
 	}
 
@@ -254,9 +254,9 @@ var ObjectEngine	= (function () {
 
 	ObjectEngine.prototype.mix				= mix;
 
-	ObjectEngine.prototype.hasProperty		= hasProperty ;
-	ObjectEngine.prototype.hasProperties	= hasProperties ;
-	ObjectEngine.prototype.hasOwnProperty	= hasOwnProperty ;
+	ObjectEngine.prototype.hasProperty		= hasProperty;
+	ObjectEngine.prototype.hasProperties	= hasProperties;
+	ObjectEngine.prototype.hasOwnProperty	= hasOwnProperty;
 
 	return ObjectEngine;
 

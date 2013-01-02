@@ -192,7 +192,7 @@ var DifferenceEngine	= (function () {
 										alpha: omega[total - 1] || null,
 										omega: null
 
-									} ;
+									};
 
 				}
 

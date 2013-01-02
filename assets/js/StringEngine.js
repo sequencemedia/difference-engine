@@ -808,7 +808,7 @@ var StringEngine	= (function () {
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
 					 *	an ampersand
 					 */
-					return a ;
+					return a;
 
 				} else {
 
@@ -817,7 +817,7 @@ var StringEngine	= (function () {
 					 */
 					v = m.shift();
 
-					if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c ;
+					if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c;
 
 					/*
 					 *	Valid patterns are:
@@ -834,11 +834,11 @@ var StringEngine	= (function () {
 						x = XNUMBER;
 						i = parseInt(x.exec(v).shift(), 10);
 
-						return FROMHTMLCODE[v] = String.fromCharCode(i) ;
+						return FROMHTMLCODE[v] = String.fromCharCode(i);
 
 					} else {
 
-						return a ;
+						return a;
 
 					}
 
@@ -849,13 +849,13 @@ var StringEngine	= (function () {
 				/*
 				 * The character at position i is not an ampersand, so return it
 				 */
-				return v ;
+				return v;
 
 			}
 
 		}
 
-		return null ;
+		return null;
 
 	}
 
@@ -888,7 +888,7 @@ var StringEngine	= (function () {
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
 					 *	the index of ampersand
 					 */
-					return n ;
+					return n;
 
 				} else {
 
@@ -898,9 +898,9 @@ var StringEngine	= (function () {
 					 */
 					v = m.shift();
 
-					if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c.charCodeAt(0) ;
+					if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c.charCodeAt(0);
 
-					return n ;
+					return n;
 
 				}
 
@@ -909,13 +909,13 @@ var StringEngine	= (function () {
 				/*
 				 * The index at position i is not the index of an ampersand, so return the index
 				 */
-				return v ;
+				return v;
 
 			}
 
 		}
 
-		return null ;
+		return null;
 
 
 	}
@@ -949,13 +949,13 @@ var StringEngine	= (function () {
 
 			} else {
 
-				return v ;
+				return v;
 
 			}
 
 		}
 
-		return null ;
+		return null;
 
 	}
 
@@ -986,7 +986,7 @@ var StringEngine	= (function () {
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
 					 *	an ampersand
 					 */
-					return a ;
+					return a;
 
 				} else {
 
@@ -995,7 +995,7 @@ var StringEngine	= (function () {
 					 */
 					v = m.shift();
 
-					if (typeof (c = FROMHTMLCODE[v]) === "string") return c ;
+					if (typeof (c = FROMHTMLCODE[v]) === "string") return c;
 
 					/*
 					 *	Valid patterns are:
@@ -1012,11 +1012,11 @@ var StringEngine	= (function () {
 						x = XNUMBER;
 						i = parseInt(x.exec(v).shift(), 10);
 
-						return FROMHTMLCODE[v] = String.fromCharCode(i) ;
+						return FROMHTMLCODE[v] = String.fromCharCode(i);
 
 					} else {
 
-						return a ;
+						return a;
 
 					}
 
@@ -1024,13 +1024,13 @@ var StringEngine	= (function () {
 
 			} else {
 
-				return v ;
+				return v;
 
 			}
 
 		}
 
-		return null ;
+		return null;
 
 	}
 
@@ -1061,7 +1061,7 @@ var StringEngine	= (function () {
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
 					 *	an ampersand
 					 */
-					return a ;
+					return a;
 
 				} else {
 
@@ -1070,21 +1070,21 @@ var StringEngine	= (function () {
 					 */
 					v = m.shift();
 
-					if (typeof (c = FROMHTMLNAME[v]) === "string") return c ;
+					if (typeof (c = FROMHTMLNAME[v]) === "string") return c;
 
-					return a ;
+					return a;
 
 				}
 
 			} else {
 
-				return v ;
+				return v;
 
 			}
 
 		}
 
-		return null ;
+		return null;
 
 	}
 
@@ -1122,7 +1122,7 @@ var StringEngine	= (function () {
 						 *	The adjacent characters do match the HTML encoding pattern so execution can return
 						 *	an ampersand
 						 */
-						return a ;
+						return a;
 
 					} else {
 
@@ -1131,7 +1131,7 @@ var StringEngine	= (function () {
 						 */
 						v = m.shift();
 
-						if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c ;
+						if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c;
 
 						/*
 						 *	Valid patterns are:
@@ -1148,11 +1148,11 @@ var StringEngine	= (function () {
 							x = XNUMBER;
 							i = parseInt(x.exec(v).shift(), 10);
 
-							return FROMHTMLCODE[v] = String.fromCharCode(i) ;
+							return FROMHTMLCODE[v] = String.fromCharCode(i);
 
 						} else {
 
-							return a ;
+							return a;
 
 						}
 
@@ -1163,7 +1163,7 @@ var StringEngine	= (function () {
 					/*
 					 * The character at position i is not an ampersand, so return it
 					 */
-					return v ;
+					return v;
 
 				}
 
@@ -1171,7 +1171,7 @@ var StringEngine	= (function () {
 
 		}
 
-		return null ;
+		return null;
 
 	}
 
@@ -1189,7 +1189,7 @@ var StringEngine	= (function () {
 
 		var s;
 
-		return (typeof i === "number") ? (typeof (s = FROMCHARCODE[i]) === "string") ? s : FROMCHARCODE[i] = String.fromCharCode(i) : null ;
+		return (typeof i === "number") ? (typeof (s = FROMCHARCODE[i]) === "string") ? s : FROMCHARCODE[i] = String.fromCharCode(i) : null;
 
 	}
 
@@ -1200,7 +1200,7 @@ var StringEngine	= (function () {
 
 		var c, i, xc = XC, xn = XNUMBER, a = A;
 
-		return (typeof s === "string") ? (typeof (c = FROMHTMLCODE[s]) === "string") ? c : xc.test(s) ? isNaN(i = parseInt(xn.exec(s).shift(), 10)) ? a : FROMHTMLCODE[s] = String.fromCharCode(i) : a : null ;
+		return (typeof s === "string") ? (typeof (c = FROMHTMLCODE[s]) === "string") ? c : xc.test(s) ? isNaN(i = parseInt(xn.exec(s).shift(), 10)) ? a : FROMHTMLCODE[s] = String.fromCharCode(i) : a : null;
 
 	}
 
@@ -1211,7 +1211,7 @@ var StringEngine	= (function () {
 
 		var c;
 
-		return (typeof s === "string") ? (typeof (c = FROMHTMLNAME[s]) === "string") ? c : s : null ;
+		return (typeof s === "string") ? (typeof (c = FROMHTMLNAME[s]) === "string") ? c : s : null;
 
 	}
 
@@ -1231,8 +1231,8 @@ var StringEngine	= (function () {
 			for (i = i; i < j; i = i + 1) {
 
 				c = s.charAt(i);
-				h = (typeof (h = HTMLCODEFROM[c]) === "string") ? h : c ;
-				r += h ;
+				h = (typeof (h = HTMLCODEFROM[c]) === "string") ? h : c;
+				r += h;
 
 			}
 
@@ -1260,8 +1260,8 @@ var StringEngine	= (function () {
 			for (i = i; i < j; i = i + 1) {
 
 				c = s.charAt(i);
-				h = (typeof (h = HTMLNAMEFROM[c]) === "string") ? h : c ;
-				r += h ;
+				h = (typeof (h = HTMLNAMEFROM[c]) === "string") ? h : c;
+				r += h;
 
 			}
 
@@ -1280,7 +1280,7 @@ var StringEngine	= (function () {
 
 		var c;
 
-		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLCODEFROM[s]) === "string") ? c : s : null ;
+		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLCODEFROM[s]) === "string") ? c : s : null;
 
 	}
 
@@ -1291,7 +1291,7 @@ var StringEngine	= (function () {
 
 		var c;
 
-		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLNAMEFROM[s]) === "string") ? c : s : null ;
+		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLNAMEFROM[s]) === "string") ? c : s : null;
 
 	}
 
@@ -1302,7 +1302,7 @@ var StringEngine	= (function () {
 
 		var c;
 
-		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLCODEFROM[s]) === "string") ? c : s : null ;
+		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLCODEFROM[s]) === "string") ? c : s : null;
 
 	}
 
@@ -1313,7 +1313,7 @@ var StringEngine	= (function () {
 
 		var c;
 
-		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLNAMEFROM[s]) === "string") ? c : s : null ;
+		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLNAMEFROM[s]) === "string") ? c : s : null;
 
 	}
 
@@ -1340,8 +1340,8 @@ var StringEngine	= (function () {
 
 		while (((range = RANGES.shift()) || false).constructor === Object) {
 
-			i 	= (typeof (i = range.from) === "number") ? i : 0 ;
-			j 	= (typeof (j = range.to) === "number") ? j : i + 1 ;
+			i 	= (typeof (i = range.from) === "number") ? i : 0;
+			j 	= (typeof (j = range.to) === "number") ? j : i + 1;
 
 			do {
 

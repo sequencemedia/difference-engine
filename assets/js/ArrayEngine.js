@@ -349,7 +349,7 @@ var ArrayEngine	= (function () {
 
 		return function () {
 
-			return isNaN(z = max.apply((a = ARRAY), a)) ? MAX(a) : z ; //array.slice().sort().pop() : z ;
+			return isNaN(z = max.apply((a = ARRAY), a)) ? MAX(a) : z; //array.slice().sort().pop() : z;
 
 		}
 
@@ -381,7 +381,7 @@ var ArrayEngine	= (function () {
 
 		return function () {
 
-			return isNaN(z = min.apply((a = ARRAY), a)) ? MIN(a) : z ; //array.slice().sort().shift() : z ;
+			return isNaN(z = min.apply((a = ARRAY), a)) ? MIN(a) : z; //array.slice().sort().shift() : z;
 
 		}
 
@@ -533,7 +533,7 @@ var ArrayEngine	= (function () {
 
 	function ArrayEngine(array) {
 
-		return (array) ? begin(array) : reset() ;
+		return (array) ? begin(array) : reset();
 
 	}
 
