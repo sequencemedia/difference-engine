@@ -29,6 +29,20 @@ var NumberEngine	= (function () {
 		DEC = 10,
 		HEX = 16,
 
+		OZGR = 28.3495231,
+
+		/*
+		OZMG = OZGR / 1000,
+		OZKG = OZGR * 1000,
+		*/
+
+		GROZ = 0.0352739619,
+
+		/*
+		MGOZ = GROZ / 1000,
+		KGOZ = GROZ * 1000,
+		*/
+
 		fib,
 		hav;
 
@@ -161,147 +175,185 @@ var NumberEngine	= (function () {
 
 	}
 
-	function fromKgToGr(n) {
+	function fromKgToGr(n) { // KG -> GR
 
 		return (typeof n === "number") ? n * 1000 : NaN;
 
 	}
 
-	function fromKgToSt(n) {
+	function fromKgToMg(n) { // KG -> GR -> MG
 
-		return (typeof n === "number") ? (((n * 0.035274) / 16) / 14) * 1000 : NaN;
-
-	}
-
-	function fromKgToLb(n) {
-
-		return (typeof n === "number") ? ((n * 0.035274) / 16) * 1000 : NaN;
+		return (typeof n === "number") ? (n * 1000) * 1000 : NaN;
 
 	}
 
-	function fromKgToOz(n) { // OZ -> G -> KG
+	function fromKgToOz(n) { // KG -> GR -> OZ
 
-		return (typeof n === "number") ? (n * 0.035274) * 1000 : NaN;
-
-	}
-
-	function fromStToKg(n) {
-
-		return (typeof n === "number") ? n / 0.15747 : NaN;
+		return (typeof n === "number") ? (n * 1000) * GROZ : NaN;
 
 	}
 
-	function fromStToGr(n) {
+	function fromKgToLb(n) { // KG -> GR -> OZ -> LB
 
-		return (typeof n === "number") ? (((n * 28.3495) * 16) * 14) : NaN;
-
-	}
-
-	function fromStToLb(n) {
-
-		return (typeof n === "number") ? n * 14 : NaN;
+		return (typeof n === "number") ? ((n * 1000) * GROZ) / 16 : NaN;
 
 	}
 
-	function fromStToOz(n) {
+	function fromKgToSt(n) { // KG -> GR -> OZ -> LB -> ST
 
-		return (typeof n === "number") ? (n * 14) * 16 : NaN;
-
-	}
-
-	function fromLbToKg(n) { // KG -> G -> OZ -> LB
-
-		return (typeof n === "number") ? (((n / 1000) * 28.3495) * 16) : NaN;
+		return (typeof n === "number") ? (((n * 1000) * GROZ) / 16) / 14 : NaN;
 
 	}
 
-	function fromLbToGr(n) { // G -> OZ -> LB
-
-		return (typeof n === "number") ? (n * 28.3495) * 16 : NaN; //(n / 1000) / 2.2046 : NaN;
-
-	}
-
-	function fromLbToSt(n) {
-
-		return (typeof n === "number") ? (1 / 14) * n : NaN; // * 0.071429 : NaN;
-
-	}
-
-	function fromLbToOz(n) {
-
-		return (typeof n === "number") ? n * 16 : NaN;
-
-	}
-
-	function fromGrToKg(n) {
+	function fromGrToKg(n) { // GR -> KG
 
 		return (typeof n === "number") ? n / 1000 : NaN;
 
 	}
 
+	function fromGrToMg(n) { // GR -> KG
+
+		return (typeof n === "number") ? n * 1000 : NaN;
+
+	}
+
+	function fromGrToOz(n) { // GR -> OZ
+
+		return (typeof n === "number") ? n * GROZ : NaN;
+
+	}
+
+	function fromGrToLb(n) { // GR -> OZ -> LB
+
+		return (typeof n === "number") ? (n * GROZ) / 16 : NaN;
+
+	}
+
 	function fromGrToSt(n) { // G -> OZ -> LB -> ST
 
-		return (typeof n === "number") ? ((n * 0.035274) / 16) / 14 : NaN;
+		return (typeof n === "number") ? ((n * GROZ) / 16) / 14 : NaN;
 
 	}
 
-	function fromGrToLb(n) { // G -> OZ -> LB
+	function fromMgToKg(n) { // MG -> GR -> KG
 
-		return (typeof n === "number") ? (n * 0.035274) / 16 : NaN;
-
-	}
-
-	function fromGrToOz(n) { // G -> OZ
-
-		return (typeof n === "number") ? n * 0.035274 : NaN;
+		return (typeof n === "number") ? (n / 1000) / 1000 : NaN;
 
 	}
 
-	function fromOzToKg(n) { // OZ -> G -> KG
+	function fromMgToGr(n) { // MG -> GR
 
-		return (typeof n === "number") ? (n * 28.3495) / 1000 : NaN;
-
-	}
-
-	function fromOzToGr(n) { // OZ -> G
-
-		return (typeof n === "number") ? n * 28.3495 : NaN;
+		return (typeof n === "number") ? n / 1000 : NaN;
 
 	}
 
-	function fromOzToSt(n) {
+	function fromMgToOz(n) { // MG -> GR -> OZ
 
-		return (typeof n === "number") ? (1 / (16 * 14)) * n : NaN;
-
-	}
-
-	function fromOzToLb(n) {
-
-		return (typeof n === "number") ? (1 / 16) * n : NaN;
+		return (typeof n === "number") ? (n / 1000) * GROZ : NaN;
 
 	}
 
-	/*
+	function fromMgToLb(n) { // MG -> GR -> OZ -> LB
 
-	function fromMtoCm(n) {
-
-		return (typeof n === "number") ? n * Math.pow(10, -2) : NaN;
+		return (typeof n === "number") ? ((n / 1000) * GROZ) / 16 : NaN;
 
 	}
 
-	function fromMtoMm(n) {
+	function fromMgToSt(n) { // MG -> GR -> OZ -> LB -> ST
 
-		return (typeof n === "number") ? n * Math.pow(10, -3) : NaN;
-
-	}
-
-	function fromMtoKm(n) {
-
-		return (typeof n === "number") ? n * Math.pow(10, 3) : NaN;
+		return (typeof n === "number") ? (((n / 1000) * GROZ) / 16) / 14 : NaN;
 
 	}
 
-	*/
+	function fromOzToMg(n) { // OZ -> GR -> MG
+
+		return (typeof n === "number") ? (n * OZGR) * 1000 : NaN;
+
+	}
+
+	function fromOzToSt(n) { // OZ -> ST
+
+		return (typeof n === "number") ? (n / 16) / 14 : NaN;
+
+	}
+
+	function fromOzToLb(n) { // OZ -> LB
+
+		return (typeof n === "number") ? n / 16 : NaN;
+
+	}
+
+	function fromLbToKg(n) { //LB -> OZ -> GR -> KG
+
+		return (typeof n === "number") ? ((n * 16) * OZGR) / 1000 : NaN;
+
+	}
+
+	function fromLbToGr(n) { // LB -> OZ -> GR
+
+		return (typeof n === "number") ? (n * 16) * OZGR : NaN;
+
+	}
+
+	function fromLbToMg(n) { // LB -> OZ -> GR -> MG
+
+		return (typeof n === "number") ? ((n * 16) * OZGR) * 1000 : NaN;
+
+	}
+
+	function fromLbToSt(n) { // LB -> ST
+
+		return (typeof n === "number") ? n / 14 : NaN;
+
+	}
+
+	function fromLbToOz(n) { // LB -> OZ
+
+		return (typeof n === "number") ? n * 16 : NaN;
+
+	}
+
+	function fromStToKg(n) { // ST -> LB -> OZ -> GR -> KG
+
+		return (typeof n === "number") ? (((n * 14) * 16) * OZGR) / 1000 : NaN;
+
+	}
+
+	function fromStToGr(n) { // ST -> LB -> OZ -> GR
+
+		return (typeof n === "number") ? ((n * 14) * 16) * OZGR : NaN;
+
+	}
+
+	function fromStToMg(n) { // ST -> LB -> OZ -> GR -> MG
+
+		return (typeof n === "number") ? (((n * 14) * 16) * OZGR) * 1000 : NaN;
+
+	}
+
+	function fromStToOz(n) { // ST -> LB -> OZ
+
+		return (typeof n === "number") ? (n * 14) * 16 : NaN;
+
+	}
+
+	function fromStToLb(n) { // ST -> LB
+
+		return (typeof n === "number") ? n * 14 : NaN;
+
+	}
+
+	function fromOzToKg(n) { // OZ -> GR -> KG
+
+		return (typeof n === "number") ? (n * OZGR) / 1000 : NaN;
+
+	}
+
+	function fromOzToGr(n) { // OZ -> GR
+
+		return (typeof n === "number") ? n * OZGR : NaN;
+
+	}
 
 	function convert(amount) {
 
@@ -336,30 +388,41 @@ var NumberEngine	= (function () {
 	NumberEngine.prototype.fromHexToDec = fromHexToDec;
 	NumberEngine.prototype.fromOctToDec = fromOctToDec;
 
-	NumberEngine.prototype.fromStToKg = fromStToKg;
-	NumberEngine.prototype.fromStToGr = fromStToGr;
-	NumberEngine.prototype.fromStToLb = fromStToLb;
-	NumberEngine.prototype.fromStToOz = fromStToOz;
-
 	NumberEngine.prototype.fromKgToGr = fromKgToGr;
-	NumberEngine.prototype.fromKgToSt = fromKgToSt;
-	NumberEngine.prototype.fromKgToLb = fromKgToLb;
+	NumberEngine.prototype.fromKgToMg = fromKgToMg;
 	NumberEngine.prototype.fromKgToOz = fromKgToOz;
+	NumberEngine.prototype.fromKgToLb = fromKgToLb;
+	NumberEngine.prototype.fromKgToSt = fromKgToSt;
 
 	NumberEngine.prototype.fromGrToKg = fromGrToKg;
-	NumberEngine.prototype.fromGrToSt = fromGrToSt;
-	NumberEngine.prototype.fromGrToLb = fromGrToLb;
+	NumberEngine.prototype.fromGrToMg = fromGrToMg;
 	NumberEngine.prototype.fromGrToOz = fromGrToOz;
+	NumberEngine.prototype.fromGrToLb = fromGrToLb;
+	NumberEngine.prototype.fromGrToSt = fromGrToSt;
 
-	NumberEngine.prototype.fromLbToKg = fromLbToKg;
-	NumberEngine.prototype.fromLbToGr = fromLbToGr;
-	NumberEngine.prototype.fromLbToSt = fromLbToSt;
-	NumberEngine.prototype.fromLbToOz = fromLbToOz;
+	NumberEngine.prototype.fromMgToKg = fromMgToKg;
+	NumberEngine.prototype.fromMgToGr = fromMgToGr;
+	NumberEngine.prototype.fromMgToOz = fromMgToOz;
+	NumberEngine.prototype.fromMgToLb = fromMgToLb;
+	NumberEngine.prototype.fromMgToSt = fromMgToSt;
 
 	NumberEngine.prototype.fromOzToKg = fromOzToKg;
 	NumberEngine.prototype.fromOzToGr = fromOzToGr;
-	NumberEngine.prototype.fromOzToSt = fromOzToSt;
+	NumberEngine.prototype.fromOzToMg = fromOzToMg;
 	NumberEngine.prototype.fromOzToLb = fromOzToLb;
+	NumberEngine.prototype.fromOzToSt = fromOzToSt;
+
+	NumberEngine.prototype.fromLbToKg = fromLbToKg;
+	NumberEngine.prototype.fromLbToGr = fromLbToGr;
+	NumberEngine.prototype.fromLbToMg = fromLbToMg;
+	NumberEngine.prototype.fromLbToOz = fromLbToOz;
+	NumberEngine.prototype.fromLbToSt = fromLbToSt;
+
+	NumberEngine.prototype.fromStToKg = fromStToKg;
+	NumberEngine.prototype.fromStToGr = fromStToGr;
+	NumberEngine.prototype.fromStToMg = fromStToMg;
+	NumberEngine.prototype.fromStToLb = fromStToLb;
+	NumberEngine.prototype.fromStToOz = fromStToOz;
 
 	NumberEngine.prototype.fromFToC = fromFToC;
 	NumberEngine.prototype.fromCToF = fromCToF;
