@@ -30,18 +30,7 @@ var NumberEngine	= (function () {
 		HEX = 16,
 
 		OZGR = 28.3495231,
-
-		/*
-		OZMG = OZGR / 1000,
-		OZKG = OZGR * 1000,
-		*/
-
 		GROZ = 0.0352739619,
-
-		/*
-		MGOZ = GROZ / 1000,
-		KGOZ = GROZ * 1000,
-		*/
 
 		fib,
 		hav;
@@ -163,6 +152,10 @@ var NumberEngine	= (function () {
 
 	}
 
+	/*
+	 * Temperature
+	 */
+
 	function fromFToC(n) {
 
 		return (typeof n === "number") ? (n - 32) / 1.8 : NaN;
@@ -174,6 +167,10 @@ var NumberEngine	= (function () {
 		return (typeof n === "number") ? (n * 1.8) + 32 : NaN;
 
 	}
+
+	/*
+	 * Weight
+	 */
 
 	function fromKgToGr(n) { // KG -> GR
 
@@ -229,7 +226,7 @@ var NumberEngine	= (function () {
 
 	}
 
-	function fromGrToSt(n) { // G -> OZ -> LB -> ST
+	function fromGrToSt(n) { // GR -> OZ -> LB -> ST
 
 		return (typeof n === "number") ? ((n * GROZ) / 16) / 14 : NaN;
 
@@ -355,6 +352,136 @@ var NumberEngine	= (function () {
 
 	}
 
+	/*
+	 * Distance
+	 */
+
+	function fromKmToMt(n) { // KM -> MT
+
+		return (typeof n === "number") ? n * 1000 : NaN;
+
+	}
+
+	function fromKmToCm(n) { // KM -> MT -> CM
+
+		return (typeof n === "number") ? (n * 1000) * 100 : NaN;
+
+	}
+
+	function fromKmToMm(n) { // KM -> MT -> CM -> MM
+
+		return (typeof n === "number") ? ((n * 1000) * 100) * 10 : NaN;
+
+	}
+
+	function fromMtToKm(n) { // MT -> KM
+
+		return (typeof n === "number") ? (n / 1000) : NaN;
+
+	}
+
+	function fromMtToCm(n) { // MT -> CM
+
+		return (typeof n === "number") ? n * 100 : NaN;
+
+	}
+
+	function fromMtToMm(n) { // MT -> CM -> MM
+
+		return (typeof n === "number") ? (n * 100) * 10 : NaN;
+
+	}
+
+	function fromCmToKm(n) { // CM -> MT -> KM
+
+		return (typeof n === "number") ? (n / 100) / 1000 : NaN;
+
+	}
+
+	function fromCmToMt(n) { // CM -> MT
+
+		return (typeof n === "number") ? n / 100 : NaN;
+
+	}
+
+	function fromCmToMm(n) { // CM -> MM
+
+		return (typeof n === "number") ? n * 10 : NaN;
+
+	}
+
+	function fromMmToKm(n) { // MM -> CM -> MT -> KM
+
+		return (typeof n === "number") ? ((n / 10) / 100) / 1000 : NaN;
+
+	}
+
+	function fromMmToMt(n) { // MM -> CM -> MT
+
+		return (typeof n === "number") ? (n / 10) / 100 : NaN;
+
+	}
+
+	function fromMmToCm(n) { // MM -> CM
+
+		return (typeof n === "number") ? n / 10 : NaN;
+
+	}
+
+	function fromInToFt(n) { // IN -> FT
+
+		return (typeof n === "number") ? n / 12 : NaN;
+
+	}
+
+	function fromInToYd(n) { // IN -> FT -> YD
+
+		return (typeof n === "number") ? (n / 12) / 3 : NaN;
+
+	}
+
+	function fromInToMi(n) { // IN -> FT -> YD -> MI
+
+		return (typeof n === "number") ? ((n / 12) / 3) / 1760 : NaN;
+
+	}
+
+	function fromFtToIn(n) { // FT -> IN
+
+		return (typeof n === "number") ? n * 12 : NaN;
+
+	}
+
+	function fromFtToYd(n) { // FT -> YD
+
+		return (typeof n === "number") ? n / 3 : NaN;
+
+	}
+
+	function fromFtToMi(n) { // FT -> YD -> MI
+
+		return (typeof n === "number") ? (n / 3) / 1760 : NaN;
+
+	}
+
+	function fromYdToIn(n) { // YD -> FT -> IN
+
+		return (typeof n === "number") ? (n * 3) * 12 : NaN;
+
+	}
+
+	function fromYdToFt(n) { // YD -> FT
+
+		return (typeof n === "number") ? n * 3 : NaN;
+
+	}
+
+	function fromYdToMi(n) { // YD -> MI
+
+		return (typeof n === "number") ? n / 1760 : NaN;
+
+	}
+
 	function convert(amount) {
 
 		throw "Not implemented";
@@ -387,6 +514,9 @@ var NumberEngine	= (function () {
 
 	NumberEngine.prototype.fromHexToDec = fromHexToDec;
 	NumberEngine.prototype.fromOctToDec = fromOctToDec;
+
+	NumberEngine.prototype.fromFToC = fromFToC;
+	NumberEngine.prototype.fromCToF = fromCToF;
 
 	NumberEngine.prototype.fromKgToGr = fromKgToGr;
 	NumberEngine.prototype.fromKgToMg = fromKgToMg;
@@ -424,8 +554,33 @@ var NumberEngine	= (function () {
 	NumberEngine.prototype.fromStToLb = fromStToLb;
 	NumberEngine.prototype.fromStToOz = fromStToOz;
 
-	NumberEngine.prototype.fromFToC = fromFToC;
-	NumberEngine.prototype.fromCToF = fromCToF;
+	NumberEngine.prototype.fromKmToMt = fromKmToMt;
+	NumberEngine.prototype.fromKmToCm = fromKmToCm;
+	NumberEngine.prototype.fromKmToMm = fromKmToMm;
+
+	NumberEngine.prototype.fromMtToKm = fromMtToKm;
+	NumberEngine.prototype.fromMtToCm = fromMtToCm;
+	NumberEngine.prototype.fromMtToMm = fromMtToMm;
+
+	NumberEngine.prototype.fromCmToKm = fromCmToKm;
+	NumberEngine.prototype.fromCmToMt = fromCmToMt;
+	NumberEngine.prototype.fromCmToMm = fromCmToMm;
+
+	NumberEngine.prototype.fromMmToKm = fromMmToKm;
+	NumberEngine.prototype.fromMmToMt = fromMmToMt;
+	NumberEngine.prototype.fromMmToCm = fromMmToCm;
+
+	NumberEngine.prototype.fromInToFt = fromInToFt;
+	NumberEngine.prototype.fromInToYd = fromInToYd;
+	NumberEngine.prototype.fromInToMi = fromInToMi;
+
+	NumberEngine.prototype.fromFtToIn = fromFtToIn;
+	NumberEngine.prototype.fromFtToYd = fromFtToYd;
+	NumberEngine.prototype.fromFtToMi = fromFtToMi;
+
+	NumberEngine.prototype.fromYdToIn = fromYdToIn;
+	NumberEngine.prototype.fromYdToFt = fromYdToFt;
+	NumberEngine.prototype.fromYdToMi = fromYdToMi;
 
 	NumberEngine.prototype.convert = convert;
 
