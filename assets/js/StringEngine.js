@@ -778,7 +778,8 @@ var StringEngine	= (function () {
 		XN = /\u0026[\w]+\u003b+/,
 		XNUMBER = /[1-9]+[\d]+|[1-9]+/,
 		XSTRING = /[\w]+/,
-		A = "\u0026", N = 38;
+		A = "\u0026", N = 38,
+		truncate, encode, decode;
 
 	function charAt(i, s) {
 
@@ -1329,6 +1330,192 @@ var StringEngine	= (function () {
 
 	}
 
+	function truncate() {
+
+		throw "Not implemented";
+		return null;
+
+	}
+
+	/*
+
+	truncate = (function () {
+
+		var prefix = "\u002e\u002e\u002e\u0020",
+			suffix = "\u0020\u002e\u002e\u002e",
+			P = 4,
+			S = 4,
+			W = "\u0084",
+			V, x, y, L, R, s, z;
+
+		return function (value, i, j) {
+
+			if (typeof value === "string") {
+
+				if ((V = value.length) > 0) {
+
+					x = typeof j === "number" ? typeof i === "number" ? Math.min(Math.max(i, 0), Math.max(j, 0)) : 0 : 0;
+					y = typeof i === "number" ? typeof j === "number" ? Math.max(Math.max(i, 0), Math.max(j, 0)) : i : value.length;
+
+					L = x > 0;
+					R = y < (V - x);
+
+					y = L ? R ? (y - (P + S)) - j : (y - P) + i : R ? (y - S) : y;
+
+					s = (s = (s = value.slice(x, y)).slice(L ? (z = s.indexOf(W)) > 0 ? z : 0 : 0)).slice(0, R ? (z = s.lastIndexOf(W)) > 0 ? z : s.length : s.length);
+
+					return L ? R ? prefix + s + suffix : prefix + s : R ? s + suffix : s;
+
+				}
+
+			}
+
+			return null;
+
+		}
+
+	}());
+
+	*/
+
+	encode = "btoa" in window ? function (key) {
+
+		return btoa(key);
+
+	} : (function () {
+
+		var map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+			char43 = "\u002b",
+			char47 = "\u002f",
+			char61 = "\u002f";
+
+		return function (key) {};
+
+	}());
+
+	decode = "atob" in window ? function (key) {
+
+		return atob(key);
+
+	} : (function () {
+
+		var map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+			char43 = "\u002b",
+			char47 = "\u002f",
+			char61 = "\u003d",
+			enc1, enc2, enc3, enc4, expression = /[^A-Za-z0-9\+\/\=]/;
+
+		return function (key) {
+
+			var value = "",
+				j, n;
+
+			if ((key = key.replace(/-/g, char43).replace(/_/g, char61).replace(/\./g, char47)).match(expression)) {
+				return null;
+			}
+
+			j = key.length;
+			n = 0;
+
+			do {
+
+				enc1 = map.indexOf(key.charAt(n + 0));
+				enc2 = map.indexOf(key.charAt(n + 1));
+				enc3 = map.indexOf(key.charAt(n + 2));
+				enc4 = map.indexOf(key.charAt(n + 3));
+				value += String.fromCharCode((enc1 << 2) | (enc2 >> 4));
+
+				if (enc3 !== 64) {
+					value = value + String.fromCharCode(((enc2 & 15) << 4) | (enc3 >> 2));
+				}
+
+				if (enc4 !== 64) {
+					value = value + String.fromCharCode((((enc3 & 3) << 6) | enc4));
+				}
+
+				n = n + 4;
+
+			} while (j > n);
+
+			return value;
+
+		}
+
+	}());
+
+	function reverse(string) {
+
+		var s, i;
+
+		if (typeof string === "string") {
+
+				s = "";
+				i = string.length;
+
+				/*
+				 *	According to jsperf.com, April 2013, concatenating "s" with operator "+=" is favoured
+				 *	by a small measure in Safari but not elsewhere. Similarly, decrementing "i" on a separate line is
+				 *	favoured by FF by a larger measure: the formulation I have selected is a reasonable compromise.
+				 */
+				do {
+					s = s + string.charAt(--i);
+				} while (i > 0);
+
+				return s;
+
+		}
+
+		return null;
+
+	}
+
+	/*
+
+	function reverse(string) {
+
+		var s, i;
+
+		if (typeof string === "string") {
+
+				s = "";
+				i = string.length;
+
+				do {
+					s += string.charAt(--i);
+				} while (i > 0);
+
+				return s;
+
+		}
+
+		return null;
+
+	}
+
+	function reverse(string) {
+
+		var s, i;
+
+		if (typeof string === "string") {
+
+				s = "";
+				i = string.length;
+
+				do {
+					i = i - 1;
+					s = s + string.charAt(i);
+				} while (i > 0);
+
+				return s;
+
+		}
+
+		return null;
+
+	}
+
+	*/
+
 	/*
 	 *	According to jsperf.com, December 2012, sequential access of sparse arrays (zero to length)
 	 *	degrades performance: but sparse arrays perform better than populated arrays where elements
@@ -1388,6 +1575,13 @@ var StringEngine	= (function () {
 
 	StringEngine.prototype.fromDecToHex	= fromDecToHex;
 	StringEngine.prototype.fromDecToOct	= fromDecToOct;
+
+	StringEngine.prototype.truncate	= truncate;
+
+	StringEngine.prototype.encode	= encode;
+	StringEngine.prototype.decode	= decode;
+
+	StringEngine.prototype.reverse	= reverse;
 
 	return StringEngine;
 
