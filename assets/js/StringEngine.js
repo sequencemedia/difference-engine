@@ -1458,7 +1458,9 @@ var StringEngine	= (function () {
 				 *	favoured by FF by a larger measure: the formulation I have selected is a reasonable compromise.
 				 */
 				do {
+
 					s = s + string.charAt(--i);
+
 				} while (i > 0);
 
 				return s;
@@ -1521,32 +1523,47 @@ var StringEngine	= (function () {
 	 *	degrades performance: but sparse arrays perform better than populated arrays where elements
 	 *	are accessed within unsparse sections.
 	 */
-	(function (RANGES) {
+	function extend(RANGES) {
 
-		var range, i, j; //, s, h, v = "&#i;";
+		var range, i, j;
 
-		while (((range = RANGES.shift()) || false).constructor === Object) {
+		if ((RANGES || false).constructor === Array) {
 
-			i 	= (typeof (i = range.from) === "number") ? i : 0;
-			j 	= (typeof (j = range.to) === "number") ? j : i + 1;
+			while (((range = RANGES.shift()) || false).constructor === Object) {
 
-			do {
+				i 	= (typeof (i = range.from) === "number") ? i : 0;
+				j 	= (typeof (j = range.to) === "number") ? j : i + 1;
 
-				/*
-				 *	Arrays coerce numbers represented as strings to numbers
-				 *	so numbers represented as strings cannot be used as keys
-				 */
-				FROMCHARCODE[i] = String.fromCharCode(i);
+				do {
 
-			} while (i++ < j);
+					/*
+					 *	Arrays coerce numbers represented as strings to numbers
+					 *	so numbers represented as strings cannot be used as keys
+					 */
+					FROMCHARCODE[i] = String.fromCharCode(i);
+
+				} while (i++ < j);
+
+			}
+
+			return true;
 
 		}
 
-	}([ { from: 32, to: 126 }, { from: 150, to: 151 }, { from: 160, to: 255 } ]));
+		return null;
+
+	}
 
 	function StringEngine() {
 
-		return stringEngine || (this instanceof StringEngine ? stringEngine = this : new StringEngine());
+		function initialise(instance) {
+
+			extend([ { from: 32, to: 126 }, { from: 150, to: 151 }, { from: 160, to: 255 } ]);
+			return instance;
+
+		}
+
+		return stringEngine || (this instanceof StringEngine ? stringEngine = initialise(this) : new StringEngine());
 
 	}
 
@@ -1582,6 +1599,8 @@ var StringEngine	= (function () {
 	StringEngine.prototype.decode	= decode;
 
 	StringEngine.prototype.reverse	= reverse;
+
+	StringEngine.prototype.extend 	= extend;
 
 	return StringEngine;
 
