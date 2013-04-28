@@ -4,7 +4,7 @@ From 2000 onward I maintained a set of utilities which often became the "framewo
 
 I came to refer to those utilities as "The Difference Engine" with a nod toward Charles Babbage and his mechanism of that name. Where JONAS had abstracted frequently used DOM, string and number interactions, these were array utilities and alternatives either for mechanisms that existed in other libraries, but did not perform well, or mechanisms that did not exist in those libraries precisely as I need them to.
 
-Primarily, these are mechinisms for manipulating, interrogating or comparing arrays. I have begun to create additional mechanisms for working with objects, strings and numbers but they are a secondary concern, currently.
+Primarily, these are mechanisms for manipulating, interrogating or comparing arrays. I have begun to create additional mechanisms for working with objects, strings and numbers but they are a secondary concern, currently.
 
 These utilities are suited to installed server-side applications and distributed client-side applications where the concern is for computational performance. They are useful where you need to iterate as fast as possible, or where processor operations are limited. 
 
