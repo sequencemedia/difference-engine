@@ -1,5 +1,4 @@
-JONAS and The Difference Engine
-================
+<h1>JONAS and The Difference Engine</h1>
 
 From 2000 onward I maintained a set of utilities which often became the "framework" underlying each project I developed in JavaScript until, having worked with several other libraries, in 2008 it was clear that jQuery had become the library of choice for JS development. By then, my framework had acquired the name JONAS but, while its mechanisms had always emphasised performance and simplicity, it didn't offer the functionality of jQuery or its competitors. I amended and updated some functionality between 2010 and 2012, but it languished until I began to realise that I had been creating another set of utilities in the same spirit across other projects. 
 
@@ -11,8 +10,7 @@ These utilities are suited to installed server-side applications and distributed
 
 They are written for performance. They are not written to please other developers so you, reader, may balk at each and every implementation. Doubtless, there are simpler ways in JavaScript to express the same idea but I have almost certainly compared that way with the formulation here and found this to perform faster.
 
-DifferenceEngine
-================
+<h2>DifferenceEngine</h2>
 
 A class for comparing two arrays and returng a third array which contains:
 
@@ -22,4 +20,4 @@ A class for comparing two arrays and returng a third array which contains:
 
 In addition, the class has a method for describing how an element maps from the first array to the second.
 
-''ArrayEngine, StringEngine, NumberEngine and ObjectEngine to follow.''
+<em>ArrayEngine, StringEngine, NumberEngine and ObjectEngine to follow.<em>
