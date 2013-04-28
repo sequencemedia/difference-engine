@@ -21,3 +21,5 @@ A class for comparing two arrays and returng a third array which contains:
   3.  Elements whose position has changed.
 
 In addition, the class has a method for describing how an element maps from the first array to the second.
+
+''ArrayEngine, StringEngine, NumberEngine and ObjectEngine to follow.''
