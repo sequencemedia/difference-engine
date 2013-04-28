@@ -6,7 +6,7 @@ I came to refer to those utilities as "The Difference Engine" with a nod toward 
 
 Primarily, these are mechanisms for manipulating, interrogating or comparing arrays. I have begun to create additional mechanisms for working with objects, strings and numbers but they are a secondary concern, currently.
 
-These utilities are suited to installed server-side applications and distributed client-side applications where the concern is for computational performance. They are useful where you need to iterate as fast as possible, or where processor operations are limited. 
+These utilities are suited to installed server-side applications and distributed client-side applications where emphasising computational performance. They are useful where you need to iterate as fast as possible, or where processor operations are limited. 
 
 They are written for performance. They are not written to please other developers so you, reader, may balk at each and every implementation. Doubtless, there are simpler ways in JavaScript to express the same idea but I have almost certainly compared that way with the formulation here and found this to perform faster.
 
