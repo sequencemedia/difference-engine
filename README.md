@@ -2,7 +2,7 @@
 
 From 2000 onward I maintained a set of utilities which often became the "framework" underlying each project I developed in JavaScript until, having worked with several other libraries, in 2008 it was clear that jQuery had become the library of choice for JS development. By then, my framework had acquired the name JONAS but, while its mechanisms had always emphasised performance and simplicity, it didn't offer the functionality of jQuery or its competitors. I amended and updated some functionality between 2010 and 2012, but it languished until I began to realise that I had been creating another set of utilities in the same spirit across other projects. 
 
-I came to refer to those utilities as "The Difference Engine" with a nod toward Charles Babbage and his mechanism of that name. Where JONAS had abstracted frequently used DOM, string and number interactions, these were array utilities and alternatives either for mechanisms that existed in other libraries, but did not perform well, or mechanisms that did not exist in those libraries precisely as I need them to.
+I came to refer to those utilities as "The Difference Engine" with a nod toward Charles Babbage and his mechanism of that name. Where JONAS had abstracted frequently used DOM, string and number interactions, these were array utilities and alternatives either for mechanisms that existed in other libraries, but did not perform well, or mechanisms that did not exist in those libraries precisely as I needed them to.
 
 Primarily, these are mechanisms for manipulating, interrogating or comparing arrays. I have begun to create additional mechanisms for working with objects, strings and numbers but they are a secondary concern, currently.
 
