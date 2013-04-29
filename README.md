@@ -1,23 +1,25 @@
 <h1>JONAS and The Difference Engine</h1>
 
-From 2000 onward I maintained a set of utilities which often became the "framework" underlying each project I developed in JavaScript until, having worked with several other libraries, in 2008 it was clear that jQuery had become the library of choice for JS development. By then, my framework had acquired the name JONAS but, while its mechanisms had always emphasised performance and simplicity, it didn't offer the functionality of jQuery or its competitors. I amended and updated some functionality between 2010 and 2012, but it languished until I began to realise that I had been creating another set of utilities in the same spirit across other projects. 
+<p>From 2000 onward I maintained a set of utilities which often became the "framework" underlying each project I developed in JavaScript until, having worked with several other libraries, in 2008 it was clear that jQuery had become the library of choice for JS development. By then, my framework had acquired the name JONAS but, while its mechanisms had always emphasised performance and simplicity, it didn't offer the functionality of jQuery or its competitors. I amended and updated some functionality between 2010 and 2012, but it languished until I began to realise that I had been creating another set of utilities in the same spirit across other projects.</p>
 
-I came to refer to those utilities as "The Difference Engine" with a nod toward Charles Babbage and his mechanism of that name. Where JONAS had abstracted frequently used DOM, string and number interactions, these were array utilities and alternatives either for mechanisms that existed in other libraries, but did not perform well, or mechanisms that did not exist in those libraries precisely as I needed them to.
+<p>I came to refer to those utilities as "The Difference Engine" with a nod toward Charles Babbage and his mechanism of that name. Where JONAS had abstracted frequently used DOM, string and number interactions, these were array utilities and alternatives either for mechanisms that existed in other libraries, but did not perform well, or mechanisms that did not exist in those libraries precisely as I needed them to.</p>
 
-Primarily, these are mechanisms for manipulating, interrogating or comparing arrays. I have begun to create additional mechanisms for working with objects, strings and numbers but they are a secondary concern, currently.
+<p>These are mechanisms for manipulating, interrogating or comparing arrays. Additional mechanisms for working with objects, strings and numbers are gradually being developed or modified.</p>
 
-These utilities are suited to installed server-side applications and distributed client-side applications emphasising computational performance. They are useful where you need to iterate as fast as possible, or where processor operations are limited. 
+<p>These utilities are suited to installed server-side applications and distributed client-side applications emphasising computational performance. They are useful where you need to iterate as fast as possible, or where processor operations are limited.</p>
 
-They are written for performance. They are not written to please other developers so you, reader, may balk at each and every implementation. Doubtless, there are simpler ways in JavaScript to express the same idea but I have almost certainly compared that way with the formulation here and found this to perform faster.
+<p>They are written for performance. They are <em>not</em> written to please other developers so you, reader, may balk at each and every implementation. Doubtless, there are simpler ways in JavaScript to express the same idea but I have almost certainly compared that way with the formulation I have chosen and found it to perform better.</p>
 
 <h2>DifferenceEngine</h2>
 
-A class for comparing two arrays and returng a third array which contains:
+<p>A class for comparing two arrays and returng a third array which contains:</p>
 
-  1.  Elements in both arrays;
-  2.  Elements in the first array, but not the second;
-  3.  Elements whose position has changed.
+  <ol>
+		<li>Elements in both arrays;</li>
+		<li>Elements in the first array, but not the second;</li>
+  		<li>Elements whose position has changed.</li>
+  	</ol>
 
-In addition, the class has a method for describing how an element maps from the first array to the second.
+<p>In addition, the class has a method for describing how an element maps from the first array to the second.</p>
 
 <em>ArrayEngine, StringEngine, NumberEngine and ObjectEngine to follow.<em>
