@@ -1483,7 +1483,9 @@ var StringEngine	= (function () {
 				i = string.length;
 
 				do {
+
 					s += string.charAt(--i);
+
 				} while (i > 0);
 
 				return s;
@@ -1504,8 +1506,10 @@ var StringEngine	= (function () {
 				i = string.length;
 
 				do {
+
 					i = i - 1;
 					s = s + string.charAt(i);
+
 				} while (i > 0);
 
 				return s;
