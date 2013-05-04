@@ -1,23 +1,31 @@
 /*
- *	Copyright © 2012 Jonathan Perry and Sequence Media Limited
+ * Copyright © 2012 Jonathan Perry and Sequence Media Limited
  *
- *	Permission is hereby granted, free of charge, to any person obtaining a copy
- *	of this software and associated documentation files (the "Software"), to deal
- *	in the Software without restriction, including without limitation the rights
- *	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *	copies of the Software, and to permit persons to whom the Software is
- *	furnished to do so, subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- *	The above copyright notice and this permission notice shall be included in
- *	all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- *	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- *	SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+/**
+ * "ArrayEngine" defines methods for manipulating arrays. Some of those methods
+ * already exist within the global context: the methods of "ArrayEngine" probably
+ * perform faster.
+ *
+ * @class ArrayEngine
+ * @constructor
  */
 var ArrayEngine	= (function () {
 
@@ -39,15 +47,17 @@ var ArrayEngine	= (function () {
 		max,
 		min;
 
-	/*
-	 *	Accepts one string or number, "v";
-	 *	Searches "ARRAY" for "v"
-	 *	@param {string, number} v
-	 *		"D"
+	/**
+	 * Accepts one string or number searches "ARRAY" for the first
+	 * element to match, returning the index.
 	 *
-	 *	Performs moderately slower than "DifferenceEngine.indexFor()"
-	 *	According to jsperf.com, December 2012, "for" performs faster
-	 *	than "do"
+	 * @method indexOf
+	 * @param {String, Number} v
+	 * @return {Number} Returns integer or null
+	 *
+	 * Performs moderately slower than "DifferenceEngine.indexFor()"
+	 * According to jsperf.com, December 2012, "for" performs faster
+	 * than "do"
 	 */
 	function indexOf(v) {
 
@@ -61,11 +71,11 @@ var ArrayEngine	= (function () {
 
 			a = ARRAY;
 
-			/*
-			 *	Seek L - R
-			 *	Either start at lowerBound or start at previous lastIndex + 1
-			 *	According to jsperf.com, December 2012, assignment
-			 *	from a ternary performs faster than "Math.min"
+			/**
+			 * Seek L - R
+			 * Either start at lowerBound or start at previous lastIndex + 1
+			 * According to jsperf.com, December 2012, assignment
+			 * from a ternary performs faster than "Math.min"
 			 */
 			i = ((l = lastIndex) === m ? lowerBound : (i = l + 1) > j ? j : i); //Math.min(j, lastIndex + 1))
 			for (i = i; i < j; i = i + 1) {
@@ -77,11 +87,11 @@ var ArrayEngine	= (function () {
 
 			}
 
-			/*
-			 *	Seek R - L
-			 *	Either start at upperBound or start at previous lastIndex - 1
-			 *	According to jsperf.com, December 2012, assignment
-			 *	from a ternary performs faster than "Math.max"
+			/**
+			 * Seek R - L
+			 * Either start at upperBound or start at previous lastIndex - 1
+			 * According to jsperf.com, December 2012, assignment
+			 * from a ternary performs faster than "Math.max"
 			 */
 			i = ((l = lastIndex) === m ? upperBound : (i = l - 1) > m ? i : m); //Math.max(m, lastIndex - 1));
 			for (i = i; i > m; i = i - 1) {
@@ -99,6 +109,18 @@ var ArrayEngine	= (function () {
 
 	}
 
+	/**
+	 * Accepts one array to be assigned to privately scoped variable
+	 * "ARRAY", which other methods will iterate. Assigns useful values
+	 * to other privately scoped variables.
+	 *
+	 * @method begin
+	 * @param {Array} array
+	 * @return {Object} Instance of "ArrayEngine"
+	 * @chainable
+	 *
+	 * Where no array has been passed, the method invokes "reset".
+	 */
 	function begin(array) {
 
 		if ((array || false).constructor === Array) {
@@ -124,6 +146,14 @@ var ArrayEngine	= (function () {
 
 	}
 
+	/**
+	 * Accepts no arguments. Resets privately scoped variables to
+	 * initial values.
+	 *
+	 * @method reset
+	 * @return {Object} Instance of "ArrayEngine"
+	 * @chainable
+	 */
 	function reset() {
 
 		i	= 0;
@@ -142,17 +172,16 @@ var ArrayEngine	= (function () {
 	}
 
 	/*
-	 *	According to jsperf.com, December 2012, the less idiosyncratic
-	 *	multiple-line ternary performs slightly better than the more idiosyncratic
-	 *	single-line ternary across a range of values and, surprisingly,
-	 *	the formulation with "Math.min()" and "Math.max()" remains competitive.
+	 * According to jsperf.com, December 2012, the less idiosyncratic
+	 * multiple-line ternary performs slightly better than the more idiosyncratic
+	 * single-line ternary across a range of values and, surprisingly,
+	 * the formulation with "Math.min()" and "Math.max()" remains competitive.
 	 *
-	 *	According to jsperf.com, December 2012 again, direct comparison of
-	 *	ternary and "Math.max" with "Math.min" formulations favours ternary
-	 *	significantly. Since "Array.slice()" is a slow operation presumably it
-	 *	consumes gains made elsewhere.
+	 * According to jsperf.com, December 2012 again, direct comparison of
+	 * ternary and "Math.max" with "Math.min" formulations favours ternary
+	 * significantly. Since "Array.slice()" is a slow operation presumably it
+	 * consumes gains made elsewhere.
 	 */
-
 	function bite(x, y) {
 
 		var pow, N, a, max, min, l, u, z;
@@ -167,16 +196,15 @@ var ArrayEngine	= (function () {
 
 			if (typeof y === "number") {
 
-				/*
-				 *	Negative zero slices lower bound 0
+				/**
+				 * Negative zero slices lower bound 0
 				 *
-				 *	Massage x and y to acceptable values
-				 *	l is lower bound 0
-				 *	u is upper bound (j - 1)
+				 * Massage x and y to acceptable values
+				 * l is lower bound 0
+				 * u is upper bound (j - 1)
 				 *
-				 *	Massage the second argument to slice
+				 * Massage the second argument to slice
 				 */
-
 				if (pow(x, m) === N && pow(y, m) === N) {
 
 					return a.slice(l).reverse();
@@ -192,15 +220,14 @@ var ArrayEngine	= (function () {
 
 			}
 
-			/*
-			 *	Negative zero slices upper bound (j - 1)
-			 *	Positive zero slices lower bound 0
+			/**
+			 * Negative zero slices upper bound (j - 1)
+			 * Positive zero slices lower bound 0
 			 *
-			 *	Massage x to an acceptable value
-			 *	l is lower bound 0
-			 *	u is upper bound (j - 1)
+			 * Massage x to an acceptable value
+			 * l is lower bound 0
+			 * u is upper bound (j - 1)
 			 */
-
 			if (pow(x, m) === N) {
 
 				return a.slice(u);
@@ -324,12 +351,12 @@ var ArrayEngine	= (function () {
 	}
 
 	/*
-	 *	While "Array.sort().pop()" performs significantly faster at identifying the "largest"
-	 *	string value than an iterative comparison, using "Array.slice()" to duplicate the array
-	 *	negates that benefit
+	 * While "Array.sort().pop()" performs significantly faster at identifying the "largest"
+	 * string value than an iterative comparison, using "Array.slice()" to duplicate the array
+	 * negates that benefit
 	 *
-	 *	According to jsperf.com, December 2012, IE and FF favour variables scoped within the
-	 *	self-executing function. Chrome outperforms them regardless
+	 * According to jsperf.com, December 2012, IE and FF favour variables scoped within the
+	 * self-executing function. Chrome outperforms them regardless
 	 */
 	max	= (function () {
 
@@ -356,12 +383,12 @@ var ArrayEngine	= (function () {
 	}());
 
 	/*
-	 *	While "Array.sort().shift()" performs significantly faster at identifying the "smallest"
-	 *	string value than an iterative comparison, using "Array.slice()" to duplicate the array
-	 *	negates that benefit
+	 * While "Array.sort().shift()" performs significantly faster at identifying the "smallest"
+	 * string value than an iterative comparison, using "Array.slice()" to duplicate the array
+	 * negates that benefit
 	 *
-	 *	According to jsperf.com, December 2012, IE and FF favour variables scoped within the
-	 *	self-executing function. Chrome outperforms them regardless
+	 * According to jsperf.com, December 2012, IE and FF favour variables scoped within the
+	 * self-executing function. Chrome outperforms them regardless
 	 */
 	min	= (function () {
 
@@ -529,7 +556,7 @@ var ArrayEngine	= (function () {
 
 	}
 
-	/*	Constructor */
+	/* Constructor */
 
 	function ArrayEngine(array) {
 
