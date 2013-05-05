@@ -55,9 +55,23 @@ var ArrayEngine	= (function () {
 	 * @param {String, Number} v
 	 * @return {Number} Returns integer or null
 	 *
-	 * Performs moderately slower than "DifferenceEngine.indexFor()"
+	 * According to jsperf, May 2013, "ArrayEngine.indexOf()" performs 
+	 * significantly faster "DifferenceEngine.indexOf()" when items sought
+	 * are neighbours, and at least three times faster than the native 
+	 * "Array.indexOf()" method in the same case.
+	 *
+	 * It performs moderately faster than 
+	 * "DifferenceEngine.indexOf()" if the same value is sought 
+	 * repeatedly (because the previous index is memoised with each 
+	 * invocation).
+	 * 
+	 * It performs signicantly slower than 
+	 * "DifferenceEngine.indexOf()" if the values sought are at opposite
+	 * ends of the array (in which case, the memoisation mechanisms slow
+	 * it down).
+	 * 
 	 * According to jsperf.com, December 2012, "for" performs faster
-	 * than "do"
+	 * than "do".
 	 */
 	function indexOf(v) {
 
@@ -72,10 +86,10 @@ var ArrayEngine	= (function () {
 			a = ARRAY;
 
 			/**
-			 * Seek L - R
-			 * Either start at lowerBound or start at previous lastIndex + 1
-			 * According to jsperf.com, December 2012, assignment
-			 * from a ternary performs faster than "Math.min"
+			 * Seek left to right.
+			 * Either start at lowerBound or start at previous lastIndex + 1.
+			 * According to jsperf.com, December 2012, assignment from a ternary 
+			 * performs faster than "Math.min".
 			 */
 			i = ((l = lastIndex) === m ? lowerBound : (i = l + 1) > j ? j : i); //Math.min(j, lastIndex + 1))
 			for (i = i; i < j; i = i + 1) {
@@ -88,10 +102,10 @@ var ArrayEngine	= (function () {
 			}
 
 			/**
-			 * Seek R - L
-			 * Either start at upperBound or start at previous lastIndex - 1
-			 * According to jsperf.com, December 2012, assignment
-			 * from a ternary performs faster than "Math.max"
+			 * Seek right to left.
+			 * Either start at upperBound or start at previous lastIndex - 1.
+			 * According to jsperf.com, December 2012, assignment from a ternary 
+			 * performs faster than "Math.max".
 			 */
 			i = ((l = lastIndex) === m ? upperBound : (i = l - 1) > m ? i : m); //Math.max(m, lastIndex - 1));
 			for (i = i; i > m; i = i - 1) {
@@ -110,10 +124,10 @@ var ArrayEngine	= (function () {
 	}
 
 	/**
-	 * Accepts one array to be assigned to privately scoped variable
-	 * "ARRAY", which other methods will iterate. Assigns useful values
-	 * to other privately scoped variables.
-	 *
+	 * Accepts one array to be assigned to the privately scoped variable
+	 * "ARRAY". Assigns useful values to other privately scoped variables
+	 * according to the properties of "ARRAY".
+	 * 
 	 * @method begin
 	 * @param {Array} array
 	 * @return {Object} Instance of "ArrayEngine"
@@ -121,26 +135,25 @@ var ArrayEngine	= (function () {
 	 *
 	 * Where no array has been passed, the method invokes "reset".
 	 */
-	function begin(array) {
+	function begin(array) { //console.log("ArrayEngine.begin()", array);
 
 		if ((array || false).constructor === Array) {
 
-			i	= 0;
+			i	= +0;
 			j	= (ARRAY = array.slice()).length;
+			m	= -1;
 
 			lowerBound	= i;
 			upperBound	= j - 1;
 
-			lastIndex	= -1;
+			lastIndex	= m;
 			lastValue	= null;
-
-			m	= -1;
 
 			return this;
 
 		} else {
 
-			return reset();
+			return this.reset();
 
 		}
 
@@ -154,18 +167,17 @@ var ArrayEngine	= (function () {
 	 * @return {Object} Instance of "ArrayEngine"
 	 * @chainable
 	 */
-	function reset() {
+	function reset() { //console.log("ArrayEngine.reset()");
 
-		i	= 0;
+		i	= +0;
 		j	= (ARRAY = []).length;
+		m	= -1; 
 
 		lowerBound	= i;
 		upperBound	= j - 1;
 
-		lastIndex	= -1;
+		lastIndex	= m;
 		lastValue	= null;
-
-		m	= -1;
 
 		return this;
 
@@ -246,9 +258,7 @@ var ArrayEngine	= (function () {
 
 	}
 
-
 	/*
-
 	function bite(x, y) {
 
 		var pow, N, a, max, min, l, u, z;
@@ -325,7 +335,7 @@ var ArrayEngine	= (function () {
 	}
 	*/
 
-	function map(method) {
+	function map(method) { //console.log("ArrayEngine.map()", method);
 
 		var z, array, a;
 
@@ -350,13 +360,19 @@ var ArrayEngine	= (function () {
 
 	}
 
-	/*
+	/**
+	 * Accepts no arguments. Returns the largest item in "ARRAY" by 
+	 * simple comparison.
+	 *
+	 * @method max
+	 * @return {Number, String} The largest item in "ARRAY"
+	 *
 	 * While "Array.sort().pop()" performs significantly faster at identifying the "largest"
 	 * string value than an iterative comparison, using "Array.slice()" to duplicate the array
-	 * negates that benefit
+	 * negates that benefit.
 	 *
 	 * According to jsperf.com, December 2012, IE and FF favour variables scoped within the
-	 * self-executing function. Chrome outperforms them regardless
+	 * self-executing function. Chrome outperforms them regardless.
 	 */
 	max	= (function () {
 
@@ -382,7 +398,13 @@ var ArrayEngine	= (function () {
 
 	}());
 
-	/*
+	/**
+	 * Accepts no arguments. Returns the smallest item in "ARRAY" by 
+	 * simple comparison.
+	 *
+	 * @method min
+	 * @return {Number, String} The smallest item in "ARRAY"
+	 *
 	 * While "Array.sort().shift()" performs significantly faster at identifying the "smallest"
 	 * string value than an iterative comparison, using "Array.slice()" to duplicate the array
 	 * negates that benefit
@@ -427,18 +449,33 @@ var ArrayEngine	= (function () {
 
 	}
 
-	function iterateForward(method) {
+	/**
+	 * Accepts one argument, "method", which is invoked within
+	 * a forward iteration (zero to length) of "ARRAY". 
+	 * 
+	 * Invocation of "method" passes the arguments "z", which 
+	 * is the current index, "a[z]", which is the item at the 
+	 * current index, and "u" which is the upper bound (or "last 
+	 * index") of "ARRAY".
+	 * 
+	 * @method iterateForward
+	 * @param {Function} method
+	 */
+	function iterateForward(method) { //console.log("ArrayEngine.iterateForward()", method);
 
-		var z, a;
+		var l, u, z, a, u;
 
 		if ((method || false).constructor === Function) {
 
-			if ((z = lowerBound) < j) {
+			z = l = lowerBound;
+			u = upperBound;
+
+			if (z < j) {
 
 				a = ARRAY;
 				do {
 
-					method.call(a, z, a[z], j);
+					method.call(a, z, a[z], u);
 
 				} while (++z < j);
 				return true;
@@ -451,18 +488,32 @@ var ArrayEngine	= (function () {
 
 	}
 
-	function iterateReverse(method) {
+	/**
+	 * Accepts one argument, "method", which is invoked within
+	 * a reverse iteration (upper bound to zero) of "ARRAY". 
+	 * 
+	 * Invocation of "method" passes the arguments "z", which 
+	 * is the current index, "a[z]", which is the item at the 
+	 * current index, and "u" which is the upper bound (or "last 
+	 * index") of "ARRAY".
+	 * 
+	 * @method iterateReverse
+	 * @param {Function} method
+	 */
+	function iterateReverse(method) { //console.log("ArrayEngine.iterateReverse()", method);
 
-		var z, a;
+		var u, z, a;
 
 		if ((method || false).constructor === Function) {
 
-			if ((z = upperBound) > m) {
+			z = u = upperBound;
+
+			if (z > m) {
 
 				a = ARRAY;
 				do {
 
-					method.call(a, z, a[z], j);
+					method.call(a, z, a[z], u);
 
 				} while (m < --z);
 				return true;
@@ -475,7 +526,69 @@ var ArrayEngine	= (function () {
 
 	}
 
-	function iterateBetween(x, y, method) {
+	/**
+	 * Accepts three arguments, "x", which is the start index, 
+	 * "y", which is the end index, and "method", which is invoked 
+	 * within a forward or reverse iteration of "ARRAY", the 
+	 * direction depending on the values of "x" and "y". 
+	 * 
+	 * Iternal calculations redefine the values of those variabes,
+	 * such that "x" becomes the start and current index of the 
+	 * iteration, and "y" becomes the end index, which may also 
+	 * be the upper bound (or "last index") of "ARRAY".
+	 *
+	 * Invocation of "method" passes the arguments "x", which 
+	 * is the current index, "a[x]", which is the item at the 
+	 * current index, and "y" which is the upper bound (or "last 
+	 * index") of "ARRAY".
+	 * 
+	 * @method iterateReverse
+	 * @param {Function} method
+	 */
+	function iterateBetween(x, y, method) { //console.log("ArrayEngine.iterateBetween()", x, y); //, method);
+
+		var a, l, u, z;
+
+		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
+
+			a	= ARRAY;
+
+			l	= lowerBound,
+			u	= upperBound;
+
+			x	= (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z;
+			y	= (u < (z = (l > (z = (y > m ? y : y + u)) ? l : z))) ? u : z;
+
+			if (x > y) {
+
+				z = y - 1;
+				do {
+
+					method.call(a, x, a[x], y);
+
+				} while (z < --x);
+				return true;
+
+			} else { 
+
+				z = y + 1;
+				do {
+
+					method.call(a, x, a[x], y);
+
+				} while (++x < z);
+				return true;
+
+			} 
+
+		}
+		
+		return true;
+
+	}
+
+	/*
+	function iterateBetween(x, y, method) { //console.log("ArrayEngine.iterateBetween()", x, y); //, method);
 
 		var l, u, z, a; //, max = Math.max, min = Math.min;
 
@@ -498,7 +611,7 @@ var ArrayEngine	= (function () {
 				} while (++x < z);
 				return true;
 
-				/*
+				*//*
 				x = max(l, x);
 				y = max(l, min(j, y));
 				z = min(j, (y + 1));
@@ -514,7 +627,7 @@ var ArrayEngine	= (function () {
 
 				} while (++x < z);
 				return true;
-				*/
+				*//*
 
 			} else {
 
@@ -530,7 +643,7 @@ var ArrayEngine	= (function () {
 				} while (z < --x);
 				return true;
 
-				/*
+				*//*
 				x = max(m, min(u, x));
 				y = max(m, y);
 				z = max(m, (y - 1));
@@ -546,7 +659,7 @@ var ArrayEngine	= (function () {
 
 				} while (z < --x);
 				return true;
-				*/
+				*//*
 
 			}
 
@@ -555,12 +668,13 @@ var ArrayEngine	= (function () {
 		return false;
 
 	}
+	*/
 
 	/* Constructor */
 
 	function ArrayEngine(array) {
 
-		return (array) ? begin(array) : reset();
+		return (array) ? this.begin(array) : this.reset();
 
 	}
 
