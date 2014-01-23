@@ -240,9 +240,13 @@ var ObjectEngine	= (function () {
 
 	function hasOwnProperty(object, key) {
 
-		if ((object || false).constructor !== Boolean) {
+		if ((object || false).constructor === Object) {
 
-			return (isNaN(key) && HASOWNPROPERTY.call(object, key));
+			return (key in object);
+
+		} else {
+
+			return HASOWNPROPERTY.call(object, key);
 
 		}
 
@@ -252,24 +256,12 @@ var ObjectEngine	= (function () {
 
 	function hasOwnProperties(object) {
 
-		if ((object || false).constructor !== Boolean) {
+		if ((object || false).constructor === Object) {
 
-			for (key in object) if (isNaN(key) && HASOWNPROPERTY.call(object, key)) return true;
-			return false;
+			return (key in object);
 
-		}
+		} else {
 
-		return false;
-
-	}
-
-	/*
-	function hasOwnProperties(object) {
-
-		var constructor = (object || false).constructor;
-		if (constructor !== Boolean) {
-
-			if (constructor === String || constructor === Number || constructor === Array || constructor === Date) return false;
 			for (key in object) if (HASOWNPROPERTY.call(object, key)) return true;
 			return false;
 
@@ -278,7 +270,6 @@ var ObjectEngine	= (function () {
 		return false;
 
 	}
-	*/
 
 	function ObjectEngine() {
 
