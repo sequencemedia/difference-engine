@@ -210,7 +210,7 @@ var ObjectEngine	= (function () {
 
 	*/
 
-	function hasProperty(key, object) {
+	function hasProperty(object, key) {
 
 		if ((object || false).constructor === Object) {
 
@@ -238,7 +238,7 @@ var ObjectEngine	= (function () {
 
 	}
 
-	function hasOwnProperty(key, object) {
+	function hasOwnProperty(object, key) {
 
 		if ((object || false).constructor !== Boolean) {
 
