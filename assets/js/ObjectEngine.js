@@ -240,11 +240,7 @@ var ObjectEngine	= (function () {
 
 	function hasOwnProperty(object, key) {
 
-		if ((object || false).constructor === Object) {
-
-			return (key in object);
-
-		} else {
+		if ((object || false).constructor !== Boolean) {
 
 			return HASOWNPROPERTY.call(object, key);
 
@@ -256,11 +252,9 @@ var ObjectEngine	= (function () {
 
 	function hasOwnProperties(object) {
 
-		if ((object || false).constructor === Object) {
+		var key;
 
-			return (key in object);
-
-		} else {
+		if ((object || false).constructor !== Boolean) {
 
 			for (key in object) if (HASOWNPROPERTY.call(object, key)) return true;
 			return false;
