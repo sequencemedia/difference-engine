@@ -218,6 +218,8 @@ var ObjectEngine	= (function () {
 
 		}
 
+		return false;
+
 	}
 
 
@@ -238,13 +240,45 @@ var ObjectEngine	= (function () {
 
 	function hasOwnProperty(key, object) {
 
-		if ((object || false).constructor === Object) {
+		if ((object || false).constructor !== Boolean) {
 
-			return HASOWNPROPERTY.call(object, key);
+			return (isNaN(key) && HASOWNPROPERTY.call(object, key));
 
 		}
 
+		return false;	
+
 	}
+
+	function hasOwnProperties(object) {
+
+		if ((object || false).constructor !== Boolean) {
+
+			for (key in object) if (isNaN(key) && HASOWNPROPERTY.call(object, key)) return true;
+			return false;
+
+		}
+
+		return false;
+
+	}
+
+	/*
+	function hasOwnProperties(object) {
+
+		var constructor = (object || false).constructor;
+		if (constructor !== Boolean) {
+
+			if (constructor === String || constructor === Number || constructor === Array || constructor === Date) return false;
+			for (key in object) if (HASOWNPROPERTY.call(object, key)) return true;
+			return false;
+
+		}
+
+		return false;
+
+	}
+	*/
 
 	function ObjectEngine() {
 
