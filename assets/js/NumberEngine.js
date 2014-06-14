@@ -141,12 +141,15 @@ var NumberEngine	= (function () {
 	Temperature.prototype.fromFToC = fromFToC;
 	Temperature.prototype.fromCToF = fromCToF;
 	Temperature.prototype.convert = function (amount) {
-		throw "Not implemented";
 		return {
-			from: function (F) {
-				return {
-					to: function (T) {
-					}
+			fromF: {
+				toC: function () {
+					return fromFToC(amount);
+				}
+			},
+			fromC: {
+				toF: function () {
+					return fromCToF(amount);
 				}
 			}
 		}
@@ -317,15 +320,110 @@ var NumberEngine	= (function () {
 	Weight.prototype.fromStToOz = fromStToOz;
 
 	Weight.prototype.convert = function (amount) {
-		throw "Not implemented";
 		return {
-			from: function (F) {
-				return {
-					to: function (T) {
-					}
+			fromKg: {
+				toGr: function () {
+					return fromKgToGr(amount);
+				},
+				toMg: function () {
+					return fromKgToMg(amount);
+				},
+				toOz: function () {
+					return fromKgToOz(amount);
+				},
+				toLb: function () {
+					return fromKgToLb(amount);
+				},
+				toSt: function () {
+					return fromKgToSt(amount);
+				}
+			},
+			fromGr: {
+				toKg: function () {
+					return fromGrToKg(amount);
+				},
+				toMg: function () {
+					return fromGrToMg(amount);
+				},
+				toOz: function () {
+					return fromGrToOz(amount);
+				},
+				toLb: function () {
+					return fromGrToLb(amount);
+				},
+				toSt: function () {
+					return fromGrToSt(amount);
+				}
+			},
+			fromMg: {
+				toKg: function () {
+					return fromMgToKg(amount);
+				},
+				toGr: function () {
+					return fromMgToGr(amount);
+				},
+				toOz: function () {
+					return fromMgToOz(amount);
+				},
+				toLb: function () {
+					return fromMgToLb(amount);
+				},
+				toSt: function () {
+					return fromMgToSt(amount);
+				}
+			},
+			fromOz: {
+				toKg: function () {
+					return fromOzToKg(amount);
+				},
+				toGr: function () {
+					return fromOzToGr(amount);
+				},
+				toMg: function () {
+					return fromOzToMg(amount);
+				},
+				toLb: function () {
+					return fromOzToLb(amount);
+				},
+				toSt: function () {
+					return fromOzToSt(amount);
+				}
+			},
+			fromLb: {
+				toKg: function () {
+					return fromLbToKg(amount);
+				},
+				toGr: function () {
+					return fromLbToGr(amount);
+				},
+				toMg: function () {
+					return fromLbToMg(amount);
+				},
+				toOz: function () {
+					return fromLbToOz(amount);
+				},
+				toSt: function () {
+					return fromLbToSt(amount);
+				}
+			},
+			fromSt: {
+				toKg: function () {
+					return fromStToKg(amount);
+				},
+				toGr: function () {
+					return fromStToGr(amount);
+				},
+				toMg: function () {
+					return fromStToMg(amount);
+				},
+				toLb: function () {
+					return fromStToLb(amount);
+				},
+				toOz: function () {
+					return fromStToOz(amount);
 				}
 			}
-		}
+		};
 	}
 
 	/*
@@ -449,24 +547,82 @@ var NumberEngine	= (function () {
 	Distance.prototype.fromYdToMi = fromYdToMi;
 
 	Distance.prototype.convert = function (amount) {
-		throw "Not implemented";
 		return {
-			from: function (F) {
-				return {
-					to: function (T) {
-					}
+			fromKm: {
+				toMt: function () {
+					return fromKmToMt(amount);
+				},
+				toCm: function () {
+					return fromKmToCm(amount);
+				},
+				toMm: function () {
+					return fromKmToMm(amount);
 				}
-			}
-		}
-	}
-
-	function convert(amount) {
-		throw "Not implemented";
-		return {
-			from: function (F) {
-				return {
-					to: function (T) {
-					}
+			},
+			fromMt: {
+				toKm: function () {
+					return fromMtToKm(amount);
+				},
+				toCm: function () {
+					return fromMtToCm(amount);
+				},
+				toMm: function () {
+					return fromMtToMm(amount);
+				}
+			},
+			fromCm: {
+				toKm: function () {
+					return fromCmToKm(amount);
+				},
+				toMt: function () {
+					return fromCmToMt(amount);
+				},
+				toMm: function () {
+					return fromCmToMm(amount);
+				}
+			},
+			fromMm: {
+				toKm: function () {
+					return fromMmToKm(amount);
+				},
+				toMt: function () {
+					return fromMmToMt(amount);
+				},
+				toCm: function () {
+					return fromMmToCm(amount);
+				}
+			},
+			fromIn: {
+				toFt: function () {
+					return fromInToFt(amount);
+				},
+				toYd: function () {
+					return fromInToYd(amount);
+				},
+				toMi: function () {
+					return fromInToMi(amount);
+				}
+			},
+			fromFt: {
+				toIn: function () {
+					return fromFtToIn(amount);
+				},
+				toYd: function () {
+					return fromFtToYd(amount);
+				},
+				toMi: function () {
+					return fromFtToMi(amount);
+				}
+			},
+			fromYd: {
+				toIn: function () {
+					return fromYdToIn(amount);
+				},
+				toFt: function () {
+					return fromYdToFt(amount);
+				},
+				toMi: function () {
+					return fromYdToMi(amount);
 				}
 			}
 		}
@@ -555,7 +711,9 @@ var NumberEngine	= (function () {
 	NumberEngine.prototype.Weight = Weight;
 	NumberEngine.prototype.Distance = Distance;
 
-	NumberEngine.prototype.convert = convert;
+	NumberEngine.prototype.convert = function (amount) {
+		throw "Not implemented";
+	};
 
 	return NumberEngine;
 
