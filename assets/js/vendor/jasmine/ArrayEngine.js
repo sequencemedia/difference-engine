@@ -1,3 +1,5 @@
+describe("ArrayEngine", function () {
+
 	var ARRAY,
 		arrayEngine;
 
@@ -466,3 +468,5 @@
 		});
 
 	});
+
+});
