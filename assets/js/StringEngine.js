@@ -782,19 +782,14 @@ var StringEngine	= (function () {
 		truncate, encode, decode;
 
 	function charAt(i, s) {
-
 		var v, a, x, m, c;
-
 		if (typeof i === "number" && typeof s === "string") {
-
 			/*
 			 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
 			 */
 			v = s.charAt(i);
 			a = A;
-
 			if (v === a) {
-
 				/*
 				 *	The character at position i is an ampersand. Examine the rest of the string with an HTML
 				 *	encoding pattern regular expression
@@ -802,24 +797,18 @@ var StringEngine	= (function () {
 				x = X;
 				x.lastIndex = i;
 				m = x.exec(s);
-
 				if (m === null) {
-
 					/*
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
 					 *	an ampersand
 					 */
 					return a;
-
 				} else {
-
 					/*
 					 *	The regular expression must have a match. Retrieve it
 					 */
 					v = m.shift();
-
 					if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c;
-
 					/*
 					 *	Valid patterns are:
 					 *		&#1; ... etc
@@ -829,52 +818,34 @@ var StringEngine	= (function () {
 					 *	an HTML name or it is an HTML code that has not been seen before
 					 */
 					x = XC;
-
 					if (x.test(v)) {
-
 						x = XNUMBER;
 						i = parseInt(x.exec(v).shift(), 10);
-
 						return FROMHTMLCODE[v] = String.fromCharCode(i);
-
 					} else {
-
 						return a;
-
 					}
-
 				}
-
 			} else {
-
 				/*
 				 * The character at position i is not an ampersand, so return it
 				 */
 				return v;
-
 			}
-
 		}
-
 		return null;
-
 	}
 
 	function charCodeAt(i, s) {
-
 		var v, n, x, m, c;
-
 		if (typeof i === "number" && typeof s === "string") {
-
 			/*
 			 *	"String.charCodeAt()" is fast so retrieve the character at position i and compare to
 			 *	the index of ampersand
 			 */
 			v = s.charCodeAt(i);
 			n = N;
-
 			if (v === n) {
-
 				/*
 				 *	The character at position i is an ampersand. Examine the rest of the string with an HTML
 				 *	encoding pattern regular expression
@@ -882,122 +853,84 @@ var StringEngine	= (function () {
 				x = X;
 				x.lastIndex = i;
 				m = x.exec(s);
-
 				if (m === null) {
-
 					/*
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
 					 *	the index of ampersand
 					 */
 					return n;
-
 				} else {
-
-
 					/*
 					 *	The regular expression must have a match. Retrieve it
 					 */
 					v = m.shift();
-
 					if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c.charCodeAt(0);
-
 					return n;
-
 				}
-
 			} else {
-
 				/*
 				 * The index at position i is not the index of an ampersand, so return the index
 				 */
 				return v;
-
 			}
-
 		}
-
 		return null;
-
-
 	}
 
 	/*
 	 *	Either code or name
 	 */
 	function htmlAt(i, s) {
-
 		var v, a, x, m;
-
 		if (typeof i === "number" && typeof s === "string") {
-
 			/*
 			 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
 			 */
 			v = s.charAt(i);
 			a = A;
-
 			if (v === a) {
-
 				x = X;
 				x.lastIndex = i;
 				m = x.exec(s);
-
 				/*
 				 *	Either the adjacent characters do match the HTML encoding pattern so execution can return
 				 *	an ampersand or the adjacent characters do match so execution can return them
 				 */
 				return (m === null) ? a : m.shift();
-
 			} else {
-
 				return v;
-
 			}
-
 		}
-
 		return null;
-
 	}
 
 	/*
 	 *	Code, ignore name
 	 */
 	function htmlCodeAt(i, s) {
-
-		var v, a, x, m;
-
+		var v, a, x, m, c;
 		if (typeof i === "number" && typeof s === "string") {
-
 			/*
 			 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
 			 */
 			v = s.charAt(i);
 			a = A;
-
 			if (v === a) {
-
 				x = XCODE;
 				x.lastIndex = i;
 				m = x.exec(s);
-
 				if (m === null) {
-
 					/*
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
 					 *	an ampersand
 					 */
 					return a;
-
 				} else {
-
 					/*
 					 *	The regular expression must have a match. Retrieve it
 					 */
 					v = m.shift();
-
 					if (typeof (c = FROMHTMLCODE[v]) === "string") return c;
-
 					/*
 					 *	Valid patterns are:
 					 *		&#1; ... etc
@@ -1007,108 +940,69 @@ var StringEngine	= (function () {
 					 *	an HTML name or it is an HTML code that has not been seen before
 					 */
 					x = XC;
-
 					if (x.test(v)) {
-
 						x = XNUMBER;
 						i = parseInt(x.exec(v).shift(), 10);
-
 						return FROMHTMLCODE[v] = String.fromCharCode(i);
-
 					} else {
-
 						return a;
-
 					}
-
 				}
-
 			} else {
-
 				return v;
-
 			}
-
 		}
-
 		return null;
-
 	}
 
 	/*
 	 *	Name, ignore code
 	 */
 	function htmlNameAt(i, s) {
-
-		var v, a, x, m;
-
+		var v, a, x, m, c;
 		if (typeof i === "number" && typeof s === "string") {
-
 			/*
 			 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
 			 */
 			v = s.charAt(i);
 			a = A;
-
 			if (v === a) {
-
 				x = XNAME;
 				x.lastIndex = i;
 				m = x.exec(s);
-
 				if (m === null) {
-
 					/*
 					 *	The adjacent characters do match the HTML encoding pattern so execution can return
 					 *	an ampersand
 					 */
 					return a;
-
 				} else {
-
 					/*
 					 *	The regular expression must have a match. Retrieve it
 					 */
 					v = m.shift();
-
 					if (typeof (c = FROMHTMLNAME[v]) === "string") return c;
-
 					return a;
-
 				}
-
 			} else {
-
 				return v;
-
 			}
-
 		}
-
 		return null;
-
 	}
 
 	function charOf(s) {
-
 		var v, a, x, m, c, i;
-
 		if (typeof s === "string") {
-
 			if (s.length < 4) {
-
 				return s.charAt(0);
-
 			} else {
-
 				/*
 				 *	"String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
 				 */
 				v = s.charAt(0);
 				a = A;
-
 				if (v === A) {
-
 					/*
 					 *	The character at position i is an ampersand. Examine the rest of the string with an HTML
 					 *	encoding pattern regular expression
@@ -1116,24 +1010,18 @@ var StringEngine	= (function () {
 					x = X;
 					x.lastIndex = 0;
 					m = x.exec(s);
-
 					if (m === null) {
-
 						/*
 						 *	The adjacent characters do match the HTML encoding pattern so execution can return
 						 *	an ampersand
 						 */
 						return a;
-
 					} else {
-
 						/*
 						 *	The regular expression must have a match. Retrieve it
 						 */
 						v = m.shift();
-
 						if (typeof (c = FROMHTMLNAME[v]) === "string" || typeof (c = FROMHTMLCODE[v]) === "string") return c;
-
 						/*
 						 *	Valid patterns are:
 						 *		&#1; ... etc
@@ -1143,381 +1031,252 @@ var StringEngine	= (function () {
 						 *	an HTML name or it is an HTML code that has not been seen before
 						 */
 						x = XC;
-
 						if (x.test(v)) {
-
 							x = XNUMBER;
 							i = parseInt(x.exec(v).shift(), 10);
-
 							return FROMHTMLCODE[v] = String.fromCharCode(i);
-
 						} else {
-
 							return a;
-
 						}
-
 					}
-
 				} else {
-
 					/*
 					 * The character at position i is not an ampersand, so return it
 					 */
 					return v;
-
 				}
-
 			}
-
 		}
-
 		return null;
-
 	}
 
 	function htmlOf(s) {
-
-		throw "Not implemented";
-		return null;
-
+		throw "Not implemented"; //return null;
 	}
 
 	/*
 	 *	Character from index
 	 */
 	function fromCharCode(i) {
-
 		var s;
-
 		return (typeof i === "number") ? (typeof (s = FROMCHARCODE[i]) === "string") ? s : FROMCHARCODE[i] = String.fromCharCode(i) : null;
-
 	}
 
 	/*
 	 *	Character from HTML code
 	 */
 	function fromHtmlCode(s) {
-
 		var c, i, xc = XC, xn = XNUMBER, a = A;
-
 		return (typeof s === "string") ? (typeof (c = FROMHTMLCODE[s]) === "string") ? c : xc.test(s) ? isNaN(i = parseInt(xn.exec(s).shift(), 10)) ? a : FROMHTMLCODE[s] = String.fromCharCode(i) : a : null;
-
 	}
 
 	/*
 	 *	Character from HTML name
 	 */
 	function fromHtmlName(s) {
-
 		var c;
-
 		return (typeof s === "string") ? (typeof (c = FROMHTMLNAME[s]) === "string") ? c : s : null;
-
 	}
 
 	/*
 	 * Characters to HTML code
 	 */
 	function toHtmlCode(s) {
-
 		var i, j, c, h, r;
-
 		if (typeof s === "string") {
-
 			i = 0;
 			j = s.length;
 			r = "";
-
 			for (i = i; i < j; i = i + 1) {
-
 				c = s.charAt(i);
 				h = (typeof (h = HTMLCODEFROM[c]) === "string") ? h : c;
-				r += h;
-
+				r = r + h;
 			}
-
 			return r;
-
 		}
-
 		return null;
-
 	}
 
 	/*
 	 * Characters to HTML name
 	 */
 	function toHtmlName(s) {
-
 		var i, j, c, h, r;
-
 		if (typeof s === "string") {
-
 			i = 0;
 			j = s.length;
 			r = "";
-
 			for (i = i; i < j; i = i + 1) {
-
 				c = s.charAt(i);
 				h = (typeof (h = HTMLNAMEFROM[c]) === "string") ? h : c;
-				r += h;
-
+				r = r + h;
 			}
-
 			return r;
-
 		}
-
 		return null;
-
 	}
 
 	/*
 	 *	HTML code from character
 	 */
 	function htmlCodeFrom(s) {
-
 		var c;
-
 		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLCODEFROM[s]) === "string") ? c : s : null;
-
 	}
 
 	/*
 	 *	HTML name from chracter
 	 */
 	function htmlNameFrom(s) {
-
 		var c;
-
 		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLNAMEFROM[s]) === "string") ? c : s : null;
-
 	}
 
 	/*
 	 *	As "htmlCodeFrom"
 	 */
 	function htmlCodeOf(s) {
-
 		var c;
-
 		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLCODEFROM[s]) === "string") ? c : s : null;
-
 	}
 
 	/*
 	 *	As "htmlNameFrom"
 	 */
 	function htmlNameOf(s) {
-
 		var c;
-
 		return (typeof s === "string" && s.length === 1) ? (typeof (c = HTMLNAMEFROM[s]) === "string") ? c : s : null;
-
 	}
 
 	function fromDecToHex(v) {
-
 		return (typeof v === "number") ? v.toString(HEX) : (typeof v === "string") ? isNaN(v = parseInt(v, DEC)) ? null : v.toString(HEX) : null;
-
 	}
 
 	function fromDecToOct(v) {
-
 		return (typeof v === "number") ? v.toString(OCT) : (typeof v === "string") ? isNaN(v = parseInt(v, DEC)) ? null : v.toString(OCT) : null;
-
 	}
 
 	function truncate() {
-
-		throw "Not implemented";
-		return null;
-
+		throw "Not implemented"; //return null;
 	}
 
 	/*
 
 	truncate = (function () {
-
 		var prefix = "\u002e\u002e\u002e\u0020",
 			suffix = "\u0020\u002e\u002e\u002e",
 			P = 4,
 			S = 4,
 			W = "\u0084",
 			V, x, y, L, R, s, z;
-
 		return function (value, i, j) {
-
 			if (typeof value === "string") {
-
 				if ((V = value.length) > 0) {
-
 					x = typeof j === "number" ? typeof i === "number" ? Math.min(Math.max(i, 0), Math.max(j, 0)) : 0 : 0;
 					y = typeof i === "number" ? typeof j === "number" ? Math.max(Math.max(i, 0), Math.max(j, 0)) : i : value.length;
-
 					L = x > 0;
 					R = y < (V - x);
-
 					y = L ? R ? (y - (P + S)) - j : (y - P) + i : R ? (y - S) : y;
-
 					s = (s = (s = value.slice(x, y)).slice(L ? (z = s.indexOf(W)) > 0 ? z : 0 : 0)).slice(0, R ? (z = s.lastIndexOf(W)) > 0 ? z : s.length : s.length);
-
 					return L ? R ? prefix + s + suffix : prefix + s : R ? s + suffix : s;
-
 				}
-
 			}
-
 			return null;
-
 		}
-
 	}());
 
 	*/
 
 	encode = "btoa" in window ? function (key) {
-
 		return btoa(key);
-
 	} : (function () {
-
 		var map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 			char43 = "\u002b",
 			char47 = "\u002f",
 			char61 = "\u002f";
-
 		return function (key) {};
-
 	}());
 
 	decode = "atob" in window ? function (key) {
-
 		return atob(key);
-
 	} : (function () {
-
 		var map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 			char43 = "\u002b",
 			char47 = "\u002f",
 			char61 = "\u003d",
 			enc1, enc2, enc3, enc4, expression = /[^A-Za-z0-9\+\/\=]/;
-
 		return function (key) {
-
 			var value = "",
 				j, n;
-
 			if ((key = key.replace(/-/g, char43).replace(/_/g, char61).replace(/\./g, char47)).match(expression)) {
 				return null;
 			}
-
 			j = key.length;
 			n = 0;
-
 			do {
-
 				enc1 = map.indexOf(key.charAt(n + 0));
 				enc2 = map.indexOf(key.charAt(n + 1));
 				enc3 = map.indexOf(key.charAt(n + 2));
 				enc4 = map.indexOf(key.charAt(n + 3));
-				value += String.fromCharCode((enc1 << 2) | (enc2 >> 4));
-
+				value = value + String.fromCharCode((enc1 << 2) | (enc2 >> 4));
 				if (enc3 !== 64) {
 					value = value + String.fromCharCode(((enc2 & 15) << 4) | (enc3 >> 2));
 				}
-
 				if (enc4 !== 64) {
 					value = value + String.fromCharCode((((enc3 & 3) << 6) | enc4));
 				}
-
 				n = n + 4;
-
 			} while (j > n);
-
 			return value;
-
-		}
+		};
 
 	}());
 
 	function reverse(string) {
-
 		var s, i;
-
 		if (typeof string === "string") {
-
-				s = "";
-				i = string.length;
-
-				/*
-				 *	According to jsperf.com, April 2013, concatenating "s" with operator "+=" is favoured
-				 *	by a small measure in Safari but not elsewhere. Similarly, decrementing "i" on a separate line is
-				 *	favoured by FF by a larger measure: the formulation I have selected is a reasonable compromise.
-				 */
-				do {
-
-					s = s + string.charAt(--i);
-
-				} while (i > 0);
-
-				return s;
-
+			s = "";
+			i = string.length;
+			/*
+			 *	According to jsperf.com, April 2013, concatenating "s" with operator "+=" is favoured
+			 *	by a small measure in Safari but not elsewhere. Similarly, decrementing "i" on a separate line is
+			 *	favoured by FF by a larger measure: the formulation I have selected is a reasonable compromise.
+			 */
+			do {
+				s = s + string.charAt(--i);
+			} while (i > 0);
+			return s;
 		}
-
 		return null;
-
 	}
 
 	/*
 
 	function reverse(string) {
-
 		var s, i;
-
 		if (typeof string === "string") {
-
-				s = "";
-				i = string.length;
-
-				do {
-
-					s += string.charAt(--i);
-
-				} while (i > 0);
-
-				return s;
-
+			s = "";
+			i = string.length;
+			do {
+				s += string.charAt(--i);
+			} while (i > 0);
+			return s;
 		}
-
 		return null;
-
 	}
 
 	function reverse(string) {
-
 		var s, i;
-
 		if (typeof string === "string") {
-
-				s = "";
-				i = string.length;
-
-				do {
-
-					i = i - 1;
-					s = s + string.charAt(i);
-
-				} while (i > 0);
-
-				return s;
-
+			s = "";
+			i = string.length;
+			do {
+				i = i - 1;
+				s = s + string.charAt(i);
+			} while (i > 0);
+			return s;
 		}
-
 		return null;
-
 	}
 
 	*/
@@ -1528,43 +1287,29 @@ var StringEngine	= (function () {
 	 *	are accessed within unsparse sections.
 	 */
 	function extend(RANGES) {
-
 		var range, i, j;
-
 		if ((RANGES || false).constructor === Array) {
-
 			while (((range = RANGES.shift()) || false).constructor === Object) {
-
-				i 	= (typeof (i = range.from) === "number") ? i : 0;
-				j 	= (typeof (j = range.to) === "number") ? j : i + 1;
-
+				i	= (typeof (i = range.from) === "number") ? i : 0;
+				j	= (typeof (j = range.to) === "number") ? j : i + 1;
 				do {
-
 					/*
 					 *	Arrays coerce numbers represented as strings to numbers
 					 *	so numbers represented as strings cannot be used as keys
 					 */
 					FROMCHARCODE[i] = String.fromCharCode(i);
-
 				} while (i++ < j);
-
 			}
-
 			return true;
-
 		}
-
 		return null;
-
 	}
 
 	function StringEngine() {
 
 		function initialise(instance) {
-
 			extend([ { from: 32, to: 126 }, { from: 150, to: 151 }, { from: 160, to: 255 } ]);
 			return instance;
-
 		}
 
 		return stringEngine || (this instanceof StringEngine ? stringEngine = initialise(this) : new StringEngine());
@@ -1604,7 +1349,7 @@ var StringEngine	= (function () {
 
 	StringEngine.prototype.reverse	= reverse;
 
-	StringEngine.prototype.extend 	= extend;
+	StringEngine.prototype.extend	= extend;
 
 	return StringEngine;
 

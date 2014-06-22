@@ -47,8 +47,7 @@ var NumberEngine	= (function () {
 		 *	No implementation for negative fibonacci numbers (yet)
 		 */
 		function negative(n) {
-			throw "Not implemented";
-			return 0;
+			throw "Not implemented"; //return 0;
 		}
 
 		function positive(n) {
@@ -67,11 +66,11 @@ var NumberEngine	= (function () {
 
 	hav = (function () {
 
-		var sin 	= Math.sin,
-			cos 	= Math.cos,
+		var sin		= Math.sin,
+			cos		= Math.cos,
 			atan2	= Math.atan2,
 			sqrt	= Math.sqrt,
-			PI 		= Math.PI;
+			PI		= Math.PI;
 
 		function radians(n) {
 			return (n * PI) / 180;
@@ -86,13 +85,13 @@ var NumberEngine	= (function () {
 				lng,
 				a, c;
 			if ((points || false).constructor === Object) {
-				to 		= points.to;
-				from 	= points.from;
+				to		= points.to;
+				from	= points.from;
 				if ((to || false).constructor === Object && (from || false).constructor === Object) {
-					LAT 	= radians(to.lat - from.lat);
-					LNG 	= radians(to.lng - from.lng);
-					lat 	= LAT / 2;
-					lng 	= LNG / 2;
+					LAT		= radians(to.lat - from.lat);
+					LNG		= radians(to.lng - from.lng);
+					lat		= LAT / 2;
+					lng		= LNG / 2;
 					a = sin(lat) * sin(lat) + cos(radians(from.lat)) * cos(radians(to.lat)) * sin(lng) * sin(lng),
 					c = 2 * atan2(sqrt(a), sqrt(1 - a));
 					return (radius * c).toFixed(2);
@@ -109,8 +108,8 @@ var NumberEngine	= (function () {
 				mi: function () {
 					return haversine(points, 3963);
 				}
-			}
-		}
+			};
+		};
 
 	}());
 
@@ -152,8 +151,8 @@ var NumberEngine	= (function () {
 					return fromCToF(amount);
 				}
 			}
-		}
-	}
+		};
+	};
 
 	/*
 	 * Weight
@@ -424,7 +423,7 @@ var NumberEngine	= (function () {
 				}
 			}
 		};
-	}
+	};
 
 	/*
 	 * Distance
@@ -625,8 +624,8 @@ var NumberEngine	= (function () {
 					return fromYdToMi(amount);
 				}
 			}
-		}
-	}
+		};
+	};
 
 	function NumberEngine() {
 		return numberEngine || (this instanceof NumberEngine ? numberEngine = this : new NumberEngine());

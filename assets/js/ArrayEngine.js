@@ -394,7 +394,7 @@ var ArrayEngine	= (function () {
 
 			return isNaN(z = max.apply((a = ARRAY), a)) ? MAX(a) : z; //array.slice().sort().pop() : z;
 
-		}
+		};
 
 	}());
 
@@ -432,7 +432,7 @@ var ArrayEngine	= (function () {
 
 			return isNaN(z = min.apply((a = ARRAY), a)) ? MIN(a) : z; //array.slice().sort().shift() : z;
 
-		}
+		};
 
 	}());
 
@@ -440,8 +440,7 @@ var ArrayEngine	= (function () {
 
 		if ((method || false).constructor === Function) {
 
-			throw "Not implimented";
-			return true;
+			throw "Not implimented"; //return true;
 
 		}
 
@@ -463,7 +462,7 @@ var ArrayEngine	= (function () {
 	 */
 	function iterateForward(method) { //console.log("ArrayEngine.iterateForward()", method);
 
-		var l, u, z, a, u;
+		var l, z, u, a;
 
 		if ((method || false).constructor === Function) {
 
@@ -553,7 +552,7 @@ var ArrayEngine	= (function () {
 
 			a	= ARRAY;
 
-			l	= lowerBound,
+			l	= lowerBound;
 			u	= upperBound;
 
 			/*
@@ -694,7 +693,7 @@ var ArrayEngine	= (function () {
 	ArrayEngine.prototype.max		= max;
 	ArrayEngine.prototype.min		= min;
 
-	ArrayEngine.prototype.iterate 	= iterate;
+	ArrayEngine.prototype.iterate	= iterate;
 	ArrayEngine.prototype.iterateForward	= iterateForward;
 	ArrayEngine.prototype.iterateReverse	= iterateReverse;
 	ArrayEngine.prototype.iterateBetween	= iterateBetween;

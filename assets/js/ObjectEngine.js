@@ -24,51 +24,34 @@ var ObjectEngine	= (function () {
 	"use strict";
 
 	var objectEngine,
-
-		HASOWNPROPERTY = Object.prototype.hasOwnProperty,
-
+		has = Object.prototype.hasOwnProperty,
 		mix;
 
 	mix = (function () {
 
 		function O(a, o) {
-
 			var k, v;
-
 			for (k in o) {
-
 				v = o[k];
 				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
 				a[k] = v;
-
 			}
-
 			return a;
-
 		}
 
 		function A(a, o) {
-
 			var v;
-
 			o = o.slice();
-
 			while (o.length > 0) {
-
 				v = o.shift();
 				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
 				a.push(v);
-
 			}
-
 			return a;
-
 		}
 
 		return function (alpha, omega) {
-
 			var k, v;
-
 			/*
 			 *	According to jsperf.com, December 2012, Chrome and Maxthon favour the duplicated code, below, rather than
 			 *	immediately invoking "O()" or "A()"
@@ -77,50 +60,30 @@ var ObjectEngine	= (function () {
 			 *	condition then invoking "O()" or "A()" with a ternary
 			 */
 			if ((alpha || false).constructor === Object) {
-
 				if ((omega || false).constructor === Object) {
-
 					for (k in omega) {
-
 						v = omega[k];
 						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
 						alpha[k] = v;
-
 					}
-
 					return alpha;
-
 				}
-
 				return null;
-
 			}
-
 			if ((alpha || false).constructor === Array) {
-
 				if ((omega || false).constructor === Array) {
-
 					omega = omega.slice();
-
 					while (omega.length > 0) {
-
 						v = omega.shift();
 						v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
 						alpha.push(v);
-
 					}
-
 					return alpha;
-
 				}
-
 				return null;
-
 			}
-
 			return null;
-
-		}
+		};
 
 	}());
 
@@ -129,81 +92,49 @@ var ObjectEngine	= (function () {
 	mix = (function () {
 
 		function O(a, o) {
-
 			var k, v;
-
 			for (k in o) {
-
 				v = o[k];
 				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
 				a[k] = v;
-
 			}
-
 			return a;
-
 		}
 
 		function A(a, o) {
-
 			var v;
-
 			while (o.length > 0) {
-
 				v = o.shift();
 				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
 				a.push(v);
-
 			}
-
 			return a;
-
 		}
 
 		return function (v1, v2, v3) {
-
 			var alpha, omega, k, v;
-
 			if (v1 === true) {
-
 				alpha = v2;
 				omega = v3;
-
 				if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
-
 					for (k in omega) {
-
 						v = omega[k];
 						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
 						alpha[k] = v;
-
 					}
-
 					return alpha;
-
 				}
-
 			} else {
-
 				alpha = v1;
 				omega = v2;
-
 				if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
-
 					for (k in omega) {
-
 						alpha[k] = omega[k];
-
 					}
-
 					return alpha;
-
 				}
-
 			}
-
 			return null;
-
 		}
 
 	}());
@@ -211,68 +142,43 @@ var ObjectEngine	= (function () {
 	*/
 
 	function hasProperty(object, key) {
-
 		if ((object || false).constructor === Object) {
-
 			return (key in object);
-
 		}
-
 		return false;
-
 	}
 
 
 	function hasProperties(object) {
-
 		var key;
-
 		if ((object || false).constructor === Object) {
-
 			for (key in object) return true;
 			return false;
-
 		}
-
 		return false;
-
 	}
 
 	function hasOwnProperty(object, key) {
-
 		if ((object || false).constructor !== Boolean) {
-
-			return HASOWNPROPERTY.call(object, key);
-
+			return has.call(object, key);
 		}
-
-		return false;	
-
+		return false;
 	}
 
 	function hasOwnProperties(object) {
-
 		var key;
-
 		if ((object || false).constructor !== Boolean) {
-
-			for (key in object) if (HASOWNPROPERTY.call(object, key)) return true;
+			for (key in object) if (has.call(object, key)) return true;
 			return false;
-
 		}
-
 		return false;
-
 	}
 
 	function ObjectEngine() {
-
 		return objectEngine || (this instanceof ObjectEngine ? objectEngine = this : new ObjectEngine());
-
 	}
 
 	ObjectEngine.prototype.mix				= mix;
-
 	ObjectEngine.prototype.hasProperty		= hasProperty;
 	ObjectEngine.prototype.hasProperties	= hasProperties;
 	ObjectEngine.prototype.hasOwnProperty	= hasOwnProperty;

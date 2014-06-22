@@ -24,9 +24,7 @@ var DifferenceEngine	= (function () {
 	"use strict";
 
 	var mapKey,
-
 		sequence,
-
 		extract;
 
 	/*
@@ -42,7 +40,6 @@ var DifferenceEngine	= (function () {
 	 *	as at 24 November 2012.
 	 */
 	function indexOf(array, key) {
-
 		var i = 0,
 			j = array.length;
 		/*
@@ -74,7 +71,6 @@ var DifferenceEngine	= (function () {
 		 *	native array method because "indexOf" performs better than "array.indexOf()".
 		 */
 		function L(i, alpha, omega) {
-
 			var j = 0, n;
 			/*
 			 *	According to jsperf.com, December 2012, "while" performs
@@ -86,7 +82,6 @@ var DifferenceEngine	= (function () {
 				}
 			}
 			return null;
-
 		}
 
 		/*
@@ -104,7 +99,6 @@ var DifferenceEngine	= (function () {
 		 *	native array method because "indexOf" performs better than "array.indexOf()".
 		 */
 		function R(i, alpha, omega) {
-
 			var j = (alpha.length - 1), n;
 			/*
 			 *	According to jsperf.com, December 2012, "while" performs
@@ -116,7 +110,6 @@ var DifferenceEngine	= (function () {
 				}
 			}
 			return null;
-
 		}
 
 		/*
@@ -131,19 +124,13 @@ var DifferenceEngine	= (function () {
 		 *		"D"
 		 */
 		return function (alpha, omega, key) {
-
 			var index,
 				total,
 				value;
-
 			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
-
 				if ((index = indexOf(alpha, key)) !== null) {
-
 					total = omega.length;
-
 					return (index === 0) ? {
-
 							index: 0,
 							total: (total + 1),
 							first: true,
@@ -151,9 +138,7 @@ var DifferenceEngine	= (function () {
 							only: total === 0,
 							alpha: null,
 							omega: omega[0] || null
-
 						} : ((value = L(index, alpha, omega, key)) !== null) ? {
-
 								index: (value + 1),
 								total: (total + 1),
 								first: total === 0,
@@ -161,9 +146,7 @@ var DifferenceEngine	= (function () {
 								only: total === 0,
 								alpha: omega[value] || null,
 								omega: omega[value + 1] || null
-
 							} : ((value = R(index, alpha, omega, key)) !== null) ? {
-
 									index: value,
 									total: (total + 1),
 									first: value === 0,
@@ -171,9 +154,7 @@ var DifferenceEngine	= (function () {
 									only: total === 0,
 									alpha: omega[value - 1] || null,
 									omega: omega[value] || null
-
 								} : (index < total) ? {
-
 										index: 0,
 										total: (total + 1),
 										first: true,
@@ -181,9 +162,7 @@ var DifferenceEngine	= (function () {
 										only: total === 0,
 										alpha: null,
 										omega: omega[0] || null
-
 									} : {
-
 										index: total,
 										total: (total + 1),
 										first: total === 0,
@@ -191,14 +170,10 @@ var DifferenceEngine	= (function () {
 										only: total === 0,
 										alpha: omega[total - 1] || null,
 										omega: null
-
 									};
-
 				}
-
 			}
 			return null;
-
 		};
 
 	}());
@@ -226,7 +201,6 @@ var DifferenceEngine	= (function () {
 		 *		[ ]
 		 */
 		function extract(alpha, omega, extracted) {
-
 			var i = 0,
 				j = alpha.length,
 				n = 0,
@@ -239,14 +213,11 @@ var DifferenceEngine	= (function () {
 					extracted.push(ALPHA);
 					n = ((n = indexOf(omega, ALPHA)) !== null) ? n + 1 : i + 1;
 				}
-
 			}
 			return extracted;
-
 		}
 
 		return function (alpha, omega) {
-
 			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
 				return extract(alpha, omega, []);
 			}
@@ -267,7 +238,6 @@ var DifferenceEngine	= (function () {
 		 *		"A"
 		 */
 		function hasKey(array, key) {
-
 			var i = 0,
 				j = array.length;
 			for (i = i; i < j; i = i + 1) {
@@ -275,9 +245,7 @@ var DifferenceEngine	= (function () {
 					return true;
 				}
 			}
-
 			return null;
-
 		}
 
 		/*
@@ -295,7 +263,6 @@ var DifferenceEngine	= (function () {
 		 *		[ ]
 		 */
 		return function (alpha, omega, condition, extracted) {
-
 			var i = 0,
 				j = alpha.length,
 				ALPHA;
@@ -305,7 +272,6 @@ var DifferenceEngine	= (function () {
 				}
 			}
 			return extracted;
-
 		};
 
 	}());
@@ -319,12 +285,10 @@ var DifferenceEngine	= (function () {
 	 *		[ "A", "B", "C" ]
 	 */
 	function positive(alpha, omega) {
-
 		if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
 			return extract(alpha, omega, true, []);
 		}
 		return [];
-
 	}
 
 	/*
@@ -336,12 +300,10 @@ var DifferenceEngine	= (function () {
 	 *		[ "A", "B", "C" ]
 	 */
 	function negative(alpha, omega) {
-
 		if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
 			return extract(alpha, omega, null, []);
 		}
 		return [];
-
 	}
 
 	/*	Constructor */
@@ -349,7 +311,6 @@ var DifferenceEngine	= (function () {
 	function DifferenceEngine() { }
 
 	DifferenceEngine.prototype.mapKey	= mapKey;
-
 	DifferenceEngine.prototype.sequence	= sequence;
 	DifferenceEngine.prototype.positive	= positive;
 	DifferenceEngine.prototype.negative	= negative;
