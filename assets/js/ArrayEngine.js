@@ -33,17 +33,12 @@ var ArrayEngine	= (function () {
 
 	var i,
 		j,
-
 		lowerBound,
 		upperBound,
-
 		lastValue,
 		lastIndex,
-
 		m,
-
 		ARRAY,
-
 		max,
 		min;
 
@@ -74,17 +69,11 @@ var ArrayEngine	= (function () {
 	 * than "do".
 	 */
 	function indexOf(v) {
-
 		var a, i, l;
-
 		if (lastValue === v) {
-
 			return lastIndex;
-
 		} else {
-
 			a = ARRAY;
-
 			/**
 			 * Seek left to right.
 			 * Either start at lowerBound or start at previous lastIndex + 1.
@@ -93,14 +82,11 @@ var ArrayEngine	= (function () {
 			 */
 			i = ((l = lastIndex) === m ? lowerBound : (i = l + 1) > j ? j : i); //Math.min(j, lastIndex + 1))
 			for (i = i; i < j; i = i + 1) {
-
 				if (a[i] === v) {
 					lastValue = v;
 					return (lastIndex = i);
 				}
-
 			}
-
 			/**
 			 * Seek right to left.
 			 * Either start at upperBound or start at previous lastIndex - 1.
@@ -109,18 +95,13 @@ var ArrayEngine	= (function () {
 			 */
 			i = ((l = lastIndex) === m ? upperBound : (i = l - 1) > m ? i : m); //Math.max(m, lastIndex - 1));
 			for (i = i; i > m; i = i - 1) {
-
 				if (a[i] === v) {
 					lastValue = v;
 					return (lastIndex = i);
 				}
-
 			}
-
 			return null;
-
 		}
-
 	}
 
 	/**
@@ -136,27 +117,18 @@ var ArrayEngine	= (function () {
 	 * Where no array has been passed, the method invokes "reset".
 	 */
 	function begin(array) { //console.log("ArrayEngine.begin()", array);
-
 		if ((array || false).constructor === Array) {
-
 			i	= +0;
 			j	= (ARRAY = array.slice()).length;
 			m	= -1;
-
 			lowerBound	= i;
 			upperBound	= j - 1;
-
 			lastIndex	= m;
 			lastValue	= null;
-
 			return this;
-
 		} else {
-
 			return this.reset();
-
 		}
-
 	}
 
 	/**
@@ -168,19 +140,14 @@ var ArrayEngine	= (function () {
 	 * @chainable
 	 */
 	function reset() { //console.log("ArrayEngine.reset()");
-
 		i	= +0;
 		j	= (ARRAY = []).length;
 		m	= -1;
-
 		lowerBound	= i;
 		upperBound	= j - 1;
-
 		lastIndex	= m;
 		lastValue	= null;
-
 		return this;
-
 	}
 
 	/*
@@ -195,19 +162,14 @@ var ArrayEngine	= (function () {
 	 * consumes gains made elsewhere.
 	 */
 	function bite(x, y) {
-
 		var pow, N, a, max, min, l, u, z;
-
 		if (typeof x === "number") {
-
 			pow	= Math.pow;
 			N	= Number.NEGATIVE_INFINITY;
 			a	= ARRAY;
 			l	= lowerBound;
 			u	= upperBound;
-
 			if (typeof y === "number") {
-
 				/**
 				 * Negative zero slices lower bound 0
 				 *
@@ -218,20 +180,13 @@ var ArrayEngine	= (function () {
 				 * Massage the second argument to slice
 				 */
 				if (pow(x, m) === N && pow(y, m) === N) {
-
 					return a.slice(l).reverse();
-
 				} else {
-
 					x	= (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z;
 					y	= (u < (z = (l > (z = (y > m ? y : y + u)) ? l : z))) ? u : z;
-
 					return x > y ? a.slice(y, x + 1).reverse() : a.slice(x, y + 1);
-
 				}
-
 			}
-
 			/**
 			 * Negative zero slices upper bound (j - 1)
 			 * Positive zero slices lower bound 0
@@ -241,56 +196,35 @@ var ArrayEngine	= (function () {
 			 * u is upper bound (j - 1)
 			 */
 			if (pow(x, m) === N) {
-
 				return a.slice(u);
-
 			} else {
-
 				x	= (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z;
-
 				return a.slice(x);
-
 			}
-
 		}
-
 		return [];
-
 	}
 
 	/*
 	function bite(x, y) {
-
 		var pow, N, a, max, min, l, u, z;
-
 		if (typeof x === "number") {
-
 			pow = Math.pow;
 			N = Number.NEGATIVE_INFINITY;
 			a = ARRAY;
 			l = lowerBound;
 			u = upperBound;
-
 			if (typeof y === "number") {
-
 				return pow(x, m) === N && pow(y, m) === N ? a.slice(l).reverse() : (x = (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z) > (y = (u < (z = (l > (z = (y > m ? y : y + u)) ? l : z))) ? u : z) ? a.slice(y, x + 1).reverse() : a.slice(x, y + 1);
-
 			}
-
 			return pow(x, m) === N ? a.slice(u) : a.slice((l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z);
-
 		}
-
 		return [];
-
 	}
 
 	function bite(x, y) {
-
 		var pow, N, a, max, min, l, u, z;
-
 		if (typeof x === "number") {
-
 			pow = Math.pow;
 			N = Number.NEGATIVE_INFINITY;
 			a = ARRAY;
@@ -298,66 +232,39 @@ var ArrayEngine	= (function () {
 			min	= Math.min;
 			l = lowerBound;
 			u = upperBound;
-
 			if (typeof y === "number") {
-
 				if ((pow(x, m) === N) && (pow(y, m) === N)) {
-
 					return a.slice(l).reverse();
-
 				} else {
-
 					x = max(l, min(u, x > m ? x : x + u));
 					y = min(u, max(l, y > m ? y : y + u));
-
 					return x > y ? a.slice(y, x + 1).reverse() : a.slice(x, y + 1);
-
 				}
-
 			}
-
 			if (pow(x, m) === N) {
-
 				return a.slice(u);
-
 			} else {
-
 				x	= max(l, min(u, x > m ? x : x + u));
-
 				return a.slice(x);
-
 			}
-
 		}
-
 		return [];
-
 	}
 	*/
 
 	function map(method) { //console.log("ArrayEngine.map()", method);
-
 		var z, array, a;
-
 		if ((method || false).constructor === Function) {
-
 			if ((z = lowerBound) < j) {
-
 				array = [];
 				a = ARRAY;
 				do {
-
 					array.push(method.call(a, z, a[z], j));
-
 				} while (++z < j);
 				return array;
-
 			}
-
 		}
-
 		return [];
-
 	}
 
 	/**
@@ -375,27 +282,17 @@ var ArrayEngine	= (function () {
 	 * self-executing function. Chrome outperforms them regardless.
 	 */
 	max	= (function () {
-
 		var z, max = Math.max, a;
-
 		function MAX(a) {
-
 			var x = a[0], z = 1, y;
 			do {
-
 				if ((y = a[z]) > x) x = y;
-
 			} while (++z < j);
 			return x;
-
 		}
-
 		return function () {
-
 			return isNaN(z = max.apply((a = ARRAY), a)) ? MAX(a) : z; //array.slice().sort().pop() : z;
-
 		};
-
 	}());
 
 	/**
@@ -413,39 +310,24 @@ var ArrayEngine	= (function () {
 	 * self-executing function. Chrome outperforms them regardless
 	 */
 	min	= (function () {
-
 		var z, min = Math.min, a;
-
 		function MIN(a) {
-
 			var x = a[0], z = 1, y;
 			do {
-
 				if ((y = a[z]) < x) x = y;
-
 			} while (++z < j);
 			return x;
-
 		}
-
 		return function () {
-
 			return isNaN(z = min.apply((a = ARRAY), a)) ? MIN(a) : z; //array.slice().sort().shift() : z;
-
 		};
-
 	}());
 
 	function iterate(method) {
-
 		if ((method || false).constructor === Function) {
-
 			throw "Not implimented"; //return true;
-
 		}
-
 		return false;
-
 	}
 
 	/**
@@ -461,30 +343,19 @@ var ArrayEngine	= (function () {
 	 * @param {Function} method
 	 */
 	function iterateForward(method) { //console.log("ArrayEngine.iterateForward()", method);
-
 		var l, z, u, a;
-
 		if ((method || false).constructor === Function) {
-
 			z = l = lowerBound;
 			u = upperBound;
-
 			if (z < j) {
-
 				a = ARRAY;
 				do {
-
 					method.call(a, z, a[z], u);
-
 				} while (++z < j);
 				return true;
-
 			}
-
 		}
-
 		return false;
-
 	}
 
 	/**
@@ -500,29 +371,18 @@ var ArrayEngine	= (function () {
 	 * @param {Function} method
 	 */
 	function iterateReverse(method) { //console.log("ArrayEngine.iterateReverse()", method);
-
 		var u, z, a;
-
 		if ((method || false).constructor === Function) {
-
 			z = u = upperBound;
-
 			if (z > m) {
-
 				a = ARRAY;
 				do {
-
 					method.call(a, z, a[z], u);
-
 				} while (m < --z);
 				return true;
-
 			}
-
 		}
-
 		return false;
-
 	}
 
 	/**
@@ -545,16 +405,11 @@ var ArrayEngine	= (function () {
 	 * @param {Function} method
 	 */
 	function iterateBetween(x, y, method) { //console.log("ArrayEngine.iterateBetween()", x, y); //, method);
-
 		var a, l, u, z;
-
 		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
-
 			a	= ARRAY;
-
 			l	= lowerBound;
 			u	= upperBound;
-
 			/*
 			 * Generally, jsperf.com favours ternary over "Math.min()" or
 			 * "Math.max()" although this specific implementation hasn't been
@@ -562,124 +417,81 @@ var ArrayEngine	= (function () {
 			 */
 			x	= (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z;
 			y	= (u < (z = (l > (z = (y > m ? y : y + u)) ? l : z))) ? u : z;
-
 			if (x > y) {
-
 				z = y - 1;
 				do {
-
 					method.call(a, x, a[x], y);
-
 				} while (z < --x);
 				return true;
-
 			} else {
-
 				z = y + 1;
 				do {
-
 					method.call(a, x, a[x], y);
-
 				} while (++x < z);
 				return true;
-
 			}
-
 		}
-
 		return true;
-
 	}
 
 	/*
 	function iterateBetween(x, y, method) { //console.log("ArrayEngine.iterateBetween()", x, y); //, method);
-
 		var l, u, z, a; //, max = Math.max, min = Math.min;
-
 		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
-
 			l = lowerBound;
 			u = upperBound;
-
 			if (x < y) {
-
 				x = (l > x) ? l : x;
 				y = (l > (z = (j < y ? j : y))) ? l : z;
 				z = (j < (z = (y + 1))) ? j : z;
-
 				a = ARRAY;
 				do {
-
 					method.call(a, x, a[x], y);
-
 				} while (++x < z);
 				return true;
-
 				*//*
 				x = max(l, x);
 				y = max(l, min(j, y));
 				z = min(j, (y + 1));
-
 				a = ARRAY;
 				do {
-
 					if (method.call(a, x, a[x], y) === false)  {
-
 						return false;
-
 					}
-
 				} while (++x < z);
 				return true;
 				*//*
-
 			} else {
-
 				x = (m > (z = (u < x ? u : x))) ? m : z;
 				y = (m > y) ? m : y;
 				z = (m > (z = (y - 1))) ? m : z;
-
 				a = ARRAY;
 				do {
-
 					method.call(a, x, a[x], y);
-
 				} while (z < --x);
 				return true;
-
 				*//*
 				x = max(m, min(u, x));
 				y = max(m, y);
 				z = max(m, (y - 1));
-
 				a = ARRAY;
 				do {
-
 					if (method.call(a, x, a[x], y) === false) {
-
 						return false;
-
 					}
-
 				} while (z < --x);
 				return true;
 				*//*
-
 			}
-
 		}
-
 		return false;
-
 	}
 	*/
 
 	/* Constructor */
 
 	function ArrayEngine(array) {
-
 		return (array) ? this.begin(array) : this.reset();
-
 	}
 
 	ArrayEngine.prototype.indexOf	= indexOf;
