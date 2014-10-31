@@ -135,6 +135,10 @@ class ArrayEngine
 			return x
 		->
 			return if isNaN z = min.apply (a = ARRAY), a then MIN(a) else z
+	iterate : (method) ->
+		if (method || false).constructor == Function
+			throw "Not implimented"
+		false
 	iterateForward : (method) ->
 		if (method || false).constructor == Function
 			z = l = lowerBound
