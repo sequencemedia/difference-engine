@@ -72,7 +72,7 @@ var ArrayEngine	= (function () {
 		var a, i, l;
 		if (lastValue === v) {
 			return lastIndex;
-		} else {
+		} else if (upperBound || lowerBound) {
 			a = ARRAY;
 			/**
 			 * Seek left to right.
@@ -100,8 +100,8 @@ var ArrayEngine	= (function () {
 					return (lastIndex = i);
 				}
 			}
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -144,7 +144,7 @@ var ArrayEngine	= (function () {
 		j	= (ARRAY = []).length;
 		m	= -1;
 		lowerBound	= i;
-		upperBound	= j - 1;
+		upperBound	= m;
 		lastIndex	= m;
 		lastValue	= null;
 		return this;
