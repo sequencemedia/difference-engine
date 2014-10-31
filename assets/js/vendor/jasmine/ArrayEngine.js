@@ -41,7 +41,7 @@ describe("ArrayEngine", function () {
 		it("Accepts an array and returns the instance", function () {
 
 			spyOn(arrayEngine, "begin").andCallThrough();
-			spyOn(arrayEngine, "reset").andCallThrough();
+			spyOn(arrayEngine, "reset");
 
 			expect(arrayEngine.begin(ARRAY)).toBe(arrayEngine);
 			expect(arrayEngine.reset).not.toHaveBeenCalled();

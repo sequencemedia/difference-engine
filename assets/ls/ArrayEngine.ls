@@ -111,6 +111,30 @@ class ArrayEngine
 						while ++z < j
 						return array
 		[]
+	max	: ->
+		var z, a
+		max = Math.max
+		MAX = (a) ->
+			x = a[0] 
+			z = 1
+			do 
+				if (y = a[z]) > x then x = y
+			while ++z < j
+			return x
+		->
+			return if isNaN z = max.apply (a = ARRAY), a then MAX(a) else z
+	min	: ->
+		var z, a
+		min = Math.min;
+		MIN = (a) ->
+			x = a[0]
+			z = 1
+			do 
+				if (y = a[z]) < x then x = y
+			while ++z < j
+			return x
+		->
+			return if isNaN z = min.apply (a = ARRAY), a then MIN(a) else z
 	iterateForward : (method) ->
 		if (method || false).constructor == Function
 			z = l = lowerBound
