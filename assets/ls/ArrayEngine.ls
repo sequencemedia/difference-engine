@@ -27,8 +27,8 @@
 # @class ArrayEngine
 # @constructor
 #
-"use strict"
 class ArrayEngine 
+	"use strict"
 	(array) ->
 		if array
 			@begin array
@@ -67,7 +67,6 @@ class ArrayEngine
 				upperBound := j - 1
 				lastIndex := m
 				lastValue := null
-				console.log i, j, m, ARRAY, lowerBound, upperBound, lastIndex, lastValue
 			else @reset!
 		@
 	reset : ->
@@ -112,7 +111,6 @@ class ArrayEngine
 						return array
 		[]
 	max	: ->
-		var z, a
 		max = Math.max
 		MAX = (a) ->
 			x = a[0] 
@@ -124,7 +122,6 @@ class ArrayEngine
 		->
 			return if isNaN z = max.apply (a = ARRAY), a then MAX(a) else z
 	min	: ->
-		var z, a
 		min = Math.min;
 		MIN = (a) ->
 			x = a[0]
