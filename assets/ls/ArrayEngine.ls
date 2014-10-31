@@ -60,9 +60,9 @@ class ArrayEngine
 	begin : (array) ->
 		if (array || false).constructor == Array 
 			then
-				i := +0;
-				j := (ARRAY := array.slice!).length;
-				m := -1;
+				i := +0
+				j := (ARRAY := array.slice!).length
+				m := -1
 				lowerBound := i
 				upperBound := j - 1
 				lastIndex := m
@@ -105,9 +105,28 @@ class ArrayEngine
 			then 
 				if ((z = lowerBound) < j) 
 					then
-						array = [];
+						array = []
 						do 
-							array.push method.call ARRAY, z, ARRAY[z], j;
-						while ++z < j;
-						return array;
+							array.push method.call ARRAY, z, ARRAY[z], j
+						while ++z < j
+						return array
 		[]
+	iterateForward : (method) ->
+		if (method || false).constructor == Function
+			z = l = lowerBound
+			u = upperBound
+			if z < j
+				do
+					method.call ARRAY, z, ARRAY[z], u
+				while ++z < j
+				return true
+		false
+	iterateReverse : (method) ->
+		if (method || false).constructor == Function
+			z = u = upperBound
+			if z > m
+				do 
+					method.call ARRAY, z, ARRAY[z], u
+				while m < --z
+				return true
+		false
