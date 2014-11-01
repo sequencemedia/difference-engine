@@ -429,57 +429,30 @@ var ArrayEngine	= (function () {
 				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	/*
-	function iterateBetween(x, y, method) { //console.log("ArrayEngine.iterateBetween()", x, y); //, method);
-		var l, u, z, a; //, max = Math.max, min = Math.min;
+	function iterateBetween(x, y, method) { 
+		var a, l, u, z;
 		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
-			l = lowerBound;
-			u = upperBound;
-			if (x < y) {
-				x = (l > x) ? l : x;
-				y = (l > (z = (j < y ? j : y))) ? l : z;
-				z = (j < (z = (y + 1))) ? j : z;
-				a = ARRAY;
+			a	= ARRAY;
+			l	= lowerBound;
+			u	= upperBound;
+			x	= max(l, min(u, x > m ? x : x + u));
+			y	= min(u, max(l, y > m ? y : y + u));
+			if (x > y) {
+				z = y - 1;
 				do {
 					method.call(a, x, a[x], y);
-				} while (++x < z);
+				} while (z < --x);
 				return true;
-				*//*
-				x = max(l, x);
-				y = max(l, min(j, y));
-				z = min(j, (y + 1));
-				a = ARRAY;
-				do {
-					if (method.call(a, x, a[x], y) === false)  {
-						return false;
-					}
-				} while (++x < z);
-				return true;
-				*//*
 			} else {
-				x = (m > (z = (u < x ? u : x))) ? m : z;
-				y = (m > y) ? m : y;
-				z = (m > (z = (y - 1))) ? m : z;
-				a = ARRAY;
+				z = y + 1;
 				do {
 					method.call(a, x, a[x], y);
-				} while (z < --x);
+				} while (++x < z);
 				return true;
-				*//*
-				x = max(m, min(u, x));
-				y = max(m, y);
-				z = max(m, (y - 1));
-				a = ARRAY;
-				do {
-					if (method.call(a, x, a[x], y) === false) {
-						return false;
-					}
-				} while (z < --x);
-				return true;
-				*//*
 			}
 		}
 		return false;

@@ -154,3 +154,25 @@ class ArrayEngine
 				while m < --z
 				return true
 		false
+	iterateBetween : (x, y, method) ->
+		if typeof x === "number" && typeof y === "number" && (method || false).constructor === Function
+			a	= ARRAY
+			l	= lowerBound
+			u	= upperBound
+			max	= Math.max
+			min	= Math.min
+			x	= max l, min u, if x > m then x else x + u
+			y	= min u, max l, if y > m then y else y + u
+			if x > y
+				z = y - 1;
+				do
+					method.call a, x, a[x], y
+				while z < --x
+				return true
+			else
+				z = y + 1
+				do
+					method.call a, x, a[x], y
+				while ++x < z
+				return true
+		false
