@@ -155,7 +155,7 @@ class ArrayEngine
 				return true
 		false
 	iterateBetween : (x, y, method) ->
-		if typeof x === "number" && typeof y === "number" && (method || false).constructor === Function
+		if typeof x == "number" && typeof y == "number" && (method || false).constructor == Function
 			a	= ARRAY
 			l	= lowerBound
 			u	= upperBound
