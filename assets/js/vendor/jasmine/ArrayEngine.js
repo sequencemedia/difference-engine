@@ -118,73 +118,145 @@ describe("ArrayEngine", function () {
 
 		});
 
-		it("Iterates forward from the start to the end", function () {
+		describe("Iterating forward from the start to the end", function () {
 
-			forward = [];
-			expect(arrayEngine.iterateForward(function (i, v, j) { forward.push({ i: i, v: v, j: j }); })).toBe(true);
-			expect(forward).toEqual([
-				{ i: 0, v: "A", j: 25 },
-				{ i: 1, v: "B", j: 25 },
-				{ i: 2, v: "C", j: 25 },
-				{ i: 3, v: "D", j: 25 },
-				{ i: 4, v: "E", j: 25 },
-				{ i: 5, v: "F", j: 25 },
-				{ i: 6, v: "G", j: 25 },
-				{ i: 7, v: "H", j: 25 },
-				{ i: 8, v: "I", j: 25 },
-				{ i: 9, v: "J", j: 25 },
-				{ i: 10, v: "K", j: 25 },
-				{ i: 11, v: "L", j: 25 },
-				{ i: 12, v: "M", j: 25 },
-				{ i: 13, v: "N", j: 25 },
-				{ i: 14, v: "O", j: 25 },
-				{ i: 15, v: "P", j: 25 },
-				{ i: 16, v: "Q", j: 25 },
-				{ i: 17, v: "R", j: 25 },
-				{ i: 18, v: "S", j: 25 },
-				{ i: 19, v: "T", j: 25 },
-				{ i: 20, v: "U", j: 25 },
-				{ i: 21, v: "V", j: 25 },
-				{ i: 22, v: "W", j: 25 },
-				{ i: 23, v: "X", j: 25 },
-				{ i: 24, v: "Y", j: 25 },
-				{ i: 25, v: "Z", j: 25 }
-			]);
+			describe("The array has one item", function () { 
+
+				it("Iterates for that item", function () { 
+
+					arrayEngine.begin(["A"]);
+					forward = [];
+					expect(arrayEngine.iterateForward(function (i, v, j) { forward.push({ i: i, v: v, j: j }); })).toBe(true);
+					expect(forward).toEqual([
+						{ i: 0, v: "A", j: 0 }
+					]);
+
+				});
+
+			});
+
+			describe("The array has more than one item", function () { 
+
+				it("Iterates for all of the items", function () { 
+
+					forward = [];
+					expect(arrayEngine.iterateForward(function (i, v, j) { forward.push({ i: i, v: v, j: j }); })).toBe(true);
+					expect(forward).toEqual([
+						{ i: 0, v: "A", j: 25 },
+						{ i: 1, v: "B", j: 25 },
+						{ i: 2, v: "C", j: 25 },
+						{ i: 3, v: "D", j: 25 },
+						{ i: 4, v: "E", j: 25 },
+						{ i: 5, v: "F", j: 25 },
+						{ i: 6, v: "G", j: 25 },
+						{ i: 7, v: "H", j: 25 },
+						{ i: 8, v: "I", j: 25 },
+						{ i: 9, v: "J", j: 25 },
+						{ i: 10, v: "K", j: 25 },
+						{ i: 11, v: "L", j: 25 },
+						{ i: 12, v: "M", j: 25 },
+						{ i: 13, v: "N", j: 25 },
+						{ i: 14, v: "O", j: 25 },
+						{ i: 15, v: "P", j: 25 },
+						{ i: 16, v: "Q", j: 25 },
+						{ i: 17, v: "R", j: 25 },
+						{ i: 18, v: "S", j: 25 },
+						{ i: 19, v: "T", j: 25 },
+						{ i: 20, v: "U", j: 25 },
+						{ i: 21, v: "V", j: 25 },
+						{ i: 22, v: "W", j: 25 },
+						{ i: 23, v: "X", j: 25 },
+						{ i: 24, v: "Y", j: 25 },
+						{ i: 25, v: "Z", j: 25 }
+					]);
+
+				});
+
+			});
+
+			describe("The array has no items", function () { 
+
+				it("Does not iterate", function () { 
+
+					arrayEngine.reset();
+					forward = [];
+					expect(arrayEngine.iterateForward(function (i, v, j) { forward.push({ i: i, v: v, j: j }); })).toBe(false);
+					expect(forward).toEqual([]);
+
+				});
+
+			});
 
 		});
 
-		it("Iterates reverse from the end to the start", function () {
+		describe("Iterating reverse from the end to the start", function () {
 
-			reverse = [];
-			expect(arrayEngine.iterateReverse(function (i, v, j) { reverse.push({ i: i, v: v, j: j }); })).toBe(true);
-			expect(reverse).toEqual([
-				{ i: 25, v: "Z", j: 25 },
-				{ i: 24, v: "Y", j: 25 },
-				{ i: 23, v: "X", j: 25 },
-				{ i: 22, v: "W", j: 25 },
-				{ i: 21, v: "V", j: 25 },
-				{ i: 20, v: "U", j: 25 },
-				{ i: 19, v: "T", j: 25 },
-				{ i: 18, v: "S", j: 25 },
-				{ i: 17, v: "R", j: 25 },
-				{ i: 16, v: "Q", j: 25 },
-				{ i: 15, v: "P", j: 25 },
-				{ i: 14, v: "O", j: 25 },
-				{ i: 13, v: "N", j: 25 },
-				{ i: 12, v: "M", j: 25 },
-				{ i: 11, v: "L", j: 25 },
-				{ i: 10, v: "K", j: 25 },
-				{ i: 9, v: "J", j: 25 },
-				{ i: 8, v: "I", j: 25 },
-				{ i: 7, v: "H", j: 25 },
-				{ i: 6, v: "G", j: 25 },
-				{ i: 5, v: "F", j: 25 },
-				{ i: 4, v: "E", j: 25 },
-				{ i: 3, v: "D", j: 25 },
-				{ i: 2, v: "C", j: 25 },
-				{ i: 1, v: "B", j: 25 },
-				{ i: 0, v: "A", j: 25 }
-			]);
+			describe("The array has one item", function () { 
+
+				it("Iterates for that item", function () { 
+
+					arrayEngine.begin(["Z"]);
+					reverse = [];
+					expect(arrayEngine.iterateForward(function (i, v, j) { reverse.push({ i: i, v: v, j: j }); })).toBe(true);
+					expect(reverse).toEqual([
+						{ i: 0, v: "Z", j: 0 }
+					]);
+
+				});
+
+			});
+
+			describe("The array has many items", function () { 
+
+				it("Iterates for all of the items", function () { 
+
+					reverse = [];
+					expect(arrayEngine.iterateReverse(function (i, v, j) { reverse.push({ i: i, v: v, j: j }); })).toBe(true);
+					expect(reverse).toEqual([
+						{ i: 25, v: "Z", j: 25 },
+						{ i: 24, v: "Y", j: 25 },
+						{ i: 23, v: "X", j: 25 },
+						{ i: 22, v: "W", j: 25 },
+						{ i: 21, v: "V", j: 25 },
+						{ i: 20, v: "U", j: 25 },
+						{ i: 19, v: "T", j: 25 },
+						{ i: 18, v: "S", j: 25 },
+						{ i: 17, v: "R", j: 25 },
+						{ i: 16, v: "Q", j: 25 },
+						{ i: 15, v: "P", j: 25 },
+						{ i: 14, v: "O", j: 25 },
+						{ i: 13, v: "N", j: 25 },
+						{ i: 12, v: "M", j: 25 },
+						{ i: 11, v: "L", j: 25 },
+						{ i: 10, v: "K", j: 25 },
+						{ i: 9, v: "J", j: 25 },
+						{ i: 8, v: "I", j: 25 },
+						{ i: 7, v: "H", j: 25 },
+						{ i: 6, v: "G", j: 25 },
+						{ i: 5, v: "F", j: 25 },
+						{ i: 4, v: "E", j: 25 },
+						{ i: 3, v: "D", j: 25 },
+						{ i: 2, v: "C", j: 25 },
+						{ i: 1, v: "B", j: 25 },
+						{ i: 0, v: "A", j: 25 }
+					]);
+
+				});
+
+			});			
+
+			describe("The array has no items", function () { 
+
+				it("Does not iterate", function () { 
+
+					arrayEngine.reset();
+					reverse = [];
+					expect(arrayEngine.iterateForward(function (i, v, j) { reverse.push({ i: i, v: v, j: j }); })).toBe(false);
+					expect(reverse).toEqual([]);
+
+				});
+
+			});
 
 		});
 

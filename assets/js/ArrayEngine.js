@@ -291,7 +291,7 @@ var ArrayEngine	= (function () {
 			return x;
 		}
 		return function () {
-			return isNaN(z = max.apply((a = ARRAY), a)) ? MAX(a) : z; //array.slice().sort().pop() : z;
+			return i < j ? isNaN(z = max.apply((a = ARRAY), a)) ? MAX(a) : z : null; //array.slice().sort().pop() : z;
 		};
 	}());
 
@@ -319,7 +319,7 @@ var ArrayEngine	= (function () {
 			return x;
 		}
 		return function () {
-			return isNaN(z = min.apply((a = ARRAY), a)) ? MIN(a) : z; //array.slice().sort().shift() : z;
+			return i < j ? isNaN(z = min.apply((a = ARRAY), a)) ? MIN(a) : z : null; //array.slice().sort().shift() : z;
 		};
 	}());
 
@@ -343,11 +343,10 @@ var ArrayEngine	= (function () {
 	 * @param {Function} method
 	 */
 	function iterateForward(method) { //console.log("ArrayEngine.iterateForward()", method);
-		var l, z, u, a;
+		var z, u, a;
 		if ((method || false).constructor === Function) {
-			z = l = lowerBound;
-			u = upperBound;
-			if (z < j) {
+			if ((z = lowerBound) < j) {
+				u = upperBound;
 				a = ARRAY;
 				do {
 					method.call(a, z, a[z], u);
@@ -371,10 +370,9 @@ var ArrayEngine	= (function () {
 	 * @param {Function} method
 	 */
 	function iterateReverse(method) { //console.log("ArrayEngine.iterateReverse()", method);
-		var u, z, a;
+		var z, u, a;
 		if ((method || false).constructor === Function) {
-			z = u = upperBound;
-			if (z > m) {
+			if ((z = u = upperBound) < j) {
 				a = ARRAY;
 				do {
 					method.call(a, z, a[z], u);

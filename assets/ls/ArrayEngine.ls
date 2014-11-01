@@ -42,6 +42,7 @@ class ArrayEngine
 		upperBound, 
 		lastIndex, 
 		lastValue
+	window.ArrayEngine = ArrayEngine
 	indexOf : (v) ->
 		if lastValue == v 
 			return lastIndex
@@ -110,7 +111,7 @@ class ArrayEngine
 						while ++z < j
 						return array
 		[]
-	max	: ->
+	max	: do ->
 		max = Math.max
 		MAX = (a) ->
 			x = a[0] 
@@ -120,8 +121,8 @@ class ArrayEngine
 			while ++z < j
 			return x
 		->
-			return if isNaN z = max.apply (a = ARRAY), a then MAX(a) else z
-	min	: ->
+			return if i < j then (if isNaN z = max.apply (a = ARRAY), a then MAX(a) else z) else null
+	min	: do ->
 		min = Math.min;
 		MIN = (a) ->
 			x = a[0]
@@ -131,16 +132,15 @@ class ArrayEngine
 			while ++z < j
 			return x
 		->
-			return if isNaN z = min.apply (a = ARRAY), a then MIN(a) else z
+			return if i < j then (if isNaN z = min.apply (a = ARRAY), a then MIN(a) else z) else null
 	iterate : (method) ->
 		if (method || false).constructor == Function
 			throw "Not implimented"
 		false
 	iterateForward : (method) ->
-		if (method || false).constructor == Function
-			z = l = lowerBound
-			u = upperBound
-			if z < j
+		if (method || false).constructor == Function			
+			if (z = lowerBound) < j
+				u = upperBound
 				do
 					method.call ARRAY, z, ARRAY[z], u
 				while ++z < j
@@ -148,8 +148,7 @@ class ArrayEngine
 		false
 	iterateReverse : (method) ->
 		if (method || false).constructor == Function
-			z = u = upperBound
-			if z > m
+			if (z = u = upperBound) < j				
 				do 
 					method.call ARRAY, z, ARRAY[z], u
 				while m < --z
