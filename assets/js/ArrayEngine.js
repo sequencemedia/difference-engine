@@ -35,8 +35,12 @@ var ArrayEngine	= (function () {
 		j,
 		lowerBound,
 		upperBound,
-		lastValue,
-		lastIndex,
+		value,
+		index,
+		sequentialIndex,
+		sequentialValue,
+		sequentialIndexOf,
+		ltr,
 		m,
 		ARRAY,
 		max,
@@ -69,40 +73,69 @@ var ArrayEngine	= (function () {
 	 * than "do".
 	 */
 	function indexOf(v) {
-		var a, i, l;
-		if (lastValue === v) {
-			return lastIndex;
+		var a, x, y;
+		if (value === v) {
+			return index;
 		} else if (upperBound || lowerBound) {
 			a = ARRAY;
-			/**
-			 * Seek left to right.
-			 * Either start at lowerBound or start at previous lastIndex + 1.
-			 * According to jsperf.com, December 2012, assignment from a ternary
-			 * performs faster than "Math.min".
-			 */
-			i = ((l = lastIndex) === m ? lowerBound : (i = l + 1) > j ? j : i); //Math.min(j, lastIndex + 1))
-			for (i = i; i < j; i = i + 1) {
-				if (a[i] === v) {
-					lastValue = v;
-					return (lastIndex = i);
-				}
-			}
-			/**
-			 * Seek right to left.
-			 * Either start at upperBound or start at previous lastIndex - 1.
-			 * According to jsperf.com, December 2012, assignment from a ternary
-			 * performs faster than "Math.max".
-			 */
-			i = ((l = lastIndex) === m ? upperBound : (i = l - 1) > m ? i : m); //Math.max(m, lastIndex - 1));
-			for (i = i; i > m; i = i - 1) {
-				if (a[i] === v) {
-					lastValue = v;
-					return (lastIndex = i);
+			x = 0;
+			y = j;
+			for (x, y; x < y; x = x + 1) {
+				if (a[x] === v) {
+					value = v;
+					return (index = x);
 				}
 			}
 		}
 		return null;
 	}
+
+	sequentialIndexOf = (function () {
+		function L(l, a, v) {
+			/**
+			 * Seek left to right.
+			 * Either start at lowerBound or start at previous sequentialIndex + 1.
+			 * According to jsperf.com, December 2012, assignment from a ternary
+			 * performs faster than "Math.min".
+			 */
+			var n = (l === m ? lowerBound : (n = l + 1) > j ? j : n);
+			for (n, j; n < j; n = n + 1) {
+				if (a[n] === v) {
+					sequentialValue = v;
+					return (sequentialIndex = n);
+				}
+			}
+			ltr = !ltr;
+			return null;
+		}
+		function R(l, a, v) {
+			/**
+			 * Seek right to left.
+			 * Either start at upperBound or start at previous sequentialIndex - 1.
+			 * According to jsperf.com, December 2012, assignment from a ternary
+			 * performs faster than "Math.max".
+			 */
+			var n = (l === m ? upperBound : (n = l - 1) > m ? n : m);
+			for (n, m; n > m; n = n - 1) {
+				if (a[n] === v) {
+					sequentialValue = v;
+					return (sequentialIndex = n);
+				}
+			}
+			ltr = !ltr;
+			return null;
+		}
+		return function (v) {
+			var n, l = sequentialIndex, a;
+			if (sequentialValue === v) {
+				return l;
+			} else if (upperBound || lowerBound) {
+				a = ARRAY;
+				return ltr ? (n = L(l, a, v)) === null ? R(l, a, v) : n : (n = R(l, a, v)) === null ? L(l, a, v) : n;
+			}
+			return null;
+		};
+	}());
 
 	/**
 	 * Accepts one array to be assigned to the privately scoped variable
@@ -123,8 +156,9 @@ var ArrayEngine	= (function () {
 			m	= -1;
 			lowerBound	= i;
 			upperBound	= j - 1;
-			lastIndex	= m;
-			lastValue	= null;
+			index = sequentialIndex = m;
+			value = sequentialValue = null;
+			ltr = true;
 			return this;
 		} else {
 			return this.reset();
@@ -145,8 +179,9 @@ var ArrayEngine	= (function () {
 		m	= -1;
 		lowerBound	= i;
 		upperBound	= m;
-		lastIndex	= m;
-		lastValue	= null;
+		index = sequentialIndex = m;
+		value = sequentialValue = null;
+		ltr = true;
 		return this;
 	}
 
@@ -433,7 +468,7 @@ var ArrayEngine	= (function () {
 	}
 
 	/*
-	function iterateBetween(x, y, method) { 
+	function iterateBetween(x, y, method) {
 		var a, l, u, z;
 		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
 			a	= ARRAY;
@@ -466,6 +501,7 @@ var ArrayEngine	= (function () {
 	}
 
 	ArrayEngine.prototype.indexOf	= indexOf;
+	ArrayEngine.prototype.sequentialIndexOf	= sequentialIndexOf;
 
 	ArrayEngine.prototype.begin		= begin;
 	ArrayEngine.prototype.reset		= reset;

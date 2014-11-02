@@ -21,53 +21,68 @@
 #
 #
 # "ArrayEngine" defines methods for manipulating arrays. Some of those methods
-# already exist within the global context. This is a port from JavaScript to 
+# already exist within the global context. This is a port from JavaScript to
 # LiveScript: for performance use the JS version.
 #
 # @class ArrayEngine
 # @constructor
 #
-class ArrayEngine 
+class ArrayEngine
 	"use strict"
 	(array) ->
 		if array
 			@begin array
 		else
 			@reset!
-	var ARRAY, 
-		i, 
-		j, 
-		m, 
-		lowerBound, 
-		upperBound, 
-		lastIndex, 
-		lastValue
+	var ARRAY,
+		i,
+		j,
+		m,
+		lowerBound,
+		upperBound,
+		lastIndex,
+		lastValue,
+		nearestLastIndex,
+		nearestLastValue
 	window.ArrayEngine = ArrayEngine
 	indexOf : (v) ->
-		if lastValue == v 
+		if lastValue == v
 			return lastIndex
+		else if upperBound || lowerBound
+			a = ARRAY;
+			x = 0;
+			y = j;
+			for x to y
+				if a[x] == v
+					lastValue := v
+					return lastIndex := x
+		null
+	nearestIndexOf : (v) ->
+		if nearestLastValue == v
+			return nearestLastIndex
 		else if upperBound or lowerBound
-			x = Math.min y = j, lastIndex + 1
+			a = ARRAY
+			x = Math.min y = j, nearestLastIndex + 1
 			for n from x to y by +1
-				if ARRAY[n] == v
-					lastValue := v
-					return lastIndex := n
-			x = Math.max y = m, lastIndex - 1
+				if a[n] == v
+					nearestLastValue := v
+					return nearestLastIndex := n
+			x = Math.max y = m, nearestLastIndex - 1
 			for n from x to y by -1
-				if ARRAY[n] == v
-					lastValue := v
-					return lastIndex := n
+				if a[n] == v
+					nearestLastValue := v
+					return nearestLastIndex := n
 		null
 	begin : (array) ->
-		if (array || false).constructor == Array 
+		if (array || false).constructor == Array
 			then
 				i := +0
 				j := (ARRAY := array.slice!).length
 				m := -1
 				lowerBound := i
 				upperBound := j - 1
-				lastIndex := m
-				lastValue := null
+				lastIndex := nearestLastIndex := m
+				lastValue := nearestLastValue := null
 			else @reset!
 		@
 	reset : ->
@@ -76,8 +91,8 @@ class ArrayEngine
 		m := -1
 		lowerBound := i
 		upperBound := m
-		lastIndex := m
-		lastValue := null
+		lastIndex := nearestLastIndex := m
+		lastValue := nearestLastValue := null
 		@
 	bite : (x, y) ->
 		if typeof x == "number"
@@ -102,11 +117,11 @@ class ArrayEngine
 		[]
 	map : (method) ->
 		if (method || false).constructor == Function
-			then 
-				if ((z = lowerBound) < j) 
+			then
+				if ((z = lowerBound) < j)
 					then
 						array = []
-						do 
+						do
 							array.push method.call ARRAY, z, ARRAY[z], j
 						while ++z < j
 						return array
@@ -114,9 +129,9 @@ class ArrayEngine
 	max	: do ->
 		max = Math.max
 		MAX = (a) ->
-			x = a[0] 
+			x = a[0]
 			z = 1
-			do 
+			do
 				if (y = a[z]) > x then x = y
 			while ++z < j
 			return x
@@ -127,7 +142,7 @@ class ArrayEngine
 		MIN = (a) ->
 			x = a[0]
 			z = 1
-			do 
+			do
 				if (y = a[z]) < x then x = y
 			while ++z < j
 			return x
@@ -138,7 +153,7 @@ class ArrayEngine
 			throw "Not implimented"
 		false
 	iterateForward : (method) ->
-		if (method || false).constructor == Function			
+		if (method || false).constructor == Function
 			if (z = lowerBound) < j
 				u = upperBound
 				do
@@ -148,8 +163,8 @@ class ArrayEngine
 		false
 	iterateReverse : (method) ->
 		if (method || false).constructor == Function
-			if (z = u = upperBound) < j				
-				do 
+			if (z = u = upperBound) < j
+				do
 					method.call ARRAY, z, ARRAY[z], u
 				while m < --z
 				return true
