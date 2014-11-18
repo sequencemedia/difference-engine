@@ -44,8 +44,8 @@ class ArrayEngine
 		lastValue,
 		nearestLastIndex,
 		nearestLastValue
-	window.ArrayEngine = ArrayEngine
-	indexOf : (v) ->
+	# window.ArrayEngine = ArrayEngine
+	index-of : (v) ->
 		if lastValue == v
 			return lastIndex
 		else if upperBound || lowerBound
@@ -57,7 +57,7 @@ class ArrayEngine
 					lastValue := v
 					return lastIndex := x
 		null
-	nearestIndexOf : (v) ->
+	nearest-index-of : (v) ->
 		if nearestLastValue == v
 			return nearestLastIndex
 		else if upperBound or lowerBound
@@ -152,7 +152,7 @@ class ArrayEngine
 		if (method || false).constructor == Function
 			throw "Not implimented"
 		false
-	iterateForward : (method) ->
+	iterate-forward : (method) ->
 		if (method || false).constructor == Function
 			if (z = lowerBound) < j
 				u = upperBound
@@ -161,7 +161,7 @@ class ArrayEngine
 				while ++z < j
 				return true
 		false
-	iterateReverse : (method) ->
+	iterate-reverse : (method) ->
 		if (method || false).constructor == Function
 			if (z = u = upperBound) < j
 				do
@@ -169,7 +169,7 @@ class ArrayEngine
 				while m < --z
 				return true
 		false
-	iterateBetween : (x, y, method) ->
+	iterate-between : (x, y, method) ->
 		if typeof x == "number" && typeof y == "number" && (method || false).constructor == Function
 			a	= ARRAY
 			l	= lowerBound
