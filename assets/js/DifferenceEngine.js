@@ -23,23 +23,23 @@ var DifferenceEngine	= (function () {
 
 	"use strict";
 
-	var mapKey,
+	var describe,
 		sequence,
 		extract;
 
 	/*
-	 *	Accepts one array, "array", and one string or number, "key";
-	 *	Searches "array" for "key"
+	 *	Accepts one array, "array", and one string or number, "value";
+	 *	Searches "array" for "value"
 	 *	@param {array} array
 	 *		[ "A", "B", "C", "D" ]
-	 *	@param {string, number} key
+	 *	@param {string, number} value
 	 *		"D"
 	 *
 	 *	Performs moderately faster than "array.indexOf()" in Chrome, and
 	 *	performs significantly faster than that method in FF
 	 *	as at 24 November 2012.
 	 */
-	function indexOf(array, key) {
+	function indexOf(array, value) {
 		var i = 0,
 			j = array.length;
 		/*
@@ -47,14 +47,14 @@ var DifferenceEngine	= (function () {
 		 *	faster than "while" or "do"
 		 */
 		for (i = i; i < j; i = i + 1) {
-			if (array[i] === key) {
+			if (array[i] === value) {
 				return i;
 			}
 		}
 		return null;
 	}
 
-	mapKey = (function () {
+	describe = (function () {
 
 		/*
 		 *	Accepts one integer, "i", and two arrays, "alpha" and "omega";
@@ -114,7 +114,7 @@ var DifferenceEngine	= (function () {
 
 		/*
 		 *	Accepts two arrays, "alpha" and "omega";
-		 *	Returns an object which describes how to splice "key"
+		 *	Returns an object which describes how to splice "item"
 		 *	which appears in "alpha" into "omega"
 		 *	@param {array} alpha
 		 *		[ "A", "B", "C", "D" ]
@@ -123,12 +123,12 @@ var DifferenceEngine	= (function () {
 		 *	@param {string, number}
 		 *		"D"
 		 */
-		return function (alpha, omega, key) {
+		return function (alpha, omega, item) {
 			var index,
 				total,
 				value;
 			if (((alpha || false).constructor === Array) && ((omega || false).constructor === Array)) {
-				if ((index = indexOf(alpha, key)) !== null) {
+				if ((index = indexOf(alpha, item)) !== null) {
 					total = omega.length;
 					return (index === 0) ? {
 							index: 0,
@@ -138,7 +138,7 @@ var DifferenceEngine	= (function () {
 							only: total === 0,
 							alpha: null,
 							omega: omega[0] || null
-						} : ((value = L(index, alpha, omega, key)) !== null) ? {
+						} : ((value = L(index, alpha, omega, item)) !== null) ? {
 								index: (value + 1),
 								total: (total + 1),
 								first: total === 0,
@@ -146,7 +146,7 @@ var DifferenceEngine	= (function () {
 								only: total === 0,
 								alpha: omega[value] || null,
 								omega: omega[value + 1] || null
-							} : ((value = R(index, alpha, omega, key)) !== null) ? {
+							} : ((value = R(index, alpha, omega, item)) !== null) ? {
 									index: value,
 									total: (total + 1),
 									first: value === 0,
@@ -179,37 +179,47 @@ var DifferenceEngine	= (function () {
 	}());
 
 	/*
-	 *	Accepts two arrays, "alpha" and "omega";
-	 *	Returns an array containing elements in "alpha" AND "omega"
-	 *		NOT in order
 	 *	@param {array} alpha
-	 *		[ "A", "B", "D" ]
-	 *	@param {array} omega
 	 *		[ "A", "B", "C" ]
+	 *	@param {array} omega
+	 *		[ "A", "B", "D", "C" ]
 	 */
 	sequence = (function () {
 
 		/*
-		 *	Accepts three arrays, "alpha", "omega" and "extracted";
-		 *	Returns an array containing elements in "alpha" and "omega"
-		 *	NOT in order
 		 *	@param {array} alpha
 		 *		[ "A", "B", "C", "D" ]
 		 *	@param {array} omega
-		 *		[ "A", "B", "D", "C" ]
+		 *		[ "A", "B", "E", "C", "D" ]
 		 *	@param {array} extracted
-		 *		[ ]
+		 *		[ "C" ]
 		 */
 		function extract(alpha, omega, extracted) {
 			var i = 0,
 				j = alpha.length,
 				n = 0,
-				ALPHA,
-				OMEGA;
+				ALPHA;
 			for (i = i; i < j; i = i + 1) {
-				if ((ALPHA = alpha[i]) === (OMEGA = omega[n])) {
+				/*
+				 *	Are the items at "i" and "n" identical?
+				 */
+				if ((ALPHA = alpha[i]) === omega[n]) {
+					/*
+					 *	Yes, they are. Ignore them.
+					 *
+					 *  Index "i" is incremented by the "for" declaration;
+					 *	but index "n" must be incremented manually
+					 */
 					n = n + 1;
 				} else {
+					/*
+					 *	No, they are not.
+					 *
+					 *	ALPHA is a new item or an old item at a different index.
+					 *	Index "n" is incremented after the index of the same item
+					 *	in "omega", or to be equal with "i" at the next iteration
+					 *
+					 */
 					extracted.push(ALPHA);
 					n = ((n = indexOf(omega, ALPHA)) !== null) ? n + 1 : i + 1;
 				}
@@ -230,18 +240,18 @@ var DifferenceEngine	= (function () {
 	extract	= (function () {
 
 		/*
-		 *	Accepts one array, "array" and one string, "key";
-		 *	Returns a boolean which describes if "array" contains element "key"
+		 *	Accepts one array, "array" and one value, "value";
+		 *	Returns a boolean which describes if "array" contains "value"
 		 *	@param {array} array
 		 *		[ "A", "B", "C", "D" ]
-		 *	@param {array} key
+		 *	@param {string, number} value
 		 *		"A"
 		 */
-		function hasKey(array, key) {
+		function has(array, value) {
 			var i = 0,
 				j = array.length;
 			for (i = i; i < j; i = i + 1) {
-				if (array[i] === key) {
+				if (array[i] === value) {
 					return true;
 				}
 			}
@@ -250,7 +260,7 @@ var DifferenceEngine	= (function () {
 
 		/*
 		 *	Accepts two arrays, "alpha" and "omega";
-		 *	Returns an array containing elements
+		 *	Returns an array containing items
 		 *		1) in "alpha" AND "omega" IF "condition" is "true"
 		 *		2) in "alpha" NOT "omega" IF "condition" is "null"
 		 *	@param {array} alpha
@@ -267,7 +277,7 @@ var DifferenceEngine	= (function () {
 				j = alpha.length,
 				ALPHA;
 			for (i = i; i < j; i = i + 1) {
-				if (hasKey(omega, (ALPHA = alpha[i])) === condition) {
+				if (has(omega, (ALPHA = alpha[i])) === condition) {
 					extracted.push(ALPHA);
 				}
 			}
@@ -278,7 +288,7 @@ var DifferenceEngine	= (function () {
 
 	/*
 	 *	Accepts two arrays, "alpha" and "omega";
-	 *	Returns an array containing elements in "alpha" AND "omega"
+	 *	Returns an array containing items in "alpha" AND "omega"
 	 *	@param {array} alpha
 	 *		[ "A", "B", "D" ]
 	 *	@param {array} omega
@@ -293,7 +303,7 @@ var DifferenceEngine	= (function () {
 
 	/*
 	 *	Accepts two arrays, "alpha" and "omega";
-	 *	Returns an array containing elements in "alpha" NOT "omega"
+	 *	Returns an array containing items in "alpha" NOT "omega"
 	 *	@param {array} alpha
 	 *		[ "A", "B", "D" ]
 	 *	@param {array} omega
@@ -310,7 +320,7 @@ var DifferenceEngine	= (function () {
 
 	function DifferenceEngine() { }
 
-	DifferenceEngine.prototype.mapKey	= mapKey;
+	DifferenceEngine.prototype.describe	= describe;
 	DifferenceEngine.prototype.sequence	= sequence;
 	DifferenceEngine.prototype.positive	= positive;
 	DifferenceEngine.prototype.negative	= negative;

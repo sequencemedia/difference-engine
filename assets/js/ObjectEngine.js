@@ -24,134 +24,96 @@ var ObjectEngine	= (function () {
 	"use strict";
 
 	var objectEngine,
-		has = Object.prototype.hasOwnProperty,
-		mix;
+		has = Object.prototype.hasOwnProperty;
 
-	mix = (function () {
+	function isObject(v) {
+		return ((v || false)
+			.constructor === Object)
+	}
 
-		function O(a, o) {
-			var k, v;
-			for (k in o) {
-				v = o[k];
-				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
-				a[k] = v;
-			}
-			return a;
+	function isArray(v) {
+		return ((v || false)
+			.constructor === Array)
+	}
+
+	function notBoolean(v) {
+		return ((v || false)
+			.constructor !== Boolean)
+	}
+
+	function O(a, o) {
+		var k, v;
+		for (k in o) {
+			v = o[k];
+			v = isObject(v) ? O({}, v) : isArray(v) ? A([], v) : v;
+			a[k] = v
 		}
+		return a;
+	}
 
-		function A(a, o) {
-			var v;
-			o = o.slice();
-			while (o.length > 0) {
-				v = o.shift();
-				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
-				a.push(v);
-			}
-			return a;
-		}
-
-		return function (alpha, omega) {
-			var k, v;
+	function A(a, o) {
+		/*
+		 *	A simple way to clone o would be to return o.slice()
+		 *	but that would create an array containing all of the same
+		 *	items (including other arrays and objects) which we
+		 *	also want to clone
+		 */
+		var v, i = 0, j = o.length;
+		for (i, j; i < j; i = i + 1) {
+			v = o[i]
+			v = isObject(v) ? O({}, v) : isArray(v) ? A([], v) : v;
 			/*
-			 *	According to jsperf.com, December 2012, Chrome and Maxthon favour the duplicated code, below, rather than
-			 *	immediately invoking "O()" or "A()"
+			 *	On the one hand, we can save ourselves a splice operation with:
 			 *
-			 *	FF and Safari show some preference for using a switch on the constructor of "alpha" to establish the first
-			 *	condition then invoking "O()" or "A()" with a ternary
+			 *	if (a[i] !== v) {
+			 *		a.splice(i, 1, v)
+			 *	}
+			 *
+			 *	On the other hand, if a[i] is undefined because a.length < o.length,
+			 *	but v is undefined because that's the value of o[i], then we won't splice
+			 *	o[i] into a[i] -- which would be incorrect
+			 *
+			 *	If
+			 *		a = [1, 2, 3]
+			 *		o = [4, 2, 5, undefined, 6]
+			 *	Then
+			 *		a = [4, 2, 5, undefined, 6]
 			 */
-			if ((alpha || false).constructor === Object) {
-				if ((omega || false).constructor === Object) {
-					for (k in omega) {
-						v = omega[k];
-						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
-						alpha[k] = v;
-					}
-					return alpha;
-				}
-				return null;
-			}
-			if ((alpha || false).constructor === Array) {
-				if ((omega || false).constructor === Array) {
-					omega = omega.slice();
-					while (omega.length > 0) {
-						v = omega.shift();
-						v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v) : v;
-						alpha.push(v);
-					}
-					return alpha;
-				}
-				return null;
-			}
-			return null;
-		};
-
-	}());
-
-	/*
-
-	mix = (function () {
-
-		function O(a, o) {
-			var k, v;
-			for (k in o) {
-				v = o[k];
-				v = ((v || false).constructor === Object) ? v === o ? v :  O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
-				a[k] = v;
-			}
-			return a;
+			a.splice(i, 1, v)
 		}
+		return a
+	}
 
-		function A(a, o) {
-			var v;
-			while (o.length > 0) {
-				v = o.shift();
-				v = ((v || false).constructor === Object) ? O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
-				a.push(v);
-			}
-			return a;
+	function merge(alpha, omega) {
+		if (isObject(alpha) && isObject(omega)) {
+			return O(O({}, alpha), omega)
 		}
-
-		return function (v1, v2, v3) {
-			var alpha, omega, k, v;
-			if (v1 === true) {
-				alpha = v2;
-				omega = v3;
-				if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
-					for (k in omega) {
-						v = omega[k];
-						v = ((v || false).constructor === Object) ? v === omega ? v : O({}, v) : ((v || false).constructor === Array) ? A([], v.slice()) : v;
-						alpha[k] = v;
-					}
-					return alpha;
-				}
-			} else {
-				alpha = v1;
-				omega = v2;
-				if ((alpha || false).constructor === Object && (omega || false).constructor === Object) {
-					for (k in omega) {
-						alpha[k] = omega[k];
-					}
-					return alpha;
-				}
-			}
-			return null;
+		if (isArray(alpha) && isArray(omega)) {
+			return A(A([], alpha), omega)
 		}
+		return null;
+	}
 
-	}());
-
-	*/
+	function clone(value) {
+		if (isObject(value)) {
+			return O({}, value)
+		}
+		if (isArray(value)) {
+			return A([], value)
+		}
+		return null;
+	}
 
 	function hasProperty(object, key) {
-		if ((object || false).constructor === Object) {
+		if (isObject(object)) {
 			return (key in object);
 		}
 		return false;
 	}
 
-
 	function hasProperties(object) {
 		var key;
-		if ((object || false).constructor === Object) {
+		if (isObject(object)) {
 			for (key in object) return true;
 			return false;
 		}
@@ -159,7 +121,7 @@ var ObjectEngine	= (function () {
 	}
 
 	function hasOwnProperty(object, key) {
-		if ((object || false).constructor !== Boolean) {
+		if (notBoolean(object)) {
 			return has.call(object, key);
 		}
 		return false;
@@ -167,7 +129,7 @@ var ObjectEngine	= (function () {
 
 	function hasOwnProperties(object) {
 		var key;
-		if ((object || false).constructor !== Boolean) {
+		if (notBoolean(object)) {
 			for (key in object) if (has.call(object, key)) return true;
 			return false;
 		}
@@ -178,10 +140,12 @@ var ObjectEngine	= (function () {
 		return objectEngine || (this instanceof ObjectEngine ? objectEngine = this : new ObjectEngine());
 	}
 
-	ObjectEngine.prototype.mix				= mix;
+	ObjectEngine.prototype.merge			= merge;
+	ObjectEngine.prototype.clone			= clone;
 	ObjectEngine.prototype.hasProperty		= hasProperty;
 	ObjectEngine.prototype.hasProperties	= hasProperties;
 	ObjectEngine.prototype.hasOwnProperty	= hasOwnProperty;
+	ObjectEngine.prototype.hasOwnProperties	= hasOwnProperties;
 
 	return ObjectEngine;
 

@@ -1187,51 +1187,6 @@ var StringEngine	= (function () {
 
 	*/
 
-	encode = "btoa" in window ? function (key) {
-		return btoa(key);
-	} : (function () {
-		var map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-			char43 = "\u002b",
-			char47 = "\u002f",
-			char61 = "\u002f";
-		return function (key) {};
-	}());
-
-	decode = "atob" in window ? function (key) {
-		return atob(key);
-	} : (function () {
-		var map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-			char43 = "\u002b",
-			char47 = "\u002f",
-			char61 = "\u003d",
-			enc1, enc2, enc3, enc4, expression = /[^A-Za-z0-9\+\/\=]/;
-		return function (key) {
-			var value = "",
-				j, n;
-			if ((key = key.replace(/-/g, char43).replace(/_/g, char61).replace(/\./g, char47)).match(expression)) {
-				return null;
-			}
-			j = key.length;
-			n = 0;
-			do {
-				enc1 = map.indexOf(key.charAt(n + 0));
-				enc2 = map.indexOf(key.charAt(n + 1));
-				enc3 = map.indexOf(key.charAt(n + 2));
-				enc4 = map.indexOf(key.charAt(n + 3));
-				value = value + String.fromCharCode((enc1 << 2) | (enc2 >> 4));
-				if (enc3 !== 64) {
-					value = value + String.fromCharCode(((enc2 & 15) << 4) | (enc3 >> 2));
-				}
-				if (enc4 !== 64) {
-					value = value + String.fromCharCode((((enc3 & 3) << 6) | enc4));
-				}
-				n = n + 4;
-			} while (j > n);
-			return value;
-		};
-
-	}());
-
 	function reverse(string) {
 		var s, i;
 		if (typeof string === "string") {
@@ -1307,12 +1262,11 @@ var StringEngine	= (function () {
 
 	function StringEngine() {
 
-		function initialise(instance) {
+		function initialise() {
 			extend([ { from: 32, to: 126 }, { from: 150, to: 151 }, { from: 160, to: 255 } ]);
-			return instance;
 		}
 
-		return stringEngine || (this instanceof StringEngine ? stringEngine = initialise(this) : new StringEngine());
+		return stringEngine || (this instanceof StringEngine ? stringEngine = (initialise() || this) : new StringEngine());
 
 	}
 

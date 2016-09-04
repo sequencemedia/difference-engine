@@ -37,9 +37,6 @@ var ArrayEngine	= (function () {
 		upperBound,
 		value,
 		index,
-		sequentialIndex,
-		sequentialValue,
-		sequentialIndexOf,
 		ltr,
 		m,
 		ARRAY,
@@ -90,53 +87,6 @@ var ArrayEngine	= (function () {
 		return null;
 	}
 
-	sequentialIndexOf = (function () {
-		function L(l, a, v) {
-			/**
-			 * Seek left to right.
-			 * Either start at lowerBound or start at previous sequentialIndex + 1.
-			 * According to jsperf.com, December 2012, assignment from a ternary
-			 * performs faster than "Math.min".
-			 */
-			var n = (l === m ? lowerBound : (n = l + 1) > j ? j : n);
-			for (n, j; n < j; n = n + 1) {
-				if (a[n] === v) {
-					sequentialValue = v;
-					return (sequentialIndex = n);
-				}
-			}
-			ltr = !ltr;
-			return null;
-		}
-		function R(l, a, v) {
-			/**
-			 * Seek right to left.
-			 * Either start at upperBound or start at previous sequentialIndex - 1.
-			 * According to jsperf.com, December 2012, assignment from a ternary
-			 * performs faster than "Math.max".
-			 */
-			var n = (l === m ? upperBound : (n = l - 1) > m ? n : m);
-			for (n, m; n > m; n = n - 1) {
-				if (a[n] === v) {
-					sequentialValue = v;
-					return (sequentialIndex = n);
-				}
-			}
-			ltr = !ltr;
-			return null;
-		}
-		return function (v) {
-			var n, l = sequentialIndex, a;
-			if (sequentialValue === v) {
-				return l;
-			} else if (upperBound || lowerBound) {
-				a = ARRAY;
-				return ltr ? (n = L(l, a, v)) === null ? R(l, a, v) : n : (n = R(l, a, v)) === null ? L(l, a, v) : n;
-			}
-			return null;
-		};
-	}());
-
 	/**
 	 * Accepts one array to be assigned to the privately scoped variable
 	 * "ARRAY". Assigns useful values to other privately scoped variables
@@ -156,8 +106,8 @@ var ArrayEngine	= (function () {
 			m	= -1;
 			lowerBound	= i;
 			upperBound	= j - 1;
-			index = sequentialIndex = m;
-			value = sequentialValue = null;
+			index = m;
+			value = null;
 			ltr = true;
 			return this;
 		} else {
@@ -179,8 +129,8 @@ var ArrayEngine	= (function () {
 		m	= -1;
 		lowerBound	= i;
 		upperBound	= m;
-		index = sequentialIndex = m;
-		value = sequentialValue = null;
+		index = m;
+		value = null;
 		ltr = true;
 		return this;
 	}
@@ -501,7 +451,6 @@ var ArrayEngine	= (function () {
 	}
 
 	ArrayEngine.prototype.indexOf	= indexOf;
-	ArrayEngine.prototype.sequentialIndexOf	= sequentialIndexOf;
 
 	ArrayEngine.prototype.begin		= begin;
 	ArrayEngine.prototype.reset		= reset;
