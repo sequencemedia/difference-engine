@@ -55,8 +55,7 @@ var ObjectEngine	= (function () {
 		/*
 		 *	A simple way to clone o would be to return o.slice()
 		 *	but that would create an array containing all of the same
-		 *	items (including other arrays and objects) which we
-		 *	also want to clone
+		 *	items (including other arrays and objects)
 		 */
 		var v, i = 0, j = o.length;
 		for (i, j; i < j; i = i + 1) {
@@ -85,21 +84,24 @@ var ObjectEngine	= (function () {
 	}
 
 	function merge(alpha, omega) {
+		var value;
 		if (isObject(alpha) && isObject(omega)) {
-			return O(O({}, alpha), omega)
+			value = O({}, alpha);
+			return O(value, omega);
 		}
 		if (isArray(alpha) && isArray(omega)) {
-			return A(A([], alpha), omega)
+			value = A([], alpha);
+			return A(value, omega);
 		}
 		return null;
 	}
 
 	function clone(value) {
 		if (isObject(value)) {
-			return O({}, value)
+			return O({}, value);
 		}
 		if (isArray(value)) {
-			return A([], value)
+			return A([], value);
 		}
 		return null;
 	}
@@ -115,7 +117,6 @@ var ObjectEngine	= (function () {
 		var key;
 		if (isObject(object)) {
 			for (key in object) return true;
-			return false;
 		}
 		return false;
 	}
@@ -131,7 +132,6 @@ var ObjectEngine	= (function () {
 		var key;
 		if (notBoolean(object)) {
 			for (key in object) if (has.call(object, key)) return true;
-			return false;
 		}
 		return false;
 	}
