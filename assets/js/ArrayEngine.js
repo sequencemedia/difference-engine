@@ -43,6 +43,29 @@ var ArrayEngine	= (function () {
 		max,
 		min;
 
+	function isArray(v) {
+		return ((v || false)
+			.constructor === Array)
+	}
+
+	function isObject(v) {
+		return ((v || false)
+			.constructor === Object)
+	}
+
+	function isFunction(v) {
+		return ((v || false)
+			.constructor === Function)
+	}
+
+	function isString(v) {
+		return (typeof v === "string")
+	}
+
+	function isNumber(v) {
+		return (typeof v === "number")
+	}
+
 	/**
 	 * Accepts one string or number searches "ARRAY" for the first
 	 * element to match, returning the index.
@@ -100,7 +123,7 @@ var ArrayEngine	= (function () {
 	 * Where no array has been passed, the method invokes "reset".
 	 */
 	function begin(array) { //console.log("ArrayEngine.begin()", array);
-		if ((array || false).constructor === Array) {
+		if (isArray(array)) {
 			i	= +0;
 			j	= (ARRAY = array.slice()).length;
 			m	= -1;
@@ -148,13 +171,13 @@ var ArrayEngine	= (function () {
 	 */
 	function bite(x, y) {
 		var pow, N, a, max, min, l, u, z;
-		if (typeof x === "number") {
+		if (isNumber(x)) {
 			pow	= Math.pow;
 			N	= Number.NEGATIVE_INFINITY;
 			a	= ARRAY;
 			l	= lowerBound;
 			u	= upperBound;
-			if (typeof y === "number") {
+			if (isNumber(y)) {
 				/**
 				 * Negative zero slices lower bound 0
 				 *
@@ -193,13 +216,13 @@ var ArrayEngine	= (function () {
 	/*
 	function bite(x, y) {
 		var pow, N, a, max, min, l, u, z;
-		if (typeof x === "number") {
+		if (isNumber(x)) {
 			pow = Math.pow;
 			N = Number.NEGATIVE_INFINITY;
 			a = ARRAY;
 			l = lowerBound;
 			u = upperBound;
-			if (typeof y === "number") {
+			if (isNumber(y)) {
 				return pow(x, m) === N && pow(y, m) === N ? a.slice(l).reverse() : (x = (l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z) > (y = (u < (z = (l > (z = (y > m ? y : y + u)) ? l : z))) ? u : z) ? a.slice(y, x + 1).reverse() : a.slice(x, y + 1);
 			}
 			return pow(x, m) === N ? a.slice(u) : a.slice((l > (z = (u < (z = (x > m ? x : x + u)) ? u : z))) ? l : z);
@@ -209,7 +232,7 @@ var ArrayEngine	= (function () {
 
 	function bite(x, y) {
 		var pow, N, a, max, min, l, u, z;
-		if (typeof x === "number") {
+		if (isNumber(x)) {
 			pow = Math.pow;
 			N = Number.NEGATIVE_INFINITY;
 			a = ARRAY;
@@ -217,7 +240,7 @@ var ArrayEngine	= (function () {
 			min	= Math.min;
 			l = lowerBound;
 			u = upperBound;
-			if (typeof y === "number") {
+			if (isNumber(y)) {
 				if ((pow(x, m) === N) && (pow(y, m) === N)) {
 					return a.slice(l).reverse();
 				} else {
@@ -237,19 +260,33 @@ var ArrayEngine	= (function () {
 	}
 	*/
 
-	function map(method) { //console.log("ArrayEngine.map()", method);
+	function map(f) { //console.log("ArrayEngine.map()", f);
 		var z, array, a;
-		if ((method || false).constructor === Function) {
+		if (isFunction(f)) {
 			if ((z = lowerBound) < j) {
 				array = [];
 				a = ARRAY;
 				do {
-					array.push(method.call(a, z, a[z], j));
+					array.push(f.call(a, a[z], z, j));
 				} while (++z < j);
 				return array;
 			}
 		}
 		return [];
+	}
+
+	function reduce(f, v) { //console.log("ArrayEngine.reduce()", f, v);
+		var z, a;
+		if (isFunction(f)) {
+			if ((z = lowerBound) < j) {
+				a = ARRAY;
+				do {
+					v = f.call(a, v, a[z], z, j);
+				} while (++z < j);
+				return v;
+			}
+		}
+		return v;
 	}
 
 	/**
@@ -308,33 +345,33 @@ var ArrayEngine	= (function () {
 		};
 	}());
 
-	function iterate(method) {
-		if ((method || false).constructor === Function) {
+	function iterate(f) {
+		if (isFunction(f)) {
 			throw "Not implimented"; //return true;
 		}
 		return false;
 	}
 
 	/**
-	 * Accepts one argument, "method", which is invoked within
+	 * Accepts one argument, "f", which is invoked within
 	 * a forward iteration (zero to length) of "ARRAY".
 	 *
-	 * Invocation of "method" passes the arguments "z", which
+	 * Invocation of "f" passes the arguments "z", which
 	 * is the current index, "a[z]", which is the item at the
 	 * current index, and "u" which is the upper bound (or "last
 	 * index") of "ARRAY".
 	 *
 	 * @method iterateForward
-	 * @param {Function} method
+	 * @param {Function} f
 	 */
-	function iterateForward(method) { //console.log("ArrayEngine.iterateForward()", method);
+	function iterateForward(f) { //console.log("ArrayEngine.iterateForward()", f);
 		var z, u, a;
-		if ((method || false).constructor === Function) {
+		if (isFunction(f)) {
 			if ((z = lowerBound) < j) {
 				u = upperBound;
 				a = ARRAY;
 				do {
-					method.call(a, z, a[z], u);
+					f.call(a, a[z], z, u);
 				} while (++z < j);
 				return true;
 			}
@@ -343,24 +380,24 @@ var ArrayEngine	= (function () {
 	}
 
 	/**
-	 * Accepts one argument, "method", which is invoked within
+	 * Accepts one argument, "f", which is invoked within
 	 * a reverse iteration (upper bound to zero) of "ARRAY".
 	 *
-	 * Invocation of "method" passes the arguments "z", which
+	 * Invocation of "f" passes the arguments "z", which
 	 * is the current index, "a[z]", which is the item at the
 	 * current index, and "u" which is the upper bound (or "last
 	 * index") of "ARRAY".
 	 *
 	 * @method iterateReverse
-	 * @param {Function} method
+	 * @param {Function} f
 	 */
-	function iterateReverse(method) { //console.log("ArrayEngine.iterateReverse()", method);
+	function iterateReverse(f) { //console.log("ArrayEngine.iterateReverse()", f);
 		var z, u, a;
-		if ((method || false).constructor === Function) {
+		if (isFunction(f)) {
 			if ((z = u = upperBound) < j) {
 				a = ARRAY;
 				do {
-					method.call(a, z, a[z], u);
+					f.call(a, a[z], z, u);
 				} while (m < --z);
 				return true;
 			}
@@ -370,7 +407,7 @@ var ArrayEngine	= (function () {
 
 	/**
 	 * Accepts three arguments, "x", which is the start index,
-	 * "y", which is the end index, and "method", which is invoked
+	 * "y", which is the end index, and "f", which is invoked
 	 * within a forward or reverse iteration of "ARRAY", the
 	 * direction depending on the values of "x" and "y".
 	 *
@@ -379,17 +416,17 @@ var ArrayEngine	= (function () {
 	 * iteration, and "y" becomes the end index, which may also
 	 * be the upper bound (or "last index") of "ARRAY".
 	 *
-	 * Invocation of "method" passes the arguments "x", which
+	 * Invocation of "f" passes the arguments "x", which
 	 * is the current index, "a[x]", which is the item at the
 	 * current index, and "y" which is the upper bound (or "last
 	 * index") of "ARRAY".
 	 *
 	 * @method iterateReverse
-	 * @param {Function} method
+	 * @param {Function} f
 	 */
-	function iterateBetween(x, y, method) { //console.log("ArrayEngine.iterateBetween()", x, y); //, method);
+	function iterateBetween(x, y, f) { //console.log("ArrayEngine.iterateBetween()", x, y); //, f);
 		var a, l, u, z;
-		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
+		if (isNumber(x) && isNumber(y) && isFunction(f)) {
 			a	= ARRAY;
 			l	= lowerBound;
 			u	= upperBound;
@@ -403,13 +440,13 @@ var ArrayEngine	= (function () {
 			if (x > y) {
 				z = y - 1;
 				do {
-					method.call(a, x, a[x], y);
+					f.call(a, a[x], x, y);
 				} while (z < --x);
 				return true;
 			} else {
 				z = y + 1;
 				do {
-					method.call(a, x, a[x], y);
+					f.call(a, a[x], x, y);
 				} while (++x < z);
 				return true;
 			}
@@ -418,9 +455,9 @@ var ArrayEngine	= (function () {
 	}
 
 	/*
-	function iterateBetween(x, y, method) {
+	function iterateBetween(x, y, f) {
 		var a, l, u, z;
-		if (typeof x === "number" && typeof y === "number" && (method || false).constructor === Function) {
+		if (isNumber(x) && isNumber(y) && isFunction(f)) {
 			a	= ARRAY;
 			l	= lowerBound;
 			u	= upperBound;
@@ -429,13 +466,13 @@ var ArrayEngine	= (function () {
 			if (x > y) {
 				z = y - 1;
 				do {
-					method.call(a, x, a[x], y);
+					f.call(a, a[x], x, y);
 				} while (z < --x);
 				return true;
 			} else {
 				z = y + 1;
 				do {
-					method.call(a, x, a[x], y);
+					f.call(a, a[x], x, y);
 				} while (++x < z);
 				return true;
 			}
@@ -458,6 +495,8 @@ var ArrayEngine	= (function () {
 	ArrayEngine.prototype.bite		= bite;
 
 	ArrayEngine.prototype.map		= map;
+	ArrayEngine.prototype.reduce	= reduce;
+
 	ArrayEngine.prototype.max		= max;
 	ArrayEngine.prototype.min		= min;
 
