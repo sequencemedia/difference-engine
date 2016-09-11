@@ -1,0 +1,40 @@
+{
+  "name": "difference-engine",
+  "version": "1.0.0",
+  "description": "Difference Engine",
+  "main": "./index.js",
+  "scripts": {
+    "eslint": "eslint lib/es"
+  },
+  "author": {
+    "email": "sequencemedia@sequencemedia.net",
+    "name": "Jonathan Perry for Sequence Media Limited",
+    "url": "http://www.sequencemedia.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sequencemedia/DifferenceEngine.git"
+  },
+  "license": "MIT",
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "dependencies": {
+    "babel-core": "^6.10.4",
+    "babel-plugin-transform-class-properties": "^6.9.1",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "babel-runtime": "^6.9.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.0",
+    "eslint": "^3.5.0",
+    "eslint-config-standard": "^6.0.0",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0"
+  }
+}
