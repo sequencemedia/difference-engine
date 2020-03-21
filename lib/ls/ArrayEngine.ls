@@ -150,7 +150,7 @@ class ArrayEngine
 			return if i < j then (if isNaN z = min.apply (a = ARRAY), a then MIN(a) else z) else null
 	iterate : (method) ->
 		if (method || false).constructor == Function
-			throw "Not implimented"
+			throw "Not implemented"
 		false
 	iterate-forward : (method) ->
 		if (method || false).constructor == Function

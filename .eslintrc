@@ -1,10 +1,34 @@
 {
+  "env": {
+    "es6": true,
+    "node": true
+  },
   "extends": [
     "standard"
   ],
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module"
+    "ecmaVersion": 6
   },
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "globals": {
+    "ArrayEngine": "readonly",
+    "DifferenceEngine": "readonly",
+    "NumberEngine": "readonly",
+    "ObjectEngine": "readonly",
+    "StringEngine": "readonly"
+  },
+  "overrides": [
+    {
+        "files": [
+          "lib/js/ArrayEngine.js",
+          "lib/js/DifferenceEngine.js",
+          "lib/js/NumberEngine.js",
+          "lib/js/ObjectEngine.js",
+          "lib/js/StringEngine.js"
+        ],
+        "rules": {
+          "no-return-assign": "off"
+        }
+    }
+  ]
 }
