@@ -2,7 +2,7 @@
  * @module common/string
  */
 
-import CHAR_FROM_ENTITY_NAME from './from-html-name'
+import CHAR_FROM_ENTITY_NAME from './char-from-entity-name'
 import ENTITY_NAME_FROM_CHAR from './entity-name-from-char'
 
 export const fromCharCodeMap = new Map()
