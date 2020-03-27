@@ -14,11 +14,13 @@ const presets = [
 const plugins = [
   '@babel/proposal-export-default-from',
   '@babel/proposal-export-namespace-from',
+  '@babel/proposal-class-properties',
   [
     'module-resolver', {
       root: ['./src'],
       cwd: 'babelrc',
       alias: {
+        '@difference-engine': './lib/es',
         '~': './src'
       }
     }
