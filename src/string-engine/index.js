@@ -48,10 +48,10 @@ export function charAt (i, s) {
          *  The regular expression must have a match. Retrieve it
          */
         v = m.shift()
-        let s
+        let c
 
-        if ((s = getCharFromEntityName(v)) !== null) return s // eslint-disable-line
-        if ((s = getCharFromEntityCode(v)) !== null) return s // eslint-disable-line
+        if ((c = getCharFromEntityName(v)) !== null) return c // eslint-disable-line
+        if ((c = getCharFromEntityCode(v)) !== null) return c // eslint-disable-line
         return A
       }
     } else {
@@ -89,10 +89,10 @@ export function charCodeAt (i, s) {
          *  The regular expression must have a match. Retrieve it
          */
         v = m.shift()
-        let s
+        let c
 
-        if ((s = getCharFromEntityName(v)) !== null) return s.charCodeAt(0) // eslint-disable-line
-        if ((s = getCharFromEntityCode(v)) !== null) return s.charCodeAt(0) // eslint-disable-line
+        if ((c = getCharFromEntityName(v)) !== null) return c.charCodeAt(0) // eslint-disable-line
+        if ((c = getCharFromEntityCode(v)) !== null) return c.charCodeAt(0) // eslint-disable-line
         return N
       }
     } else {
@@ -153,9 +153,9 @@ export function entityCodeAt (i, s) {
          *  The regular expression must have a match. Retrieve it
          */
         v = m.shift()
-        let s
+        let c
 
-        if ((s = getCharFromEntityCode(v)) !== null) return s // eslint-disable-line
+        if ((c = getCharFromEntityCode(v)) !== null) return c // eslint-disable-line
         return A
       }
     } else {
@@ -189,9 +189,9 @@ export function entityNameAt (i, s) {
          *  The regular expression must have a match. Retrieve it
          */
         v = m.shift()
-        let s
+        let c
 
-        if ((s = getCharFromEntityName(v)) !== null) return s // eslint-disable-line
+        if ((c = getCharFromEntityName(v)) !== null) return c // eslint-disable-line
         return A
       }
     } else {
@@ -228,10 +228,10 @@ export function charOf (s) {
            *  The regular expression must have a match. Retrieve it
            */
           v = m.shift()
-          let s
+          let c
 
-          if ((s = getCharFromEntityName(v)) !== null) return s // eslint-disable-line
-          if ((s = getCharFromEntityCode(v)) !== null) return s // eslint-disable-line
+          if ((c = getCharFromEntityName(v)) !== null) return c // eslint-disable-line
+          if ((c = getCharFromEntityCode(v)) !== null) return c // eslint-disable-line
           return A
         }
       } else {
