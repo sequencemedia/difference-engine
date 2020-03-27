@@ -185,9 +185,6 @@ export default class ArrayEngine {
 
   static bite = bite
 
-  map () { }
-  reduce () { }
-
   static max (a = []) {
     const j = a.length
 

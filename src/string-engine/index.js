@@ -108,7 +108,7 @@ export function charCodeAt (i, s) {
 /*
  *  Either code or name
  */
-export function htmlAt (i, s) {
+export function entityAt (i, s) {
   if (isNumber(i) && isString(s)) {
     /*
      *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
@@ -132,7 +132,7 @@ export function htmlAt (i, s) {
 /*
  *  Code, ignore name
  */
-export function htmlCodeAt (i, s) {
+export function entityCodeAt (i, s) {
   if (isNumber(i) && isString(s)) {
     /*
      *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
@@ -168,7 +168,7 @@ export function htmlCodeAt (i, s) {
 /*
  *  Name, ignore code
  */
-export function htmlNameAt (i, s) {
+export function entityNameAt (i, s) {
   if (isNumber(i) && isString(s)) {
     /*
      *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
@@ -245,7 +245,7 @@ export function charOf (s) {
   return null
 }
 
-export function htmlOf (s) {
+export function entityOf (s) {
   throw new Error('Not implemented') // return null;
 }
 
@@ -259,21 +259,21 @@ export function fromCharCode (i) {
 /*
  *  Character from HTML code
  */
-export function fromHtmlCode (s) {
+export function charFromEntityCode (s) {
   return isString(s) ? getCharFromEntityCode(s) : null
 }
 
 /*
  *  Character from HTML name
  */
-export function fromHtmlName (s) {
+export function charFromEntityName (s) {
   return isString(s) ? getCharFromEntityName(s) : null
 }
 
 /*
  * Characters to HTML code
  */
-export function toHtmlCode (s) {
+export function toEntityCode (s) {
   if (isString(s)) {
     let i = 0
     const j = s.length
@@ -292,7 +292,7 @@ export function toHtmlCode (s) {
 /*
  * Characters to HTML name
  */
-export function toHtmlName (s) {
+export function toEntityName (s) {
   if (isString(s)) {
     let i = 0
     const j = s.length
@@ -311,28 +311,28 @@ export function toHtmlName (s) {
 /*
  *  HTML code from character
  */
-export function htmlCodeFrom (s) {
+export function entityCodeFromChar (s) {
   return isString(s) && s.length === 1 ? getEntityCodeFromChar(s) : null
 }
 
 /*
  *  HTML name from chracter
  */
-export function htmlNameFrom (s) { // returns the char when null
+export function entityNameFromChar (s) { // returns the char when null
   return isString(s) && s.length === 1 ? entityNameFromCharMap.has(s) ? entityNameFromCharMap.get(s) : s : null
 }
 
 /*
- *  As "htmlCodeFrom"
+ *  As "entityCodeFromChar"
  */
-export function htmlCodeOf (s) {
+export function entityCodeOf (s) {
   return isString(s) && s.length === 1 ? getEntityCodeFromChar(s) : null
 }
 
 /*
- *  As "htmlNameFrom"
+ *  As "entityNameFromChar"
  */
-export function htmlNameOf (s) { // returns the char when null
+export function entityNameOf (s) { // returns the char when null
   return isString(s) && s.length === 1 ? entityNameFromCharMap.has(s) ? entityNameFromCharMap.get(s) : s : null
 }
 
@@ -368,26 +368,25 @@ export function reverse (string) {
 export default class StringEngine {
   static charAt = charAt
   static charCodeAt = charCodeAt
-
-  static htmlAt = htmlAt
-  static htmlCodeAt = htmlCodeAt
-  static htmlNameAt = htmlNameAt
-
   static charOf = charOf
-  static htmlOf = htmlOf
+
+  static entityAt = entityAt
+  static entityCodeAt = entityCodeAt
+  static entityNameAt = entityNameAt
+  static entityOf = entityOf
 
   static fromCharCode = fromCharCode
-  static fromHtmlCode = fromHtmlCode
-  static fromHtmlName = fromHtmlName
+  static charFromEntityCode = charFromEntityCode
+  static charFromEntityName = charFromEntityName
 
-  static toHtmlCode = toHtmlCode
-  static toHtmlName = toHtmlName
+  static toEntityCode = toEntityCode
+  static toEntityName = toEntityName
 
-  static htmlCodeFrom = htmlCodeFrom
-  static htmlNameFrom = htmlNameFrom
+  static entityCodeFromChar = entityCodeFromChar
+  static entityNameFromChar = entityNameFromChar
 
-  static htmlCodeOf = htmlCodeOf
-  static htmlNameOf = htmlNameOf
+  static entityCodeOf = entityCodeOf
+  static entityNameOf = entityNameOf
 
   static fromDecToHex = fromDecToHex
   static fromDecToOct = fromDecToOct

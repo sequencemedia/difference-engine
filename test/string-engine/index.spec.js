@@ -79,114 +79,114 @@ describe('StringEngine', () => {
     })
   })
 
-  describe('`htmlAt()`', () => {
+  describe('`entityAt()`', () => {
     describe('The string is an HTML entity', () => {
       describe('The index is zero', () => {
         it('gets the char code for the char name of the entity', () => {
-          expect(StringEngine.htmlAt(0, '&amp;')).to.equal('&amp;')
+          expect(StringEngine.entityAt(0, '&amp;')).to.equal('&amp;')
 
-          expect(StringEngine.htmlAt(0, '&#65;')).to.equal('&#65;')
+          expect(StringEngine.entityAt(0, '&#65;')).to.equal('&#65;')
         })
       })
 
       describe('The index is not zero', () => {
         it('gets the char code at the index', () => {
-          expect(StringEngine.htmlAt(1, '&amp;')).to.equal('a')
+          expect(StringEngine.entityAt(1, '&amp;')).to.equal('a')
 
-          expect(StringEngine.htmlAt(2, '&#65;')).to.equal('6')
+          expect(StringEngine.entityAt(2, '&#65;')).to.equal('6')
         })
       })
     })
 
     describe('The string is not an HTML entity', () => {
       it('gets the char code at the index', () => {
-        expect(StringEngine.htmlAt(0, 'ABCDE')).to.equal('A')
+        expect(StringEngine.entityAt(0, 'ABCDE')).to.equal('A')
 
-        expect(StringEngine.htmlAt(2, 'ABCDE')).to.equal('C')
+        expect(StringEngine.entityAt(2, 'ABCDE')).to.equal('C')
 
-        expect(StringEngine.htmlAt(4, 'ABCDE')).to.equal('E')
+        expect(StringEngine.entityAt(4, 'ABCDE')).to.equal('E')
 
-        expect(StringEngine.htmlAt(0, '&  ')).to.equal('&')
+        expect(StringEngine.entityAt(0, '&  ')).to.equal('&')
 
-        expect(StringEngine.htmlAt(1, ' & ')).to.equal('&')
+        expect(StringEngine.entityAt(1, ' & ')).to.equal('&')
 
-        expect(StringEngine.htmlAt(2, '  &')).to.equal('&')
+        expect(StringEngine.entityAt(2, '  &')).to.equal('&')
       })
     })
   })
 
-  describe('`htmlCodeAt()`', () => {
+  describe('`entityCodeAt()`', () => {
     describe('The string is an HTML entity', () => {
       describe('The index is zero', () => {
         it('gets the char for the char name at the index', () => {
-          expect(StringEngine.htmlCodeAt(0, '&amp;')).to.equal('&') // name (first char)
+          expect(StringEngine.entityCodeAt(0, '&amp;')).to.equal('&') // name (first char)
         })
 
         it('gets the char for the char code at the index', () => {
-          expect(StringEngine.htmlCodeAt(0, '&#65;')).to.equal('A') // code
+          expect(StringEngine.entityCodeAt(0, '&#65;')).to.equal('A') // code
         })
       })
 
       describe('The index is not zero', () => {
         it('gets the char at the index', () => {
-          expect(StringEngine.htmlCodeAt(1, '&amp;')).to.equal('a')
+          expect(StringEngine.entityCodeAt(1, '&amp;')).to.equal('a')
 
-          expect(StringEngine.htmlCodeAt(2, '&#65;')).to.equal('6')
+          expect(StringEngine.entityCodeAt(2, '&#65;')).to.equal('6')
         })
       })
     })
 
     describe('The string is not an HTML entity', () => {
       it('gets the char code at the index', () => {
-        expect(StringEngine.htmlCodeAt(0, 'ABCDE')).to.equal('A')
+        expect(StringEngine.entityCodeAt(0, 'ABCDE')).to.equal('A')
 
-        expect(StringEngine.htmlCodeAt(2, 'ABCDE')).to.equal('C')
+        expect(StringEngine.entityCodeAt(2, 'ABCDE')).to.equal('C')
 
-        expect(StringEngine.htmlCodeAt(4, 'ABCDE')).to.equal('E')
+        expect(StringEngine.entityCodeAt(4, 'ABCDE')).to.equal('E')
 
-        expect(StringEngine.htmlCodeAt(0, '&  ')).to.equal('&')
+        expect(StringEngine.entityCodeAt(0, '&  ')).to.equal('&')
 
-        expect(StringEngine.htmlCodeAt(1, ' & ')).to.equal('&')
+        expect(StringEngine.entityCodeAt(1, ' & ')).to.equal('&')
 
-        expect(StringEngine.htmlCodeAt(2, '  &')).to.equal('&')
+        expect(StringEngine.entityCodeAt(2, '  &')).to.equal('&')
       })
     })
   })
 
-  describe('`htmlNameAt()`', () => {
+  describe('`entityNameAt()`', () => {
     describe('The string is an HTML entity', () => {
       describe('The index is zero', () => {
         it('gets the char for the char name at the index', () => {
-          expect(StringEngine.htmlNameAt(0, '&amp;')).to.equal('&') // name
+          expect(StringEngine.entityNameAt(0, '&amp;')).to.equal('&') // name
         })
 
         it('gets the char for the char code at the index', () => {
-          expect(StringEngine.htmlNameAt(0, '&#65;')).to.equal('&') // code
+          expect(StringEngine.entityNameAt(0, '&#65;')).to.equal('&') // code
         })
       })
 
       describe('The index is not zero', () => {
         it('gets the char code at the index', () => {
-          expect(StringEngine.htmlNameAt(1, '&amp;')).to.equal('a')
+          expect(StringEngine.entityNameAt(1, '&amp;')).to.equal('a')
 
-          expect(StringEngine.htmlNameAt(2, '&#65;')).to.equal('6')
+          expect(StringEngine.entityNameAt(2, '&#65;')).to.equal('6')
         })
       })
     })
 
     describe('The string is not an HTML entity', () => {
       it('gets the char at the index', () => {
-        expect(StringEngine.htmlNameAt(0, 'ABCDE')).to.equal('A')
+        expect(StringEngine.entityNameAt(0, 'ABCDE')).to.equal('A')
 
-        expect(StringEngine.htmlNameAt(2, 'ABCDE')).to.equal('C')
+        expect(StringEngine.entityNameAt(2, 'ABCDE')).to.equal('C')
 
-        expect(StringEngine.htmlNameAt(4, 'ABCDE')).to.equal('E')
+        expect(StringEngine.entityNameAt(4, 'ABCDE')).to.equal('E')
 
-        expect(StringEngine.htmlNameAt(0, '&  ')).to.equal('&')
+        expect(StringEngine.entityNameAt(0, '&  ')).to.equal('&')
 
-        expect(StringEngine.htmlNameAt(1, ' & ')).to.equal('&')
+        expect(StringEngine.entityNameAt(1, ' & ')).to.equal('&')
 
-        expect(StringEngine.htmlNameAt(2, '  &')).to.equal('&')
+        expect(StringEngine.entityNameAt(2, '  &')).to.equal('&')
       })
     })
   })
@@ -213,9 +213,9 @@ describe('StringEngine', () => {
     })
   })
 
-  describe('`htmlOf()`', () => {
+  describe('`entityOf()`', () => {
     it('throws', () => {
-      expect(() => StringEngine.htmlOf()).to.throw(Error, 'Not implemented')
+      expect(() => StringEngine.entityOf()).to.throw(Error, 'Not implemented')
     })
   })
 
@@ -229,128 +229,128 @@ describe('StringEngine', () => {
     })
   })
 
-  describe('`fromHtmlCode()`', () => {
+  describe('`charFromEntityCode()`', () => {
     it('gets the char for the entity code', () => {
-      expect(StringEngine.fromHtmlCode('&#0;')).to.equal(String.fromCharCode(0))
+      expect(StringEngine.charFromEntityCode('&#0;')).to.equal(String.fromCharCode(0))
 
-      expect(StringEngine.fromHtmlCode('&#1000;')).to.equal(String.fromCharCode(1000))
+      expect(StringEngine.charFromEntityCode('&#1000;')).to.equal(String.fromCharCode(1000))
 
-      expect(StringEngine.fromHtmlCode('&#1000000;')).to.equal(String.fromCharCode(1000000))
+      expect(StringEngine.charFromEntityCode('&#1000000;')).to.equal(String.fromCharCode(1000000))
     })
   })
 
-  describe('`fromHtmlName()`', () => {
+  describe('`charFromEntityName()`', () => {
     it('gets the char for the entity name', () => {
-      expect(StringEngine.fromHtmlName('&Tab;')).to.equal(String.fromCharCode(9))
+      expect(StringEngine.charFromEntityName('&Tab;')).to.equal(String.fromCharCode(9))
 
-      expect(StringEngine.fromHtmlName('&nsub;')).to.equal(String.fromCharCode(8836))
+      expect(StringEngine.charFromEntityName('&nsub;')).to.equal(String.fromCharCode(8836))
 
-      expect(StringEngine.fromHtmlName('&nsup;')).to.equal(String.fromCharCode(8837))
+      expect(StringEngine.charFromEntityName('&nsup;')).to.equal(String.fromCharCode(8837))
 
-      expect(StringEngine.fromHtmlName('&zopf;')).to.equal(String.fromCharCode(120171))
+      expect(StringEngine.charFromEntityName('&zopf;')).to.equal(String.fromCharCode(120171))
     })
   })
 
-  describe('`toHtmlCode()`', () => {
+  describe('`toEntityCode()`', () => {
     it('gets the entity code for each char', () => {
-      expect(StringEngine.toHtmlCode('&+.{}ACE')).to.equal('&#38;&#43;&#46;&#123;&#125;&#65;&#67;&#69;') // code
+      expect(StringEngine.toEntityCode('&+.{}ACE')).to.equal('&#38;&#43;&#46;&#123;&#125;&#65;&#67;&#69;') // code
     })
   })
 
-  describe('`toHtmlName()`', () => {
+  describe('`toEntityName()`', () => {
     it('gets the entity name for each char', () => {
-      expect(StringEngine.toHtmlName('&+.{}ACE')).to.equal('&AMP;&plus;&period;&lbrace;&rbrace;ACE') // code
+      expect(StringEngine.toEntityName('&+.{}ACE')).to.equal('&AMP;&plus;&period;&lbrace;&rbrace;ACE') // code
     })
   })
 
-  describe('`htmlCodeFrom()`', () => {
+  describe('`entityCodeFromChar()`', () => {
     it('gets the entity code for for the char', () => {
-      expect(StringEngine.htmlCodeFrom('&')).to.equal('&#38;') // code
+      expect(StringEngine.entityCodeFromChar('&')).to.equal('&#38;') // code
 
-      expect(StringEngine.htmlCodeFrom('+')).to.equal('&#43;') // code
+      expect(StringEngine.entityCodeFromChar('+')).to.equal('&#43;') // code
 
-      expect(StringEngine.htmlCodeFrom('-')).to.equal('&#45;') // code
+      expect(StringEngine.entityCodeFromChar('-')).to.equal('&#45;') // code
 
-      expect(StringEngine.htmlCodeFrom('{')).to.equal('&#123;') // code
+      expect(StringEngine.entityCodeFromChar('{')).to.equal('&#123;') // code
 
-      expect(StringEngine.htmlCodeFrom('}')).to.equal('&#125;') // code
+      expect(StringEngine.entityCodeFromChar('}')).to.equal('&#125;') // code
 
-      expect(StringEngine.htmlCodeFrom('A')).to.equal('&#65;') // code
+      expect(StringEngine.entityCodeFromChar('A')).to.equal('&#65;') // code
 
-      expect(StringEngine.htmlCodeFrom('C')).to.equal('&#67;') // code
+      expect(StringEngine.entityCodeFromChar('C')).to.equal('&#67;') // code
 
-      expect(StringEngine.htmlCodeFrom('E')).to.equal('&#69;') // code
+      expect(StringEngine.entityCodeFromChar('E')).to.equal('&#69;') // code
     })
   })
 
-  describe('`htmlNameFrom()`', () => {
+  describe('`entityNameFromChar()`', () => {
     describe('The char has an HTML entity', () => {
       it('gets the entity name for for the char', () => {
-        expect(StringEngine.htmlNameFrom('&')).to.equal('&AMP;') // name
+        expect(StringEngine.entityNameFromChar('&')).to.equal('&AMP;') // name
 
-        expect(StringEngine.htmlNameFrom('+')).to.equal('&plus;') // name
+        expect(StringEngine.entityNameFromChar('+')).to.equal('&plus;') // name
 
-        expect(StringEngine.htmlNameFrom('.')).to.equal('&period;') // name
+        expect(StringEngine.entityNameFromChar('.')).to.equal('&period;') // name
 
-        expect(StringEngine.htmlNameFrom('{')).to.equal('&lbrace;') // name
+        expect(StringEngine.entityNameFromChar('{')).to.equal('&lbrace;') // name
 
-        expect(StringEngine.htmlNameFrom('}')).to.equal('&rbrace;') // name
+        expect(StringEngine.entityNameFromChar('}')).to.equal('&rbrace;') // name
       })
     })
 
     describe('The char does not have an HTML entity', () => {
       it('returns the char', () => {
-        expect(StringEngine.htmlNameFrom('A')).to.equal('A')
+        expect(StringEngine.entityNameFromChar('A')).to.equal('A')
 
-        expect(StringEngine.htmlNameFrom('C')).to.equal('C')
+        expect(StringEngine.entityNameFromChar('C')).to.equal('C')
 
-        expect(StringEngine.htmlNameFrom('E')).to.equal('E')
+        expect(StringEngine.entityNameFromChar('E')).to.equal('E')
       })
     })
   })
 
-  describe('`htmlCodeOf()`', () => {
+  describe('`entityCodeOf()`', () => {
     it('gets the entity code for for the char', () => {
-      expect(StringEngine.htmlCodeOf('&')).to.equal('&#38;') // code
+      expect(StringEngine.entityCodeOf('&')).to.equal('&#38;') // code
 
-      expect(StringEngine.htmlCodeOf('+')).to.equal('&#43;') // code
+      expect(StringEngine.entityCodeOf('+')).to.equal('&#43;') // code
 
-      expect(StringEngine.htmlCodeOf('-')).to.equal('&#45;') // code
+      expect(StringEngine.entityCodeOf('-')).to.equal('&#45;') // code
 
-      expect(StringEngine.htmlCodeOf('{')).to.equal('&#123;') // code
+      expect(StringEngine.entityCodeOf('{')).to.equal('&#123;') // code
 
-      expect(StringEngine.htmlCodeOf('}')).to.equal('&#125;') // code
+      expect(StringEngine.entityCodeOf('}')).to.equal('&#125;') // code
 
-      expect(StringEngine.htmlCodeOf('A')).to.equal('&#65;') // code
+      expect(StringEngine.entityCodeOf('A')).to.equal('&#65;') // code
 
-      expect(StringEngine.htmlCodeOf('C')).to.equal('&#67;') // code
+      expect(StringEngine.entityCodeOf('C')).to.equal('&#67;') // code
 
-      expect(StringEngine.htmlCodeOf('E')).to.equal('&#69;') // code
+      expect(StringEngine.entityCodeOf('E')).to.equal('&#69;') // code
     })
   })
 
-  describe('`htmlNameOf()`', () => {
+  describe('`entityNameOf()`', () => {
     describe('The char has an HTML entity', () => {
       it('gets the entity name for for the char', () => {
-        expect(StringEngine.htmlNameOf('&')).to.equal('&AMP;') // name
+        expect(StringEngine.entityNameOf('&')).to.equal('&AMP;') // name
 
-        expect(StringEngine.htmlNameOf('+')).to.equal('&plus;') // name
+        expect(StringEngine.entityNameOf('+')).to.equal('&plus;') // name
 
-        expect(StringEngine.htmlNameOf('.')).to.equal('&period;') // name
+        expect(StringEngine.entityNameOf('.')).to.equal('&period;') // name
 
-        expect(StringEngine.htmlNameOf('{')).to.equal('&lbrace;') // name
+        expect(StringEngine.entityNameOf('{')).to.equal('&lbrace;') // name
 
-        expect(StringEngine.htmlNameOf('}')).to.equal('&rbrace;') // name
+        expect(StringEngine.entityNameOf('}')).to.equal('&rbrace;') // name
       })
     })
 
     describe('The char does not have an HTML entity', () => {
       it('returns the char', () => {
-        expect(StringEngine.htmlNameOf('A')).to.equal('A')
+        expect(StringEngine.entityNameOf('A')).to.equal('A')
 
-        expect(StringEngine.htmlNameOf('C')).to.equal('C')
+        expect(StringEngine.entityNameOf('C')).to.equal('C')
 
-        expect(StringEngine.htmlNameOf('E')).to.equal('E')
+        expect(StringEngine.entityNameOf('E')).to.equal('E')
       })
     })
   })
