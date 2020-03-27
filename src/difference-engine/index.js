@@ -1,7 +1,5 @@
 /** @module DifferenceEngine */
 
-import { isArray } from '@difference-engine/common'
-
 /*
  *  Accepts one array, "array" and one value, "value";
  *  Returns a boolean which describes if "array" contains "value"
@@ -74,7 +72,7 @@ function getExclusiveItems (alpha, omega) {
  *    [ "A", "B", "C" ]
  */
 export function inclusive (alpha, omega) {
-  if (isArray(alpha) && isArray(omega)) {
+  if (Array.isArray(alpha) && Array.isArray(omega)) {
     return getInclusiveItems(alpha, omega)
   }
 
@@ -90,7 +88,7 @@ export function inclusive (alpha, omega) {
    *    [ "A", "B", "C" ]
    */
 export function exclusive (alpha, omega) {
-  if (isArray(alpha) && isArray(omega)) {
+  if (Array.isArray(alpha) && Array.isArray(omega)) {
     return getExclusiveItems(alpha, omega)
   }
 

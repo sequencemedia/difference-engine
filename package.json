@@ -4,6 +4,11 @@
   "description": "Difference Engine",
   "main": "./index.js",
   "scripts": {
+    "babel": "babel src -d lib",
+    "clean": "npx rimraf lib",
+    "build": "npm run clean && npm run babel",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "mocha test --recursive -r @babel/register",
     "lint": "eslint *.js src build test",
     "lint:fix": "npm run lint -- --fix",
@@ -47,6 +52,7 @@
     "husky": "^4.2.3",
     "mocha": "^7.1.1",
     "moment": "^2.24.0",
+    "rimraf": "^3.0.2",
     "sacred-fs": "^1.0.14",
     "sinon": "^9.0.1"
   },
