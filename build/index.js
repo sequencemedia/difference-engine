@@ -18,15 +18,15 @@ const URL = 'https://dev.w3.org/html5/html-author/charref'
 const NOW = moment().format('MMMM Do YYYY, h:mm:ss')
 const X = /<td class="named"><code>(?:(?:&amp;(\w+);\s?)*)<\/code>.*<td class="dec"><code>&amp;#(\d+);<\/code>.*<td class="desc">(.+)/
 
-function transformEntityToHtmlNameFrom (decimal, value, label) {
+function getEntityNameFromCharFor (decimal, value, label) {
   return `[String.fromCharCode(${decimal})]: '&${value};' /* ${label} */`
 }
 
-function transformEntityToFromHtmlName (value, decimal, label) {
+function getCharFromEntityNameFor (value, decimal, label) {
   return `'&${value};': String.fromCharCode(${decimal}) /* ${label} */`
 }
 
-function transformToHtmlNameFrom (a = []) {
+function transformToEntityNameFromChar (a = []) {
   return (`/*
  *  ${URL}
  *
@@ -34,12 +34,12 @@ function transformToHtmlNameFrom (a = []) {
  */
 
 export default {
-${a.map(({ decimal, value, label }) => transformEntityToHtmlNameFrom(decimal, value, label)).join(String.fromCharCode(44).concat(String.fromCharCode(10)))}
+${a.map(({ decimal, value, label }) => getEntityNameFromCharFor(decimal, value, label)).join(String.fromCharCode(44).concat(String.fromCharCode(10)))}
 }
 `)
 }
 
-function transformToFromHtmlName (a = []) {
+function transformToCharFromEntityName (a = []) {
   return (`/*
  *  ${URL}
  *
@@ -47,7 +47,7 @@ function transformToFromHtmlName (a = []) {
  */
 
 export default {
-${a.map(({ value, decimal, label }) => transformEntityToFromHtmlName(value, decimal, label)).join(String.fromCharCode(44).concat(String.fromCharCode(10)))}
+${a.map(({ value, decimal, label }) => getCharFromEntityNameFor(value, decimal, label)).join(String.fromCharCode(44).concat(String.fromCharCode(10)))}
 }
 `)
 }
@@ -68,8 +68,8 @@ export default async () => {
     }, [])
 
     if (a.length) {
-      await writeFile('./lib/es/common/string/html-name-from.js', transformToHtmlNameFrom(a))
-      await writeFile('./lib/es/common/string/from-html-name.js', transformToFromHtmlName(a))
+      await writeFile('./src/common/string/entity-name-from-char.js', transformToEntityNameFromChar(a))
+      await writeFile('./src/common/string/char-from-entity-name.js', transformToCharFromEntityName(a))
     }
   }
 }

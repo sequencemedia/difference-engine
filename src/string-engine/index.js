@@ -7,11 +7,11 @@ import {
 
 import {
   getFromCharCode,
-  getFromHtmlCode,
-  getFromHtmlName,
-  getHtmlCodeFrom,
-  getHtmlNameFrom,
-  htmlNameFromMap
+  getCharFromEntityCode,
+  getCharFromEntityName,
+  getEntityCodeFromChar,
+  getEntityNameFromChar,
+  entityNameFromCharMap
 } from '@difference-engine/common/string'
 
 var OCT = 8
@@ -50,8 +50,8 @@ export function charAt (i, s) {
         v = m.shift()
         let s
 
-        if ((s = getFromHtmlName(v)) !== null) return s // eslint-disable-line
-        if ((s = getFromHtmlCode(v)) !== null) return s // eslint-disable-line
+        if ((s = getCharFromEntityName(v)) !== null) return s // eslint-disable-line
+        if ((s = getCharFromEntityCode(v)) !== null) return s // eslint-disable-line
         return A
       }
     } else {
@@ -91,8 +91,8 @@ export function charCodeAt (i, s) {
         v = m.shift()
         let s
 
-        if ((s = getFromHtmlName(v)) !== null) return s.charCodeAt(0) // eslint-disable-line
-        if ((s = getFromHtmlCode(v)) !== null) return s.charCodeAt(0) // eslint-disable-line
+        if ((s = getCharFromEntityName(v)) !== null) return s.charCodeAt(0) // eslint-disable-line
+        if ((s = getCharFromEntityCode(v)) !== null) return s.charCodeAt(0) // eslint-disable-line
         return N
       }
     } else {
@@ -155,7 +155,7 @@ export function htmlCodeAt (i, s) {
         v = m.shift()
         let s
 
-        if ((s = getFromHtmlCode(v)) !== null) return s // eslint-disable-line
+        if ((s = getCharFromEntityCode(v)) !== null) return s // eslint-disable-line
         return A
       }
     } else {
@@ -191,7 +191,7 @@ export function htmlNameAt (i, s) {
         v = m.shift()
         let s
 
-        if ((s = getFromHtmlName(v)) !== null) return s // eslint-disable-line
+        if ((s = getCharFromEntityName(v)) !== null) return s // eslint-disable-line
         return A
       }
     } else {
@@ -230,8 +230,8 @@ export function charOf (s) {
           v = m.shift()
           let s
 
-          if ((s = getFromHtmlName(v)) !== null) return s // eslint-disable-line
-          if ((s = getFromHtmlCode(v)) !== null) return s // eslint-disable-line
+          if ((s = getCharFromEntityName(v)) !== null) return s // eslint-disable-line
+          if ((s = getCharFromEntityCode(v)) !== null) return s // eslint-disable-line
           return A
         }
       } else {
@@ -260,14 +260,14 @@ export function fromCharCode (i) {
  *  Character from HTML code
  */
 export function fromHtmlCode (s) {
-  return isString(s) ? getFromHtmlCode(s) : null
+  return isString(s) ? getCharFromEntityCode(s) : null
 }
 
 /*
  *  Character from HTML name
  */
 export function fromHtmlName (s) {
-  return isString(s) ? getFromHtmlName(s) : null
+  return isString(s) ? getCharFromEntityName(s) : null
 }
 
 /*
@@ -281,7 +281,7 @@ export function toHtmlCode (s) {
     let r = ''
     for (i, j; i < j; i = i + 1) {
       c = s.charAt(i)
-      h = getHtmlCodeFrom(c)
+      h = getEntityCodeFromChar(c)
       r = r + (h === null ? c : h)
     }
     return r
@@ -300,7 +300,7 @@ export function toHtmlName (s) {
     let r = ''
     for (i, j; i < j; i = i + 1) {
       c = s.charAt(i)
-      h = getHtmlNameFrom(c)
+      h = getEntityNameFromChar(c)
       r = r + (h === null ? c : h)
     }
     return r
@@ -312,28 +312,28 @@ export function toHtmlName (s) {
  *  HTML code from character
  */
 export function htmlCodeFrom (s) {
-  return isString(s) && s.length === 1 ? getHtmlCodeFrom(s) : null
+  return isString(s) && s.length === 1 ? getEntityCodeFromChar(s) : null
 }
 
 /*
  *  HTML name from chracter
  */
 export function htmlNameFrom (s) { // returns the char when null
-  return isString(s) && s.length === 1 ? htmlNameFromMap.has(s) ? htmlNameFromMap.get(s) : s : null
+  return isString(s) && s.length === 1 ? entityNameFromCharMap.has(s) ? entityNameFromCharMap.get(s) : s : null
 }
 
 /*
  *  As "htmlCodeFrom"
  */
 export function htmlCodeOf (s) {
-  return isString(s) && s.length === 1 ? getHtmlCodeFrom(s) : null
+  return isString(s) && s.length === 1 ? getEntityCodeFromChar(s) : null
 }
 
 /*
  *  As "htmlNameFrom"
  */
 export function htmlNameOf (s) { // returns the char when null
-  return isString(s) && s.length === 1 ? htmlNameFromMap.has(s) ? htmlNameFromMap.get(s) : s : null
+  return isString(s) && s.length === 1 ? entityNameFromCharMap.has(s) ? entityNameFromCharMap.get(s) : s : null
 }
 
 export function fromDecToHex (v) {

@@ -5,9 +5,9 @@
   "main": "./index.js",
   "scripts": {
     "test": "mocha test --recursive -r @babel/register",
-    "lint": "eslint *.js lib/es lib/js build test",
+    "lint": "eslint *.js src build test",
     "lint:fix": "npm run lint -- --fix",
-    "pre-commit": "gulp pre-commit && npm run lint:fix && git add lib/es/common/string"
+    "pre-commit": "gulp pre-commit && npm run lint:fix && git add src/common/string"
   },
   "author": {
     "email": "sequencemedia@sequencemedia.net",

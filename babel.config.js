@@ -20,8 +20,7 @@ const plugins = [
       root: ['./src'],
       cwd: 'babelrc',
       alias: {
-        '@difference-engine': './lib/es',
-        '~': './src'
+        '@difference-engine': './src'
       }
     }
   ]
