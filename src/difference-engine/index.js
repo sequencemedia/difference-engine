@@ -80,13 +80,13 @@ export function inclusive (alpha, omega) {
 }
 
 /*
-   *  Accepts two arrays, "alpha" and "omega";
-   *  Returns an array containing items in "alpha" NOT "omega"
-   *  @param {array} alpha
-   *    [ "A", "B", "D" ]
-   *  @param {array} omega
-   *    [ "A", "B", "C" ]
-   */
+ *  Accepts two arrays, "alpha" and "omega";
+ *  Returns an array containing items in "alpha" NOT "omega"
+ *  @param {array} alpha
+ *    [ "A", "B", "D" ]
+ *  @param {array} omega
+ *    [ "A", "B", "C" ]
+ */
 export function exclusive (alpha, omega) {
   if (Array.isArray(alpha) && Array.isArray(omega)) {
     return getExclusiveItems(alpha, omega)
