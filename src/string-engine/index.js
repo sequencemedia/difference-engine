@@ -24,8 +24,8 @@ var XNAME = /\u0026[\w]+\u003b+/g
 var A = '&' // String.fromCharCode(38) // '\u0026'
 var N = 38
 
-export function charAt (i, s) {
-  if (isNumber(i) && isString(s)) {
+export function charAt (s, i) {
+  if (isString(s) && isNumber(i)) {
     /*
      *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
      */
@@ -64,8 +64,8 @@ export function charAt (i, s) {
   return null
 }
 
-export function charCodeAt (i, s) {
-  if (isNumber(i) && isString(s)) {
+export function charCodeAt (s, i) {
+  if (isString(s) && isNumber(i)) {
     /*
      *  "String.charCodeAt()" is fast so retrieve the character at position i and compare to
      *  the index of ampersand
@@ -108,8 +108,8 @@ export function charCodeAt (i, s) {
 /*
  *  Either code or name
  */
-export function entityAt (i, s) {
-  if (isNumber(i) && isString(s)) {
+export function entityAt (s, i) {
+  if (isString(s) && isNumber(i)) {
     /*
      *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
      */
@@ -132,8 +132,8 @@ export function entityAt (i, s) {
 /*
  *  Code, ignore name
  */
-export function entityCodeAt (i, s) {
-  if (isNumber(i) && isString(s)) {
+export function entityCodeAt (s, i) {
+  if (isString(s) && isNumber(i)) {
     /*
      *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
      */
@@ -168,8 +168,8 @@ export function entityCodeAt (i, s) {
 /*
  *  Name, ignore code
  */
-export function entityNameAt (i, s) {
-  if (isNumber(i) && isString(s)) {
+export function entityNameAt (s, i) {
+  if (isString(s) && isNumber(i)) {
     /*
      *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
      */
