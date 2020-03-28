@@ -173,3 +173,60 @@ const array = [1, 2, 3, 4, 5]
 
 const value = ArrayEngine.min(array) // returns 1
 ```
+
+## NumberEngine
+
+```javascript
+const { NumberEngine } = require('./lib')
+```
+
+### `fibonacci`
+
+Accepts an index. Returns the number in a Fibonacci sequence corresponding to the index.
+
+```javascript
+const fibonacci = NumberEngine.fibonacci(0) // returns 0
+```
+
+```javascript
+const fibonacci = NumberEngine.fibonacci(1) // returns 1
+```
+
+```javascript
+const fibonacci = NumberEngine.fibonacci(2) // returns 1
+```
+
+```javascript
+const fibonacci = NumberEngine.fibonacci(3) // returns 2
+```
+
+### `haversine`
+
+Accepts an object with fields describing latitude and longitude points `from` and `to`.
+
+Returns a value in kilometres or miles.
+
+```javascript
+const points = { from: { lat: 51.4934, lng: 0.0098 }, to: { lat: 40.7128, lng: 74.0060 } }
+
+const haversine = NumberEngine.haversine(points)
+
+const KM = haversine.km() // returns the distance in kilometres
+const MI = haversine.mi() // returns the distance in miles
+```
+
+### `fromOctToDec`
+
+Accepts a string representing an octal. Returns a decimal.
+
+```javascript
+const decimal = NumberEngine.fromOctToDec('20') // returns 16
+```
+
+### `fromHexToDec`
+
+Accepts a string representing a hexadecimal. Returns a decimal.
+
+```javascript
+const decimal = NumberEngine.fromHexToDec('10') // returns 16
+```
