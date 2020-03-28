@@ -130,6 +130,9 @@ export function fromOzToGr (n) { // OZ -> GR
   return isNumber(n) ? n * OZGR : NaN
 }
 
+/**
+ * @class Weight
+ */
 export default class Weight {
   static fromKgToGr = fromKgToGr
   static fromKgToMg = fromKgToMg

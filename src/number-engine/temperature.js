@@ -12,6 +12,9 @@ function fromCToF (n) {
   return isNumber(n) ? (n * 1.8) + 32 : NaN
 }
 
+/**
+ * @class Temperature
+ */
 export default class Temperature {
   static fromFToC = fromFToC
 

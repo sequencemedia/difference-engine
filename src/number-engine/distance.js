@@ -234,6 +234,9 @@ export function fromMiToIn (n) { // MI -> YD -> FT -> IN
   return isNumber(n) ? ((n * 1760) * 3) * 12 : NaN
 }
 
+/**
+ * @class Distance
+ */
 export default class Distance {
   static fromKmToMt = fromKmToMt
   static fromKmToCm = fromKmToCm
