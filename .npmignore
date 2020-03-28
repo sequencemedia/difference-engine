@@ -1,3 +1,9 @@
+.npmrc
+.npmignore
 .editorconfig
 
+test
+
 gulpfile.js
+
+array-engine.js
