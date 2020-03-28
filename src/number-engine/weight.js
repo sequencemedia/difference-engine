@@ -1,7 +1,7 @@
 import { isNumber } from '@difference-engine/common'
 
-const OZGR = 28.3495231 // const OZGR = 28.349523124662777 // ounce to gram (grams in an ounce)
-const GROZ = 0.0352739619 // const GROZ = 0.03527396195 // gram to ounce (ounces in a gram)
+const OZGR = 28.349523124662777 // ounce to gram (grams in an ounce)
+const GROZ = 0.03527396195 // gram to ounce (ounces in a gram)
 
 // 1 / 0.03527396195 = 28.349523124662777
 // 28.349523124662777 * 0.03527396195 = 1
