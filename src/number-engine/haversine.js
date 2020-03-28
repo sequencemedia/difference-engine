@@ -14,15 +14,22 @@ function getHaversineFor (points, radius) {
 
     const LAT = toRadians(alpha.lat - omega.lat)
     const LNG = toRadians(alpha.lng - omega.lng)
+
     const lat = LAT / 2
     const lng = LNG / 2
-    const a = Math.sin(lat) * Math.sin(lat) + Math.cos(toRadians(omega.lat)) * Math.cos(toRadians(alpha.lat)) * Math.sin(lng) * Math.sin(lng)
+
+    const a = (
+      Math.sin(lat) * Math.sin(lat) +
+      Math.sin(lng) * Math.sin(lng) * Math.cos(toRadians(omega.lat)) * Math.cos(toRadians(alpha.lat))
+    )
+
     const c = 2 * (
       Math.atan2(
         Math.sqrt(a),
         Math.sqrt(1 - a)
       )
     )
+
     return (radius * c) // .toFixed(2)
   }
 
