@@ -1272,7 +1272,7 @@ const string = StringEngine.entityAt('Hello&comma; World', 5) // returns '&comma
 ```
 
 ```javascript
-const string = StringEngine.entityAt('Hello,&#32;World', 5) // returns '&#32;'
+const string = StringEngine.entityAt('Hello,&#32;World', 6) // returns '&#32;'
 ```
 
 Where the character at the index has an entity name, it returns the entity name.
