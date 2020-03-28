@@ -209,10 +209,8 @@ Returns a value in kilometres or miles.
 ```javascript
 const points = { from: { lat: 51.4934, lng: 0.0098 }, to: { lat: 40.7128, lng: 74.0060 } }
 
-const haversine = NumberEngine.haversine(points)
-
-const KM = haversine.km() // returns the distance in kilometres
-const MI = haversine.mi() // returns the distance in miles
+const km = NumberEngine.haversine(points).km() // returns the distance in kilometres
+const mi = NumberEngine.haversine(points).mi() // returns the distance in miles
 ```
 
 ### `fromOctToDec`
@@ -247,23 +245,23 @@ const { NumberEngine: { Weight } } = require('./lib')
 - `fromKgToSt`
 
 ```javascript
-const value = Weight.fromKgToGr(10)
+const gr = Weight.fromKgToGr(10)
 ```
 
 ```javascript
-const value = Weight.fromKgToMg(10)
+const mg = Weight.fromKgToMg(10)
 ```
 
 ```javascript
-const value = Weight.fromKgToOz(10)
+const oz = Weight.fromKgToOz(10)
 ```
 
 ```javascript
-const value = Weight.fromKgToLb(10)
+const lb = Weight.fromKgToLb(10)
 ```
 
 ```javascript
-const value = Weight.fromKgToSt(10)
+const st = Weight.fromKgToSt(10)
 ```
 Or, using `convert`.
 
@@ -274,23 +272,23 @@ Or, using `convert`.
 - `fromKg.toSt`
 
 ```javascript
-const value = Weight.convert(10).fromKg.toGr()
+const gr = Weight.convert(10).fromKg.toGr()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromKg.toMg()
+const mg = Weight.convert(10).fromKg.toMg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromKg.toOz()
+const oz = Weight.convert(10).fromKg.toOz()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromKg.toLb()
+const lb = Weight.convert(10).fromKg.toLb()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromKg.toSt()
+const st = Weight.convert(10).fromKg.toSt()
 ```
 
 #### Gram
@@ -302,23 +300,23 @@ const value = Weight.convert(10).fromKg.toSt()
 - `fromGrToSt`
 
 ```javascript
-const value = Weight.fromGrToKg(10)
+const kg = Weight.fromGrToKg(10)
 ```
 
 ```javascript
-const value = Weight.fromGrToMg(10)
+const mg = Weight.fromGrToMg(10)
 ```
 
 ```javascript
-const value = Weight.fromGrToOz(10)
+const oz = Weight.fromGrToOz(10)
 ```
 
 ```javascript
-const value = Weight.fromGrToLb(10)
+const lb = Weight.fromGrToLb(10)
 ```
 
 ```javascript
-const value = Weight.fromGrToSt(10)
+const st = Weight.fromGrToSt(10)
 ```
 
 Or, using `convert`.
@@ -330,23 +328,23 @@ Or, using `convert`.
 - `fromGr.toSt`
 
 ```javascript
-const value = Weight.convert(10).fromGr.toKg()
+const kg = Weight.convert(10).fromGr.toKg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromGr.toMg()
+const mg = Weight.convert(10).fromGr.toMg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromGr.toOz()
+const oz = Weight.convert(10).fromGr.toOz()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromGr.toLb()
+const lb = Weight.convert(10).fromGr.toLb()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromGr.toSt()
+const st = Weight.convert(10).fromGr.toSt()
 ```
 
 #### Miligram
@@ -358,23 +356,23 @@ const value = Weight.convert(10).fromGr.toSt()
 - `fromMgToSt`
 
 ```javascript
-const value = Weight.fromMgToKg(10)
+const kg = Weight.fromMgToKg(10)
 ```
 
 ```javascript
-const value = Weight.fromMgToGr(10)
+const gr = Weight.fromMgToGr(10)
 ```
 
 ```javascript
-const value = Weight.fromMgToOz(10)
+const oz = Weight.fromMgToOz(10)
 ```
 
 ```javascript
-const value = Weight.fromMgToLb(10)
+const lb = Weight.fromMgToLb(10)
 ```
 
 ```javascript
-const value = Weight.fromMgToSt(10)
+const st = Weight.fromMgToSt(10)
 ```
 
 Or, using `convert`.
@@ -386,23 +384,23 @@ Or, using `convert`.
 - `fromMg.toSt`
 
 ```javascript
-const value = Weight.convert(10).fromMg.toKg()
+const kg = Weight.convert(10).fromMg.toKg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromMg.toGr()
+const gr = Weight.convert(10).fromMg.toGr()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromMg.toOz()
+const oz = Weight.convert(10).fromMg.toOz()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromMg.toLb()
+const lb = Weight.convert(10).fromMg.toLb()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromMg.toSt()
+const st = Weight.convert(10).fromMg.toSt()
 ```
 
 #### Ounce
@@ -414,23 +412,23 @@ const value = Weight.convert(10).fromMg.toSt()
 - `fromOzToSt`
 
 ```javascript
-const value = Weight.fromOzToKg(10)
+const kg = Weight.fromOzToKg(10)
 ```
 
 ```javascript
-const value = Weight.fromOzToGr(10)
+const gr = Weight.fromOzToGr(10)
 ```
 
 ```javascript
-const value = Weight.fromOzToMg(10)
+const mg = Weight.fromOzToMg(10)
 ```
 
 ```javascript
-const value = Weight.fromOzToLb(10)
+const lb = Weight.fromOzToLb(10)
 ```
 
 ```javascript
-const value = Weight.fromOzToSt(10)
+const st = Weight.fromOzToSt(10)
 ```
 
 Or, using `convert`.
@@ -442,23 +440,23 @@ Or, using `convert`.
 - `fromOz.toSt`
 
 ```javascript
-const value = Weight.convert(10).fromOz.toKg()
+const kg = Weight.convert(10).fromOz.toKg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromOz.toGr()
+const gr = Weight.convert(10).fromOz.toGr()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromOz.toMg()
+const mg = Weight.convert(10).fromOz.toMg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromOz.toLb()
+const lb = Weight.convert(10).fromOz.toLb()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromOz.toSt()
+const st = Weight.convert(10).fromOz.toSt()
 ```
 
 #### Pound
@@ -470,23 +468,23 @@ const value = Weight.convert(10).fromOz.toSt()
 - `fromLbToSt`
 
 ```javascript
-const value = Weight.fromLbToKg(10)
+const kg = Weight.fromLbToKg(10)
 ```
 
 ```javascript
-const value = Weight.fromLbToGr(10)
+const gr = Weight.fromLbToGr(10)
 ```
 
 ```javascript
-const value = Weight.fromLbToMg(10)
+const mg = Weight.fromLbToMg(10)
 ```
 
 ```javascript
-const value = Weight.fromLbToOz(10)
+const oz = Weight.fromLbToOz(10)
 ```
 
 ```javascript
-const value = Weight.fromLbToSt(10)
+const st = Weight.fromLbToSt(10)
 ```
 
 Or, using `convert`.
@@ -498,23 +496,23 @@ Or, using `convert`.
 - `fromLb.toSt`
 
 ```javascript
-const value = Weight.convert(10).fromLb.toKg()
+const kg = Weight.convert(10).fromLb.toKg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromLb.toGr()
+const gr = Weight.convert(10).fromLb.toGr()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromLb.toMg()
+const mg = Weight.convert(10).fromLb.toMg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromLb.toOz()
+const oz = Weight.convert(10).fromLb.toOz()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromLb.toSt()
+const st = Weight.convert(10).fromLb.toSt()
 ```
 
 #### Stone
@@ -526,23 +524,23 @@ const value = Weight.convert(10).fromLb.toSt()
 - `fromStToOz`
 
 ```javascript
-const value = Weight.fromStToKg(10)
+const kg = Weight.fromStToKg(10)
 ```
 
 ```javascript
-const value = Weight.fromStToGr(10)
+const gr = Weight.fromStToGr(10)
 ```
 
 ```javascript
-const value = Weight.fromStToMg(10)
+const mg = Weight.fromStToMg(10)
 ```
 
 ```javascript
-const value = Weight.fromStToLb(10)
+const lb = Weight.fromStToLb(10)
 ```
 
 ```javascript
-const value = Weight.fromStToOz(10)
+const oz = Weight.fromStToOz(10)
 ```
 
 Or, using `convert`.
@@ -554,23 +552,23 @@ Or, using `convert`.
 - `fromSt.toOz`
 
 ```javascript
-const value = Weight.convert(10).fromSt.toKg()
+const kg = Weight.convert(10).fromSt.toKg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromSt.toGr()
+const gr = Weight.convert(10).fromSt.toGr()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromSt.toMg()
+const mg = Weight.convert(10).fromSt.toMg()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromSt.toLb()
+const lb = Weight.convert(10).fromSt.toLb()
 ```
 
 ```javascript
-const value = Weight.convert(10).fromSt.toOz()
+const oz = Weight.convert(10).fromSt.toOz()
 ```
 
 ### `Temperature`
@@ -611,31 +609,31 @@ const { NumberEngine: { Distance } } = require('./lib')
 - `fromKmToMi`
 
 ```javascript
-const value = Distance.fromKmToMt(10)
+const mt = Distance.fromKmToMt(10)
 ```
 
 ```javascript
-const value = Distance.fromKmToCm(10)
+const cm = Distance.fromKmToCm(10)
 ```
 
 ```javascript
-const value = Distance.fromKmToMm(10)
+const mm = Distance.fromKmToMm(10)
 ```
 
 ```javascript
-const value = Distance.fromKmToIn(10)
+const in = Distance.fromKmToIn(10)
 ```
 
 ```javascript
-const value = Distance.fromKmToFt(10)
+const ft = Distance.fromKmToFt(10)
 ```
 
 ```javascript
-const value = Distance.fromKmToYd(10)
+const yd = Distance.fromKmToYd(10)
 ```
 
 ```javascript
-const value = Distance.fromKmToMi(10)
+const mi = Distance.fromKmToMi(10)
 ```
 
 Or, using `convert`.
@@ -649,31 +647,31 @@ Or, using `convert`.
 - `fromKm.toMi`
 
 ```javascript
-const value = Distance.convert(10).fromKm.toMt()
+const mt = Distance.convert(10).fromKm.toMt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromKm.toCm()
+const cm = Distance.convert(10).fromKm.toCm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromKm.toMm()
+const mm = Distance.convert(10).fromKm.toMm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromKm.toIn()
+const in = Distance.convert(10).fromKm.toIn()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromKm.toFt()
+const ft = Distance.convert(10).fromKm.toFt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromKm.toYd()
+const yd = Distance.convert(10).fromKm.toYd()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromKm.toMi()
+const mi = Distance.convert(10).fromKm.toMi()
 ```
 
 #### Metre
@@ -687,31 +685,31 @@ const value = Distance.convert(10).fromKm.toMi()
 - `fromMtToMi`
 
 ```javascript
-const value = Distance.fromMtToKm(10)
+const km = Distance.fromMtToKm(10)
 ```
 
 ```javascript
-const value = Distance.fromMtToCm(10)
+const cm = Distance.fromMtToCm(10)
 ```
 
 ```javascript
-const value = Distance.fromMtToMm(10)
+const mm = Distance.fromMtToMm(10)
 ```
 
 ```javascript
-const value = Distance.fromMtToIn(10)
+const in = Distance.fromMtToIn(10)
 ```
 
 ```javascript
-const value = Distance.fromMtToFt(10)
+const ft = Distance.fromMtToFt(10)
 ```
 
 ```javascript
-const value = Distance.fromMtToYd(10)
+const yd = Distance.fromMtToYd(10)
 ```
 
 ```javascript
-const value = Distance.fromMtToMi(10)
+const mi = Distance.fromMtToMi(10)
 ```
 
 Or, using `convert`.
@@ -725,31 +723,31 @@ Or, using `convert`.
 - `fromMt.toMi`
 
 ```javascript
-const value = Distance.convert(10).fromMt.toKm()
+const km = Distance.convert(10).fromMt.toKm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMt.toCm()
+const cm = Distance.convert(10).fromMt.toCm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMt.toMm()
+const mm = Distance.convert(10).fromMt.toMm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMt.toIn()
+const in = Distance.convert(10).fromMt.toIn()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMt.toFt()
+const ft = Distance.convert(10).fromMt.toFt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMt.toYd()
+const yd = Distance.convert(10).fromMt.toYd()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMt.toMi()
+const mi = Distance.convert(10).fromMt.toMi()
 ```
 
 #### Centimetre
@@ -763,31 +761,31 @@ const value = Distance.convert(10).fromMt.toMi()
 - `fromCmToMi`
 
 ```javascript
-const value = Distance.fromCmToKm(10)
+const km = Distance.fromCmToKm(10)
 ```
 
 ```javascript
-const value = Distance.fromCmToMt(10)
+const mt = Distance.fromCmToMt(10)
 ```
 
 ```javascript
-const value = Distance.fromCmToMm(10)
+const mm = Distance.fromCmToMm(10)
 ```
 
 ```javascript
-const value = Distance.fromCmToIn(10)
+const in = Distance.fromCmToIn(10)
 ```
 
 ```javascript
-const value = Distance.fromCmToFt(10)
+const ft = Distance.fromCmToFt(10)
 ```
 
 ```javascript
-const value = Distance.fromCmToYd(10)
+const yd = Distance.fromCmToYd(10)
 ```
 
 ```javascript
-const value = Distance.fromCmToMi(10)
+const mi = Distance.fromCmToMi(10)
 ```
 
 Or, using `convert`.
@@ -801,31 +799,31 @@ Or, using `convert`.
 - `fromCm.toMi`
 
 ```javascript
-const value = Distance.convert(10).fromCm.toKm()
+const km = Distance.convert(10).fromCm.toKm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromCm.toMt()
+const mt = Distance.convert(10).fromCm.toMt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromCm.toMm()
+const mm = Distance.convert(10).fromCm.toMm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromCm.toIn()
+const in = Distance.convert(10).fromCm.toIn()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromCm.toFt()
+const ft = Distance.convert(10).fromCm.toFt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromCm.toYd()
+const yd = Distance.convert(10).fromCm.toYd()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromCm.toMi()
+const mi = Distance.convert(10).fromCm.toMi()
 ```
 
 #### Milimetre
@@ -839,31 +837,31 @@ const value = Distance.convert(10).fromCm.toMi()
 - `fromMmToMi`
 
 ```javascript
-const value = Distance.fromMmToKm(10)
+const km = Distance.fromMmToKm(10)
 ```
 
 ```javascript
-const value = Distance.fromMmToMt(10)
+const mt = Distance.fromMmToMt(10)
 ```
 
 ```javascript
-const value = Distance.fromMmToCm(10)
+const cm = Distance.fromMmToCm(10)
 ```
 
 ```javascript
-const value = Distance.fromMmToIn(10)
+const in = Distance.fromMmToIn(10)
 ```
 
 ```javascript
-const value = Distance.fromMmToFt(10)
+const ft = Distance.fromMmToFt(10)
 ```
 
 ```javascript
-const value = Distance.fromMmToYd(10)
+const yd = Distance.fromMmToYd(10)
 ```
 
 ```javascript
-const value = Distance.fromMmToMi(10)
+const mi = Distance.fromMmToMi(10)
 ```
 
 Or, using `convert`.
@@ -877,31 +875,31 @@ Or, using `convert`.
 - `fromMm.toMi`
 
 ```javascript
-const value = Distance.convert(10).fromMm.toKm()
+const km = Distance.convert(10).fromMm.toKm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMm.toMt()
+const mt = Distance.convert(10).fromMm.toMt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMm.toCm()
+const cm = Distance.convert(10).fromMm.toCm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMm.toIn()
+const in = Distance.convert(10).fromMm.toIn()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMm.toFt()
+const ft = Distance.convert(10).fromMm.toFt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMm.toYd()
+const yd = Distance.convert(10).fromMm.toYd()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMm.toMi()
+const mi = Distance.convert(10).fromMm.toMi()
 ```
 
 #### Inch
@@ -915,31 +913,31 @@ const value = Distance.convert(10).fromMm.toMi()
 - `fromInToMi`
 
 ```javascript
-const value = Distance.fromInToKm(10)
+const km = Distance.fromInToKm(10)
 ```
 
 ```javascript
-const value = Distance.fromInToMt(10)
+const mt = Distance.fromInToMt(10)
 ```
 
 ```javascript
-const value = Distance.fromInToCm(10)
+const cm = Distance.fromInToCm(10)
 ```
 
 ```javascript
-const value = Distance.fromInToMm(10)
+const mm = Distance.fromInToMm(10)
 ```
 
 ```javascript
-const value = Distance.fromInToFt(10)
+const ft = Distance.fromInToFt(10)
 ```
 
 ```javascript
-const value = Distance.fromInToYd(10)
+const yd = Distance.fromInToYd(10)
 ```
 
 ```javascript
-const value = Distance.fromInToMi(10)
+const mi = Distance.fromInToMi(10)
 ```
 
 Or, using `convert`.
@@ -953,31 +951,31 @@ Or, using `convert`.
 - `fromIn.toMi`
 
 ```javascript
-const value = Distance.convert(10).fromIn.toKm()
+const km = Distance.convert(10).fromIn.toKm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromIn.toMt()
+const mt = Distance.convert(10).fromIn.toMt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromIn.toCm()
+const cm = Distance.convert(10).fromIn.toCm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromIn.toMm()
+const mm = Distance.convert(10).fromIn.toMm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromIn.toFt()
+const ft = Distance.convert(10).fromIn.toFt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromIn.toYd()
+const yd = Distance.convert(10).fromIn.toYd()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromIn.toMi()
+const mi = Distance.convert(10).fromIn.toMi()
 ```
 
 #### Feet
@@ -991,31 +989,31 @@ const value = Distance.convert(10).fromIn.toMi()
 - `fromFtToMi`
 
 ```javascript
-const value = Distance.fromFtToKm(10)
+const km = Distance.fromFtToKm(10)
 ```
 
 ```javascript
-const value = Distance.fromFtToMt(10)
+const mt = Distance.fromFtToMt(10)
 ```
 
 ```javascript
-const value = Distance.fromFtToCm(10)
+const cm = Distance.fromFtToCm(10)
 ```
 
 ```javascript
-const value = Distance.fromFtToMm(10)
+const mm = Distance.fromFtToMm(10)
 ```
 
 ```javascript
-const value = Distance.fromFtToIn(10)
+const in = Distance.fromFtToIn(10)
 ```
 
 ```javascript
-const value = Distance.fromFtToYd(10)
+const yd = Distance.fromFtToYd(10)
 ```
 
 ```javascript
-const value = Distance.fromFtToMi(10)
+const mi = Distance.fromFtToMi(10)
 ```
 
 Or, using `convert`.
@@ -1029,31 +1027,31 @@ Or, using `convert`.
 - `fromFt.toMi`
 
 ```javascript
-const value = Distance.convert(10).fromFt.toKm()
+const km = Distance.convert(10).fromFt.toKm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromFt.toMt()
+const mt = Distance.convert(10).fromFt.toMt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromFt.toCm()
+const cm = Distance.convert(10).fromFt.toCm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromFt.toMm()
+const mm = Distance.convert(10).fromFt.toMm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromFt.toIn()
+const in = Distance.convert(10).fromFt.toIn()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromFt.toYd()
+const yd = Distance.convert(10).fromFt.toYd()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromFt.toMi()
+const mi = Distance.convert(10).fromFt.toMi()
 ```
 
 #### Yard
@@ -1067,31 +1065,31 @@ const value = Distance.convert(10).fromFt.toMi()
 - `fromYdToMi`
 
 ```javascript
-const value = Distance.fromYdToKm(10)
+const km = Distance.fromYdToKm(10)
 ```
 
 ```javascript
-const value = Distance.fromYdToMt(10)
+const mt = Distance.fromYdToMt(10)
 ```
 
 ```javascript
-const value = Distance.fromYdToCm(10)
+const cm = Distance.fromYdToCm(10)
 ```
 
 ```javascript
-const value = Distance.fromYdToMm(10)
+const mm = Distance.fromYdToMm(10)
 ```
 
 ```javascript
-const value = Distance.fromYdToIn(10)
+const in = Distance.fromYdToIn(10)
 ```
 
 ```javascript
-const value = Distance.fromYdToFt(10)
+const ft = Distance.fromYdToFt(10)
 ```
 
 ```javascript
-const value = Distance.fromYdToMi(10)
+const mi = Distance.fromYdToMi(10)
 ```
 
 Or, using `convert`.
@@ -1105,31 +1103,31 @@ Or, using `convert`.
 - `fromYd.toMi`
 
 ```javascript
-const value = Distance.convert(10).fromYd.toKm()
+const km = Distance.convert(10).fromYd.toKm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromYd.toMt()
+const mt = Distance.convert(10).fromYd.toMt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromYd.toCm()
+const cm = Distance.convert(10).fromYd.toCm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromYd.toMm()
+const mm = Distance.convert(10).fromYd.toMm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromYd.toIn()
+const in = Distance.convert(10).fromYd.toIn()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromYd.toFt()
+const ft = Distance.convert(10).fromYd.toFt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromYd.toMi()
+const mi = Distance.convert(10).fromYd.toMi()
 ```
 
 #### Mile
@@ -1143,31 +1141,31 @@ const value = Distance.convert(10).fromYd.toMi()
 - `fromMiToYd`
 
 ```javascript
-const value = Distance.fromMiToKm(10)
+const km = Distance.fromMiToKm(10)
 ```
 
 ```javascript
-const value = Distance.fromMiToMt(10)
+const mt = Distance.fromMiToMt(10)
 ```
 
 ```javascript
-const value = Distance.fromMiToCm(10)
+const cm = Distance.fromMiToCm(10)
 ```
 
 ```javascript
-const value = Distance.fromMiToMm(10)
+const mm = Distance.fromMiToMm(10)
 ```
 
 ```javascript
-const value = Distance.fromMiToIn(10)
+const in = Distance.fromMiToIn(10)
 ```
 
 ```javascript
-const value = Distance.fromMiToFt(10)
+const ft = Distance.fromMiToFt(10)
 ```
 
 ```javascript
-const value = Distance.fromMiToYd(10)
+const yd = Distance.fromMiToYd(10)
 ```
 
 Or, using `convert`.
@@ -1181,29 +1179,29 @@ Or, using `convert`.
 - `fromMi.toYd`
 
 ```javascript
-const value = Distance.convert(10).fromMi.toKm()
+const km = Distance.convert(10).fromMi.toKm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMi.toMt()
+const mt = Distance.convert(10).fromMi.toMt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMi.toCm()
+const cm = Distance.convert(10).fromMi.toCm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMi.toMm()
+const mm = Distance.convert(10).fromMi.toMm()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMi.toIn()
+const in = Distance.convert(10).fromMi.toIn()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMi.toFt()
+const ft = Distance.convert(10).fromMi.toFt()
 ```
 
 ```javascript
-const value = Distance.convert(10).fromMi.toYd()
+const yd = Distance.convert(10).fromMi.toYd()
 ```
