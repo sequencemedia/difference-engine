@@ -218,7 +218,7 @@ const mi = NumberEngine.haversine(points).mi() // returns the distance in miles
 Accepts a string representing an octal. Returns a decimal.
 
 ```javascript
-const decimal = Weight.fromOctToDec('20') // returns 16
+const dec = NumberEngine.fromOctToDec('20') // returns 16
 ```
 
 ### `fromHexToDec`
@@ -226,8 +226,9 @@ const decimal = Weight.fromOctToDec('20') // returns 16
 Accepts a string representing a hexadecimal. Returns a decimal.
 
 ```javascript
-const decimal = Weight.fromHexToDec('10') // returns 16
+const dec = NumberEngine.fromHexToDec('10') // returns 16
 ```
+
 ### `Weight`
 
 Convert a number from one unit to another.
@@ -1204,4 +1205,190 @@ const ft = Distance.convert(10).fromMi.toFt()
 
 ```javascript
 const yd = Distance.convert(10).fromMi.toYd()
+```
+
+## StringEngine
+
+```javascript
+const { StringEngine } = require('./lib')
+```
+
+### `charAt`
+
+Accepts a string and a number which is an index. Returns the character for the entity at the index.
+
+```javascript
+const string = StringEngine.charAt('Hello&#44; World', 5) // returns ','
+```
+
+```javascript
+const string = StringEngine.charAt('Hello&comma; World', 5) // returns ','
+```
+
+### `charCodeAt`
+
+Accepts a string and a number which is an index. Returns the character code for the entity at the index.
+
+```javascript
+const number = StringEngine.charCodeAt('Hello&#44; World', 5) // returns 44
+```
+
+```javascript
+const number = StringEngine.charCodeAt('Hello&comma; World', 5) // returns 44
+```
+
+### `charOf`
+
+Accepts a string which is an HTML entity. Returns the character for the entity.
+
+```javascript
+const string = StringEngine.charOf('&#44;') // returns ','
+```
+
+```javascript
+const string = StringEngine.charOf('&comma;') // returns ','
+```
+
+### `charCodeOf`
+
+Accepts a string which is an HTML entity. Returns the character code for the entity.
+
+```javascript
+const number = StringEngine.charCodeOf('&#44;') // returns 44
+```
+
+```javascript
+const number = StringEngine.charCodeOf('&comma;') // returns 44
+```
+
+<!--
+### `entityAt`
+
+Accepts a string and a number which is an index. Returns the entity for the character at the index.
+
+```javascript
+const string = StringEngine.entityAt('Hello&#44; World', 5) // returns '&#44;'
+```
+
+```javascript
+const string = StringEngine.entityAt('Hello&comma; World', 5) // returns '&comma;'
+```
+
+Where the character at the index is the start of an entity, it returns the entity.
+
+```javascript
+const string = StringEngine.entityAt('Hello&#44; World', 5) // returns '&#44;'
+```
+
+```javascript
+const string = StringEngine.entityAt('Hello&comma; World', 5) // returns '&comma;'
+```
+
+### `entityCodeAt`
+
+Accepts a string and a number which is an index. Returns the character for the entity code at the index.
+
+```javascript
+const string = StringEngine.entityCodeAt('Hello&#44; World', 5) // returns ','
+```
+
+### `entityNameAt`
+
+Accepts a string and a number which is an index. Returns the character for the entity name at the index.
+
+```javascript
+const string = StringEngine.entityCodeAt('Hello&comma; World', 5) // returns ','
+```
+-->
+
+### `fromCharCode`
+
+Accepts a number which is a character code. Returns the character for that code.
+
+```javascript
+const string = StringEngine.charFromEntityCode('&#43;') // returns '+'
+```
+
+### `charFromEntityCode`
+
+Accepts a string which is an HTML entity code. Returns the character for that entity.
+
+```javascript
+const string = StringEngine.charFromEntityCode('&#43;') // returns '+'
+```
+
+### `charFromEntityName`
+
+Accepts a string which is an HTML entity name. Returns the character for that entity.
+
+```javascript
+const string = StringEngine.charFromEntityCode('&plus;') // returns '+'
+```
+
+### `toEntityCode`
+
+Accepts a string. Returns a string replaced with the HTML entity code for each character.
+
+```javascript
+const string = StringEngine.toEntityCode('Hello, World') // returns '&#72;&#101;&#108;&#108;&#111;&#44;&#32;&#87;&#111;&#114;&#108;&#100;'
+```
+
+### `toEntityName`
+
+Accepts a string. Returns a string replaced with the HTML entity name for each character where it is known, otherwise the character is not replaced.
+
+```javascript
+const string = StringEngine.toEntityName('Hello, World') // returns 'Hello&comma; World'
+```
+
+### `entityCodeFromChar`
+
+Accepts a single-character string. Returns a string representing the HTML entity code for that character.
+
+```javascript
+const entityCode = StringEngine.entityCodeFromChar('+') // returns '&#43;'
+```
+
+The entity is computed from the character code point.
+
+### `entityNameFromChar`
+
+Accepts a single-character string. Returns a string representing the HTML entity code for that character.
+
+```javascript
+const entityName = StringEngine.entityNameFromChar('+') // returns '&plus;'
+```
+
+Where the character has no entity or the entity is not known it returns the character.
+
+### `entityCodeOf`
+
+See `entityCodeFromChar`.
+
+### `entityNameOf`
+
+See `entityNameFromChar`.
+
+### `fromDecToOct`
+
+Accepts number. Returns a string representing an octal.
+
+```javascript
+const oct = StringEngine.fromDecToOct(16) // returns '20'
+```
+
+### `fromDecToHex`
+
+Accepts number. Returns a string representing a hexadecimal.
+
+```javascript
+const hex = StringEngine.fromDecToHex(16) // returns '10'
+```
+
+### `reverse`
+
+Accepts a string. Returns the string with characters in reverse order.
+
+```javascript
+const string = StringEngine.reverse('ABCDE') // returns 'EDCBA'
 ```

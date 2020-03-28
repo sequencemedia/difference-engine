@@ -79,6 +79,50 @@ describe('StringEngine', () => {
     })
   })
 
+  describe('`charOf()`', () => {
+    describe('The string is an HTML entity', () => {
+      it('gets the char for the entity', () => {
+        expect(StringEngine.charOf('&amp;')).to.equal('&')
+
+        expect(StringEngine.charOf('&#65;')).to.equal('A')
+      })
+    })
+
+    describe('The string is not an HTML entity', () => {
+      it('gets the char', () => {
+        expect(StringEngine.charOf('ABCDE')).to.equal('A')
+
+        expect(StringEngine.charOf('&  ')).to.equal('&')
+
+        expect(StringEngine.charOf(' & ')).to.equal(' ')
+
+        expect(StringEngine.charOf('  &')).to.equal(' ')
+      })
+    })
+  })
+
+  describe('`charCodeOf()`', () => {
+    describe('The string is an HTML entity', () => {
+      it('gets the char code for the entity', () => {
+        expect(StringEngine.charCodeOf('&amp;')).to.equal(38)
+
+        expect(StringEngine.charCodeOf('&#65;')).to.equal(65)
+      })
+    })
+
+    describe('The string is not an HTML entity', () => {
+      it('gets the char code for the char', () => {
+        expect(StringEngine.charCodeOf('ABCDE')).to.equal(65)
+
+        expect(StringEngine.charCodeOf('&  ')).to.equal(38)
+
+        expect(StringEngine.charCodeOf(' & ')).to.equal(32)
+
+        expect(StringEngine.charCodeOf('  &')).to.equal(32)
+      })
+    })
+  })
+
   describe('`entityAt()`', () => {
     describe('The sting is an HTML entity', () => {
       describe('The index is zero', () => {
@@ -187,28 +231,6 @@ describe('StringEngine', () => {
         expect(StringEngine.entityNameAt(' & ', 1)).to.equal('&')
 
         expect(StringEngine.entityNameAt('  &', 2)).to.equal('&')
-      })
-    })
-  })
-
-  describe('`charOf()`', () => {
-    describe('The string is an HTML entity', () => {
-      it('gets the char code for the entity name of the entity', () => {
-        expect(StringEngine.charOf('&amp;')).to.equal('&')
-
-        expect(StringEngine.charOf('&#65;')).to.equal('A')
-      })
-    })
-
-    describe('The string is not an HTML entity', () => {
-      it('gets the char code at the index', () => {
-        expect(StringEngine.charOf('ABCDE')).to.equal('A')
-
-        expect(StringEngine.charOf('&  ')).to.equal('&')
-
-        expect(StringEngine.charOf(' & ')).to.equal(' ')
-
-        expect(StringEngine.charOf('  &')).to.equal(' ')
       })
     })
   })

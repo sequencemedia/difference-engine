@@ -105,6 +105,95 @@ export function charCodeAt (s, i) {
   return null
 }
 
+export function charOf (s) {
+  if (isString(s)) {
+    if (s.length < 4) {
+      return s.charAt(0)
+    } else {
+      /*
+       *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
+       */
+      let v = s.charAt(0)
+      if (v === A) {
+        /*
+         *  The character at position i is an ampersand. Examine the rest of the string with an HTML
+         *  encoding pattern regular expression
+         */
+        X.lastIndex = 0
+        const m = X.exec(s)
+        if (m === null) {
+          /*
+           *  The adjacent characters match the HTML encoding pattern so execution can return
+           *  an ampersand
+           */
+          return A
+        } else {
+          /*
+           *  The regular expression must have a match. Retrieve it
+           */
+          v = m.shift()
+          let c
+
+          if ((c = getCharFromEntityName(v)) !== null) return c // eslint-disable-line
+          if ((c = getCharFromEntityCode(v)) !== null) return c // eslint-disable-line
+          return A
+        }
+      } else {
+        /*
+         * The character at position i is not an ampersand, so return it
+         */
+        return v
+      }
+    }
+  }
+  return null
+}
+
+export function charCodeOf (s) {
+  if (isString(s)) {
+    if (s.length < 4) {
+      return s.charCodeAt(0)
+    } else {
+      /*
+       *  "String.charCodeAt()" is fast so retrieve the character at position i and compare to
+       *  the index of ampersand
+       */
+      let v = s.charCodeAt(0)
+      if (v === N) {
+        /*
+         *  The character at position i is an ampersand. Examine the rest of the string with an HTML
+         *  encoding pattern regular expression
+         */
+        X.lastIndex = 0
+        const m = X.exec(s)
+        if (m === null) {
+          /*
+           *  The adjacent characters match the HTML encoding pattern so execution can return
+           *  the index of ampersand
+           */
+          return N
+        } else {
+          /*
+           *  The regular expression must have a match. Retrieve it
+           */
+          v = m.shift()
+          let c
+
+          if ((c = getCharFromEntityName(v)) !== null) return c.charCodeAt(0) // eslint-disable-line
+          if ((c = getCharFromEntityCode(v)) !== null) return c.charCodeAt(0) // eslint-disable-line
+          return N
+        }
+      } else {
+        /*
+         * The index at position i is not the index of an ampersand, so return the index
+         */
+        return v
+      }
+    }
+  }
+  return null
+}
+
 /*
  *  Either code or name
  */
@@ -196,50 +285,6 @@ export function entityNameAt (s, i) {
       }
     } else {
       return v
-    }
-  }
-  return null
-}
-
-export function charOf (s) {
-  if (isString(s)) {
-    if (s.length < 4) {
-      return s.charAt(0)
-    } else {
-      /*
-       *  "String.charAt()" is fast so retrieve the character at position i and compare to an ampersand
-       */
-      let v = s.charAt(0)
-      if (v === A) {
-        /*
-         *  The character at position i is an ampersand. Examine the rest of the string with an HTML
-         *  encoding pattern regular expression
-         */
-        X.lastIndex = 0
-        const m = X.exec(s)
-        if (m === null) {
-          /*
-           *  The adjacent characters match the HTML encoding pattern so execution can return
-           *  an ampersand
-           */
-          return A
-        } else {
-          /*
-           *  The regular expression must have a match. Retrieve it
-           */
-          v = m.shift()
-          let c
-
-          if ((c = getCharFromEntityName(v)) !== null) return c // eslint-disable-line
-          if ((c = getCharFromEntityCode(v)) !== null) return c // eslint-disable-line
-          return A
-        }
-      } else {
-        /*
-         * The character at position i is not an ampersand, so return it
-         */
-        return v
-      }
     }
   }
   return null
@@ -369,6 +414,7 @@ export default class StringEngine {
   static charAt = charAt
   static charCodeAt = charCodeAt
   static charOf = charOf
+  static charCodeOf = charCodeOf
 
   static entityAt = entityAt
   static entityCodeAt = entityCodeAt
