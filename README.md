@@ -1261,45 +1261,89 @@ const number = StringEngine.charCodeOf('&#44;') // returns 44
 const number = StringEngine.charCodeOf('&comma;') // returns 44
 ```
 
-<!--
 ### `entityAt`
 
-Accepts a string and a number which is an index. Returns the entity for the character at the index.
+Accepts a string and a number which is an index.
 
-```javascript
-const string = StringEngine.entityAt('Hello&#44; World', 5) // returns '&#44;'
-```
-
-```javascript
-const string = StringEngine.entityAt('Hello&comma; World', 5) // returns '&comma;'
-```
-
-Where the character at the index is the start of an entity, it returns the entity.
-
-```javascript
-const string = StringEngine.entityAt('Hello&#44; World', 5) // returns '&#44;'
-```
+Where the character at the index is an entity, it returns the entity.
 
 ```javascript
 const string = StringEngine.entityAt('Hello&comma; World', 5) // returns '&comma;'
+```
+
+```javascript
+const string = StringEngine.entityAt('Hello,&#32;World', 5) // returns '&#32;'
+```
+
+Where the character at the index has an entity name, it returns the entity name.
+
+```javascript
+const string = StringEngine.entityAt('Hello, World', 5) // returns '&comma;'
+```
+
+Where the character at the index has an entity code, it returns the entity code.
+
+```javascript
+const string = StringEngine.entityAt('Hello, World', 6) // returns '&#32;'
 ```
 
 ### `entityCodeAt`
 
-Accepts a string and a number which is an index. Returns the character for the entity code at the index.
+Accepts a string and a number which is an index.
+
+Where the character at the index has an entity code, it returns the entity code.
 
 ```javascript
-const string = StringEngine.entityCodeAt('Hello&#44; World', 5) // returns ','
+const string = StringEngine.entityCodeAt('Hello, World', 5) // returns '&#44;'
+```
+
+Where the character at the index _is_ an entity code, it returns the entity code.
+
+```javascript
+const string = StringEngine.entityCodeAt('Hello&#44; World', 5) // returns '&#44;'
+```
+
+Where the character at the index is an entity name, it returns the entity code for the char at the index.
+
+```javascript
+const string = StringEngine.entityCodeAt('Hello&comma; World', 5) // returns '&#38;'
 ```
 
 ### `entityNameAt`
 
-Accepts a string and a number which is an index. Returns the character for the entity name at the index.
+Accepts a string and a number which is an index.
+
+Where the character at the index has an entity name, it returns the entity name.
 
 ```javascript
-const string = StringEngine.entityCodeAt('Hello&comma; World', 5) // returns ','
+const string = StringEngine.entityNameAt('Hello, World', 5) // returns '&comma;'
 ```
--->
+
+Where the character at the index _is_ an entity name, it returns the entity name.
+
+```javascript
+const string = StringEngine.entityNameAt('Hello&comma; World', 5) // returns '&comma;'
+```
+
+Where the character at the index is an entity code, it returns the entity name for the char at the index.
+
+```javascript
+const string = StringEngine.entityNameAt('Hello&#44; World', 5) // returns '&amp;'
+```
+
+### `entityOf`
+
+Accepts a string and a number which is an index.
+
+Where the character at the index is an entity, it returns the entity.
+
+```javascript
+const string = StringEngine.entityOf(',') // returns '&comma;'
+```
+
+```javascript
+const string = StringEngine.entityOf(' ') // returns '&#32;'
+```
 
 ### `fromCharCode`
 
