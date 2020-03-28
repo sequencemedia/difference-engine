@@ -124,47 +124,39 @@ export function iterateBetween (a = [], x = 0, y = 0, f = () => {}) {
 }
 
 export function max (a = [], j = a.length) {
-  if (j) {
-    let [
-      x
-    ] = a
+  let [
+    x = null
+  ] = a
 
-    let z = 1
+  let z = 1
 
-    while (z < j) {
-      const y = a[z]
+  while (z < j) {
+    const y = a[z]
 
-      if (y > x) x = y
+    if (y > x) x = y
 
-      z = z + 1
-    }
-
-    return x
+    z = z + 1
   }
 
-  return null
+  return x
 }
 
 export function min (a = [], j = a.length) {
-  if (j) {
-    let [
-      x
-    ] = a
+  let [
+    x = null
+  ] = a
 
-    let z = 1
+  let z = 1
 
-    while (z < j) {
-      const y = a[z]
+  while (z < j) {
+    const y = a[z]
 
-      if (y < x) x = y
+    if (y < x) x = y
 
-      z = z + 1
-    }
-
-    return x
+    z = z + 1
   }
 
-  return null
+  return x
 }
 
 /**
