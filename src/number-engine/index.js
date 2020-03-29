@@ -26,6 +26,8 @@ export function fromOctToDec (v) {
 }
 
 export {
+  fibonacci,
+  haversine,
   Weight,
   Temperature,
   Distance
