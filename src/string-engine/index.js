@@ -26,6 +26,9 @@ const ACHARCODE = 38
 const AENTITYNAME = '&amp;'
 const AENTITYCODE = '&#38;'
 
+/*
+ *  Char
+ */
 export function charAt (s, i) {
   if (isString(s) && isNumber(i)) {
     /*
@@ -66,6 +69,9 @@ export function charAt (s, i) {
   return null
 }
 
+/*
+ *  Char code
+ */
 export function charCodeAt (s, i) {
   if (isString(s) && isNumber(i)) {
     /*
@@ -107,6 +113,9 @@ export function charCodeAt (s, i) {
   return null
 }
 
+/*
+ *  Char
+ */
 export function charOf (s) {
   if (isString(s)) {
     if (s.length < 4) {
@@ -151,6 +160,9 @@ export function charOf (s) {
   return null
 }
 
+/*
+ *  Char code
+ */
 export function charCodeOf (s) {
   if (isString(s)) {
     if (s.length < 4) {
@@ -197,7 +209,7 @@ export function charCodeOf (s) {
 }
 
 /*
- *  Either code or name
+ *  Either code or name or char
  */
 export function entityAt (s, i) {
   if (isString(s) && isNumber(i)) {
@@ -281,7 +293,7 @@ export function entityNameAt (s, i) {
 }
 
 /*
- *  Name or code or char
+ *  Either code or name or char
  */
 export function entityOf (s) {
   if (isString(s)) {
@@ -309,28 +321,28 @@ export function entityOf (s) {
 }
 
 /*
- *  Character from index
+ *  Char from char code
  */
 export function fromCharCode (i) {
   return isNumber(i) ? getFromCharCode(i) : null
 }
 
 /*
- *  Character from HTML code
+ *  Char from entity code
  */
 export function charFromEntityCode (s) {
   return isString(s) ? getCharFromEntityCode(s) : null
 }
 
 /*
- *  Character from HTML name
+ *  Char from entity name
  */
 export function charFromEntityName (s) {
   return isString(s) ? getCharFromEntityName(s) : null
 }
 
 /*
- * Characters to HTML code
+ * Chars to entity codes
  */
 export function toEntityCode (s) {
   if (isString(s)) {
@@ -349,7 +361,7 @@ export function toEntityCode (s) {
 }
 
 /*
- * Characters to HTML name
+ * Chars to entity names
  */
 export function toEntityName (s) {
   if (isString(s)) {
@@ -368,14 +380,14 @@ export function toEntityName (s) {
 }
 
 /*
- *  HTML code from character
+ *  Entity code from char
  */
 export function entityCodeFromChar (s) {
   return isString(s) && s.length === 1 ? getEntityCodeFromChar(s) : null
 }
 
 /*
- *  HTML name from chracter
+ *  Entity name from char
  */
 export function entityNameFromChar (s) {
   return isString(s) && s.length === 1 ? entityNameFromCharMap.has(s) ? entityNameFromCharMap.get(s) : s : null
