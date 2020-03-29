@@ -234,6 +234,195 @@ export function fromMiToIn (n) { // MI -> YD -> FT -> IN
   return isNumber(n) ? ((n * 1760) * 3) * 12 : NaN
 }
 
+export function convert (amount) {
+  return {
+    fromKm: {
+      toMt () {
+        return fromKmToMt(amount)
+      },
+      toCm () {
+        return fromKmToCm(amount)
+      },
+      toMm () {
+        return fromKmToMm(amount)
+      },
+      toIn () {
+        return fromKmToIn(amount)
+      },
+      toFt () {
+        return fromKmToFt(amount)
+      },
+      toYd () {
+        return fromKmToYd(amount)
+      },
+      toMi () {
+        return fromKmToMi(amount)
+      }
+    },
+    fromMt: {
+      toKm () {
+        return fromMtToKm(amount)
+      },
+      toCm () {
+        return fromMtToCm(amount)
+      },
+      toMm () {
+        return fromMtToMm(amount)
+      },
+      toIn () {
+        return fromMtToIn(amount)
+      },
+      toFt () {
+        return fromMtToFt(amount)
+      },
+      toYd () {
+        return fromMtToYd(amount)
+      },
+      toMi () {
+        return fromMtToMi(amount)
+      }
+    },
+    fromCm: {
+      toKm () {
+        return fromCmToKm(amount)
+      },
+      toMt () {
+        return fromCmToMt(amount)
+      },
+      toMm () {
+        return fromCmToMm(amount)
+      },
+      toIn () {
+        return fromCmToIn(amount)
+      },
+      toFt () {
+        return fromCmToFt(amount)
+      },
+      toYd () {
+        return fromCmToYd(amount)
+      },
+      toMi () {
+        return fromCmToMi(amount)
+      }
+    },
+    fromMm: {
+      toKm () {
+        return fromMmToKm(amount)
+      },
+      toMt () {
+        return fromMmToMt(amount)
+      },
+      toCm () {
+        return fromMmToCm(amount)
+      },
+      toIn () {
+        return fromMmToIn(amount)
+      },
+      toFt () {
+        return fromMmToFt(amount)
+      },
+      toYd () {
+        return fromMmToYd(amount)
+      },
+      toMi () {
+        return fromMmToMi(amount)
+      }
+    },
+    fromIn: {
+      toFt () {
+        return fromInToFt(amount)
+      },
+      toYd () {
+        return fromInToYd(amount)
+      },
+      toMi () {
+        return fromInToMi(amount)
+      },
+      toKm () {
+        return fromInToKm(amount)
+      },
+      toMt () {
+        return fromInToMt(amount)
+      },
+      toCm () {
+        return fromInToCm(amount)
+      },
+      toMm () {
+        return fromInToMm(amount)
+      }
+    },
+    fromFt: {
+      toIn () {
+        return fromFtToIn(amount)
+      },
+      toYd () {
+        return fromFtToYd(amount)
+      },
+      toMi () {
+        return fromFtToMi(amount)
+      },
+      toKm () {
+        return fromFtToKm(amount)
+      },
+      toMt () {
+        return fromFtToMt(amount)
+      },
+      toCm () {
+        return fromFtToCm(amount)
+      },
+      toMm () {
+        return fromFtToMm(amount)
+      }
+    },
+    fromYd: {
+      toIn () {
+        return fromYdToIn(amount)
+      },
+      toFt () {
+        return fromYdToFt(amount)
+      },
+      toMi () {
+        return fromYdToMi(amount)
+      },
+      toKm () {
+        return fromYdToKm(amount)
+      },
+      toMt () {
+        return fromYdToMt(amount)
+      },
+      toCm () {
+        return fromYdToCm(amount)
+      },
+      toMm () {
+        return fromYdToMm(amount)
+      }
+    },
+    fromMi: {
+      toIn () {
+        return fromMiToIn(amount)
+      },
+      toFt () {
+        return fromMiToFt(amount)
+      },
+      toYd () {
+        return fromMiToYd(amount)
+      },
+      toKm () {
+        return fromMiToKm(amount)
+      },
+      toMt () {
+        return fromMiToMt(amount)
+      },
+      toCm () {
+        return fromMiToCm(amount)
+      },
+      toMm () {
+        return fromMiToMm(amount)
+      }
+    }
+  }
+}
+
 /**
  * @class Distance
  */
@@ -302,192 +491,5 @@ export default class Distance {
   static fromMiToFt = fromMiToFt
   static fromMiToYd = fromMiToYd
 
-  static convert (amount) {
-    return {
-      fromKm: {
-        toMt () {
-          return fromKmToMt(amount)
-        },
-        toCm () {
-          return fromKmToCm(amount)
-        },
-        toMm () {
-          return fromKmToMm(amount)
-        },
-        toIn () {
-          return fromKmToIn(amount)
-        },
-        toFt () {
-          return fromKmToFt(amount)
-        },
-        toYd () {
-          return fromKmToYd(amount)
-        },
-        toMi () {
-          return fromKmToMi(amount)
-        }
-      },
-      fromMt: {
-        toKm () {
-          return fromMtToKm(amount)
-        },
-        toCm () {
-          return fromMtToCm(amount)
-        },
-        toMm () {
-          return fromMtToMm(amount)
-        },
-        toIn () {
-          return fromMtToIn(amount)
-        },
-        toFt () {
-          return fromMtToFt(amount)
-        },
-        toYd () {
-          return fromMtToYd(amount)
-        },
-        toMi () {
-          return fromMtToMi(amount)
-        }
-      },
-      fromCm: {
-        toKm () {
-          return fromCmToKm(amount)
-        },
-        toMt () {
-          return fromCmToMt(amount)
-        },
-        toMm () {
-          return fromCmToMm(amount)
-        },
-        toIn () {
-          return fromCmToIn(amount)
-        },
-        toFt () {
-          return fromCmToFt(amount)
-        },
-        toYd () {
-          return fromCmToYd(amount)
-        },
-        toMi () {
-          return fromCmToMi(amount)
-        }
-      },
-      fromMm: {
-        toKm () {
-          return fromMmToKm(amount)
-        },
-        toMt () {
-          return fromMmToMt(amount)
-        },
-        toCm () {
-          return fromMmToCm(amount)
-        },
-        toIn () {
-          return fromMmToIn(amount)
-        },
-        toFt () {
-          return fromMmToFt(amount)
-        },
-        toYd () {
-          return fromMmToYd(amount)
-        },
-        toMi () {
-          return fromMmToMi(amount)
-        }
-      },
-      fromIn: {
-        toFt () {
-          return fromInToFt(amount)
-        },
-        toYd () {
-          return fromInToYd(amount)
-        },
-        toMi () {
-          return fromInToMi(amount)
-        },
-        toKm () {
-          return fromInToKm(amount)
-        },
-        toMt () {
-          return fromInToMt(amount)
-        },
-        toCm () {
-          return fromInToCm(amount)
-        },
-        toMm () {
-          return fromInToMm(amount)
-        }
-      },
-      fromFt: {
-        toIn () {
-          return fromFtToIn(amount)
-        },
-        toYd () {
-          return fromFtToYd(amount)
-        },
-        toMi () {
-          return fromFtToMi(amount)
-        },
-        toKm () {
-          return fromFtToKm(amount)
-        },
-        toMt () {
-          return fromFtToMt(amount)
-        },
-        toCm () {
-          return fromFtToCm(amount)
-        },
-        toMm () {
-          return fromFtToMm(amount)
-        }
-      },
-      fromYd: {
-        toIn () {
-          return fromYdToIn(amount)
-        },
-        toFt () {
-          return fromYdToFt(amount)
-        },
-        toMi () {
-          return fromYdToMi(amount)
-        },
-        toKm () {
-          return fromYdToKm(amount)
-        },
-        toMt () {
-          return fromYdToMt(amount)
-        },
-        toCm () {
-          return fromYdToCm(amount)
-        },
-        toMm () {
-          return fromYdToMm(amount)
-        }
-      },
-      fromMi: {
-        toIn () {
-          return fromMiToIn(amount)
-        },
-        toFt () {
-          return fromMiToFt(amount)
-        },
-        toYd () {
-          return fromMiToYd(amount)
-        },
-        toKm () {
-          return fromMiToKm(amount)
-        },
-        toMt () {
-          return fromMiToMt(amount)
-        },
-        toCm () {
-          return fromMiToCm(amount)
-        },
-        toMm () {
-          return fromMiToMm(amount)
-        }
-      }
-    }
-  }
+  static convert = convert
 }

@@ -6,9 +6,23 @@ npm i -P difference-engine
 
 ## DifferenceEngine
 
+Features are available as static methods on the class:
+
 ```javascript
 const { DifferenceEngine } = require('./lib')
 ```
+
+And as functions exported from the module:
+
+```javascript
+const {
+  default: DifferenceEngine,
+  inclusive,
+  exclusive
+} = require('./lib/difference-engine')
+```
+
+Examples use the _static_ form.
 
 ### `inclusive`
 
@@ -34,9 +48,28 @@ const array = DifferenceEngine.exclusive(alpha, omega) // returns ['A', 'B']
 
 ## ArrayEngine
 
+Features are available as static methods on the class:
+
 ```javascript
 const { ArrayEngine } = require('./lib')
 ```
+
+And as functions exported from the module:
+
+```javascript
+const {
+  default: ArrayEngine,
+  indexOf,
+  iterateForward,
+  iterateReverse,
+  iterateBetween,
+  max,
+  min,
+  bite
+} = require('./lib/array-engine')
+```
+
+Examples use the _static_ form.
 
 ### `indexOf`
 
@@ -176,9 +209,28 @@ const value = ArrayEngine.min(array) // returns 1
 
 ## NumberEngine
 
+Features are available as static methods on the class:
+
 ```javascript
 const { NumberEngine } = require('./lib')
 ```
+
+And as functions exported from the module:
+
+```javascript
+const {
+  default: NumberEngine,
+  fibonacci,
+  haversine,
+  fromOctToDec,
+  fromHexToDec,
+  Weight,
+  Temperature,
+  Distance
+} = require('./lib/number-engine')
+```
+
+Examples use the _static_ form.
 
 ### `fibonacci`
 
@@ -233,17 +285,61 @@ const dec = NumberEngine.fromHexToDec('10') // returns 16
 
 Convert a number from one unit to another.
 
+As static methods on the class:
+
 ```javascript
 const { NumberEngine: { Weight } } = require('./lib')
 ```
 
-#### Kilogram
+And as functions exported from the module:
 
-- `fromKgToGr`
-- `fromKgToMg`
-- `fromKgToOz`
-- `fromKgToLb`
-- `fromKgToSt`
+```javascript
+const {
+  default: Weight,
+
+  fromKgToGr,
+  fromKgToMg,
+  fromKgToOz,
+  fromKgToLb,
+  fromKgToSt,
+
+  fromGrToKg,
+  fromGrToMg,
+  fromGrToOz,
+  fromGrToLb,
+  fromGrToSt,
+
+  fromMgToKg,
+  fromMgToGr,
+  fromMgToOz,
+  fromMgToLb,
+  fromMgToSt,
+
+  fromOzToKg,
+  fromOzToGr,
+  fromOzToMg,
+  fromOzToLb,
+  fromOzToSt,
+
+  fromLbToKg,
+  fromLbToGr,
+  fromLbToMg,
+  fromLbToOz,
+  fromLbToSt,
+
+  fromStToKg,
+  fromStToGr,
+  fromStToMg,
+  fromStToLb,
+  fromStToOz,
+
+  convert
+} = require('./lib/number-engine/weight')
+```
+
+Examples use the _static_ form.
+
+#### Kilogram
 
 ```javascript
 const gr = Weight.fromKgToGr(10)
@@ -265,12 +361,6 @@ const lb = Weight.fromKgToLb(10)
 const st = Weight.fromKgToSt(10)
 ```
 Or, using `convert`.
-
-- `fromKg.toGr`
-- `fromKg.toMg`
-- `fromKg.toOz`
-- `fromKg.toLb`
-- `fromKg.toSt`
 
 ```javascript
 const gr = Weight.convert(10).fromKg.toGr()
@@ -294,12 +384,6 @@ const st = Weight.convert(10).fromKg.toSt()
 
 #### Gram
 
-- `fromGrToKg`
-- `fromGrToMg`
-- `fromGrToOz`
-- `fromGrToLb`
-- `fromGrToSt`
-
 ```javascript
 const kg = Weight.fromGrToKg(10)
 ```
@@ -321,12 +405,6 @@ const st = Weight.fromGrToSt(10)
 ```
 
 Or, using `convert`.
-
-- `fromGr.toKg`
-- `fromGr.toMg`
-- `fromGr.toOz`
-- `fromGr.toLb`
-- `fromGr.toSt`
 
 ```javascript
 const kg = Weight.convert(10).fromGr.toKg()
@@ -350,12 +428,6 @@ const st = Weight.convert(10).fromGr.toSt()
 
 #### Miligram
 
-- `fromMgToKg`
-- `fromMgToGr`
-- `fromMgToOz`
-- `fromMgToLb`
-- `fromMgToSt`
-
 ```javascript
 const kg = Weight.fromMgToKg(10)
 ```
@@ -377,12 +449,6 @@ const st = Weight.fromMgToSt(10)
 ```
 
 Or, using `convert`.
-
-- `fromMg.toKg`
-- `fromMg.toGr`
-- `fromMg.toOz`
-- `fromMg.toLb`
-- `fromMg.toSt`
 
 ```javascript
 const kg = Weight.convert(10).fromMg.toKg()
@@ -406,12 +472,6 @@ const st = Weight.convert(10).fromMg.toSt()
 
 #### Ounce
 
-- `fromOzToKg`
-- `fromOzToGr`
-- `fromOzToMg`
-- `fromOzToLb`
-- `fromOzToSt`
-
 ```javascript
 const kg = Weight.fromOzToKg(10)
 ```
@@ -433,12 +493,6 @@ const st = Weight.fromOzToSt(10)
 ```
 
 Or, using `convert`.
-
-- `fromOz.toKg`
-- `fromOz.toGr`
-- `fromOz.toMg`
-- `fromOz.toLb`
-- `fromOz.toSt`
 
 ```javascript
 const kg = Weight.convert(10).fromOz.toKg()
@@ -462,12 +516,6 @@ const st = Weight.convert(10).fromOz.toSt()
 
 #### Pound
 
-- `fromLbToKg`
-- `fromLbToGr`
-- `fromLbToMg`
-- `fromLbToOz`
-- `fromLbToSt`
-
 ```javascript
 const kg = Weight.fromLbToKg(10)
 ```
@@ -489,12 +537,6 @@ const st = Weight.fromLbToSt(10)
 ```
 
 Or, using `convert`.
-
-- `fromLb.toKg`
-- `fromLb.toGr`
-- `fromLb.toMg`
-- `fromLb.toOz`
-- `fromLb.toSt`
 
 ```javascript
 const kg = Weight.convert(10).fromLb.toKg()
@@ -518,12 +560,6 @@ const st = Weight.convert(10).fromLb.toSt()
 
 #### Stone
 
-- `fromStToKg`
-- `fromStToGr`
-- `fromStToMg`
-- `fromStToLb`
-- `fromStToOz`
-
 ```javascript
 const kg = Weight.fromStToKg(10)
 ```
@@ -545,12 +581,6 @@ const oz = Weight.fromStToOz(10)
 ```
 
 Or, using `convert`.
-
-- `fromSt.toKg`
-- `fromSt.toGr`
-- `fromSt.toMg`
-- `fromSt.toLb`
-- `fromSt.toOz`
 
 ```javascript
 const kg = Weight.convert(10).fromSt.toKg()
@@ -576,12 +606,24 @@ const oz = Weight.convert(10).fromSt.toOz()
 
 Convert a number from one unit to another.
 
+As static methods on the class:
+
 ```javascript
 const { NumberEngine: { Temperature } } = require('./lib')
 ```
 
-- `fromCToF`
-- `fromFToC`
+And as functions exported from the module:
+
+```javascript
+const {
+  default: Temperature,
+
+  fromCToF,
+  fromFToC
+} = require('./lib/number-engine/temperature')
+```
+
+Examples use the _static_ form.
 
 ```javascript
 const value = Temperature.fromCToF(10)
@@ -595,19 +637,89 @@ const value = Temperature.fromFToC(10)
 
 Convert a number from one unit to another.
 
+As static methods on the class:
+
 ```javascript
 const { NumberEngine: { Distance } } = require('./lib')
 ```
 
-#### Kilometre
+And as functions exported from the module:
 
-- `fromKmToMt`
-- `fromKmToCm`
-- `fromKmToMm`
-- `fromKmToIn`
-- `fromKmToFt`
-- `fromKmToYd`
-- `fromKmToMi`
+```javascript
+const {
+  default: Distance,
+
+  fromKmToMt,
+  fromKmToCm,
+  fromKmToMm,
+  fromKmToIn,
+  fromKmToFt,
+  fromKmToYd,
+  fromKmToMi,
+
+  fromMtToKm,
+  fromMtToCm,
+  fromMtToMm,
+  fromMtToIn,
+  fromMtToFt,
+  fromMtToYd,
+  fromMtToMi,
+
+  fromCmToKm,
+  fromCmToMt,
+  fromCmToMm,
+  fromCmToIn,
+  fromCmToFt,
+  fromCmToYd,
+  fromCmToMi,
+
+  fromMmToKm,
+  fromMmToMt,
+  fromMmToCm,
+  fromMmToIn,
+  fromMmToFt,
+  fromMmToYd,
+  fromMmToMi,
+
+  fromInToKm,
+  fromInToMt,
+  fromInToCm,
+  fromInToMm,
+  fromInToFt,
+  fromInToYd,
+  fromInToMi,
+
+  fromFtToKm,
+  fromFtToMt,
+  fromFtToCm,
+  fromFtToMm,
+  fromFtToIn,
+  fromFtToYd,
+  fromFtToMi,
+
+  fromYdToKm,
+  fromYdToMt,
+  fromYdToCm,
+  fromYdToMm,
+  fromYdToIn,
+  fromYdToFt,
+  fromYdToMi,
+
+  fromMiToKm,
+  fromMiToMt,
+  fromMiToCm,
+  fromMiToMm,
+  fromMiToIn,
+  fromMiToFt,
+  fromMiToYd,
+
+  convert
+} = require('./lib/number-engine/temperature')
+```
+
+Examples use the _static_ form.
+
+#### Kilometre
 
 ```javascript
 const mt = Distance.fromKmToMt(10)
@@ -639,14 +751,6 @@ const mi = Distance.fromKmToMi(10)
 
 Or, using `convert`.
 
-- `fromKm.toMt`
-- `fromKm.toCm`
-- `fromKm.toMm`
-- `fromKm.toIn`
-- `fromKm.toFt`
-- `fromKm.toYd`
-- `fromKm.toMi`
-
 ```javascript
 const mt = Distance.convert(10).fromKm.toMt()
 ```
@@ -676,14 +780,6 @@ const mi = Distance.convert(10).fromKm.toMi()
 ```
 
 #### Metre
-
-- `fromMtToKm`
-- `fromMtToCm`
-- `fromMtToMm`
-- `fromMtToIn`
-- `fromMtToFt`
-- `fromMtToYd`
-- `fromMtToMi`
 
 ```javascript
 const km = Distance.fromMtToKm(10)
@@ -715,14 +811,6 @@ const mi = Distance.fromMtToMi(10)
 
 Or, using `convert`.
 
-- `fromMt.toKm`
-- `fromMt.toCm`
-- `fromMt.toMm`
-- `fromMt.toIn`
-- `fromMt.toFt`
-- `fromMt.toYd`
-- `fromMt.toMi`
-
 ```javascript
 const km = Distance.convert(10).fromMt.toKm()
 ```
@@ -752,14 +840,6 @@ const mi = Distance.convert(10).fromMt.toMi()
 ```
 
 #### Centimetre
-
-- `fromCmToKm`
-- `fromCmToMt`
-- `fromCmToMm`
-- `fromCmToIn`
-- `fromCmToFt`
-- `fromCmToYd`
-- `fromCmToMi`
 
 ```javascript
 const km = Distance.fromCmToKm(10)
@@ -791,14 +871,6 @@ const mi = Distance.fromCmToMi(10)
 
 Or, using `convert`.
 
-- `fromCm.toKm`
-- `fromCm.toMt`
-- `fromCm.toMm`
-- `fromCm.toIn`
-- `fromCm.toFt`
-- `fromCm.toYd`
-- `fromCm.toMi`
-
 ```javascript
 const km = Distance.convert(10).fromCm.toKm()
 ```
@@ -828,14 +900,6 @@ const mi = Distance.convert(10).fromCm.toMi()
 ```
 
 #### Milimetre
-
-- `fromMmToKm`
-- `fromMmToMt`
-- `fromMmToCm`
-- `fromMmToIn`
-- `fromMmToFt`
-- `fromMmToYd`
-- `fromMmToMi`
 
 ```javascript
 const km = Distance.fromMmToKm(10)
@@ -867,14 +931,6 @@ const mi = Distance.fromMmToMi(10)
 
 Or, using `convert`.
 
-- `fromMm.toKm`
-- `fromMm.toMt`
-- `fromMm.toCm`
-- `fromMm.toIn`
-- `fromMm.toFt`
-- `fromMm.toYd`
-- `fromMm.toMi`
-
 ```javascript
 const km = Distance.convert(10).fromMm.toKm()
 ```
@@ -904,14 +960,6 @@ const mi = Distance.convert(10).fromMm.toMi()
 ```
 
 #### Inch
-
-- `fromInToKm`
-- `fromInToMt`
-- `fromInToCm`
-- `fromInToMm`
-- `fromInToFt`
-- `fromInToYd`
-- `fromInToMi`
 
 ```javascript
 const km = Distance.fromInToKm(10)
@@ -943,14 +991,6 @@ const mi = Distance.fromInToMi(10)
 
 Or, using `convert`.
 
-- `fromIn.toKm`
-- `fromIn.toMt`
-- `fromIn.toCm`
-- `fromIn.toMm`
-- `fromIn.toFt`
-- `fromIn.toYd`
-- `fromIn.toMi`
-
 ```javascript
 const km = Distance.convert(10).fromIn.toKm()
 ```
@@ -980,14 +1020,6 @@ const mi = Distance.convert(10).fromIn.toMi()
 ```
 
 #### Feet
-
-- `fromFtToKm`
-- `fromFtToMt`
-- `fromFtToCm`
-- `fromFtToMm`
-- `fromFtToIn`
-- `fromFtToYd`
-- `fromFtToMi`
 
 ```javascript
 const km = Distance.fromFtToKm(10)
@@ -1019,14 +1051,6 @@ const mi = Distance.fromFtToMi(10)
 
 Or, using `convert`.
 
-- `fromFt.toKm`
-- `fromFt.toMt`
-- `fromFt.toCm`
-- `fromFt.toMm`
-- `fromFt.toIn`
-- `fromFt.toYd`
-- `fromFt.toMi`
-
 ```javascript
 const km = Distance.convert(10).fromFt.toKm()
 ```
@@ -1056,14 +1080,6 @@ const mi = Distance.convert(10).fromFt.toMi()
 ```
 
 #### Yard
-
-- `fromYdToKm`
-- `fromYdToMt`
-- `fromYdToCm`
-- `fromYdToMm`
-- `fromYdToIn`
-- `fromYdToFt`
-- `fromYdToMi`
 
 ```javascript
 const km = Distance.fromYdToKm(10)
@@ -1095,14 +1111,6 @@ const mi = Distance.fromYdToMi(10)
 
 Or, using `convert`.
 
-- `fromYd.toKm`
-- `fromYd.toMt`
-- `fromYd.toCm`
-- `fromYd.toMm`
-- `fromYd.toIn`
-- `fromYd.toFt`
-- `fromYd.toMi`
-
 ```javascript
 const km = Distance.convert(10).fromYd.toKm()
 ```
@@ -1133,14 +1141,6 @@ const mi = Distance.convert(10).fromYd.toMi()
 
 #### Mile
 
-- `fromMiToKm`
-- `fromMiToMt`
-- `fromMiToCm`
-- `fromMiToMm`
-- `fromMiToIn`
-- `fromMiToFt`
-- `fromMiToYd`
-
 ```javascript
 const km = Distance.fromMiToKm(10)
 ```
@@ -1170,14 +1170,6 @@ const yd = Distance.fromMiToYd(10)
 ```
 
 Or, using `convert`.
-
-- `fromMi.toKm`
-- `fromMi.toMt`
-- `fromMi.toCm`
-- `fromMi.toMm`
-- `fromMi.toIn`
-- `fromMi.toFt`
-- `fromMi.toYd`
 
 ```javascript
 const km = Distance.convert(10).fromMi.toKm()

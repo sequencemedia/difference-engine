@@ -130,6 +130,113 @@ export function fromOzToGr (n) { // OZ -> GR
   return isNumber(n) ? n * OZGR : NaN
 }
 
+export function convert (amount) {
+  return {
+    fromKg: {
+      toGr () {
+        return fromKgToGr(amount)
+      },
+      toMg () {
+        return fromKgToMg(amount)
+      },
+      toOz () {
+        return fromKgToOz(amount)
+      },
+      toLb () {
+        return fromKgToLb(amount)
+      },
+      toSt () {
+        return fromKgToSt(amount)
+      }
+    },
+    fromGr: {
+      toKg () {
+        return fromGrToKg(amount)
+      },
+      toMg () {
+        return fromGrToMg(amount)
+      },
+      toOz () {
+        return fromGrToOz(amount)
+      },
+      toLb () {
+        return fromGrToLb(amount)
+      },
+      toSt () {
+        return fromGrToSt(amount)
+      }
+    },
+    fromMg: {
+      toKg () {
+        return fromMgToKg(amount)
+      },
+      toGr () {
+        return fromMgToGr(amount)
+      },
+      toOz () {
+        return fromMgToOz(amount)
+      },
+      toLb () {
+        return fromMgToLb(amount)
+      },
+      toSt () {
+        return fromMgToSt(amount)
+      }
+    },
+    fromOz: {
+      toKg () {
+        return fromOzToKg(amount)
+      },
+      toGr () {
+        return fromOzToGr(amount)
+      },
+      toMg () {
+        return fromOzToMg(amount)
+      },
+      toLb () {
+        return fromOzToLb(amount)
+      },
+      toSt () {
+        return fromOzToSt(amount)
+      }
+    },
+    fromLb: {
+      toKg () {
+        return fromLbToKg(amount)
+      },
+      toGr () {
+        return fromLbToGr(amount)
+      },
+      toMg () {
+        return fromLbToMg(amount)
+      },
+      toOz () {
+        return fromLbToOz(amount)
+      },
+      toSt () {
+        return fromLbToSt(amount)
+      }
+    },
+    fromSt: {
+      toKg () {
+        return fromStToKg(amount)
+      },
+      toGr () {
+        return fromStToGr(amount)
+      },
+      toMg () {
+        return fromStToMg(amount)
+      },
+      toLb () {
+        return fromStToLb(amount)
+      },
+      toOz () {
+        return fromStToOz(amount)
+      }
+    }
+  }
+}
+
 /**
  * @class Weight
  */
@@ -170,110 +277,5 @@ export default class Weight {
   static fromStToLb = fromStToLb
   static fromStToOz = fromStToOz
 
-  static convert (amount) {
-    return {
-      fromKg: {
-        toGr () {
-          return fromKgToGr(amount)
-        },
-        toMg () {
-          return fromKgToMg(amount)
-        },
-        toOz () {
-          return fromKgToOz(amount)
-        },
-        toLb () {
-          return fromKgToLb(amount)
-        },
-        toSt () {
-          return fromKgToSt(amount)
-        }
-      },
-      fromGr: {
-        toKg () {
-          return fromGrToKg(amount)
-        },
-        toMg () {
-          return fromGrToMg(amount)
-        },
-        toOz () {
-          return fromGrToOz(amount)
-        },
-        toLb () {
-          return fromGrToLb(amount)
-        },
-        toSt () {
-          return fromGrToSt(amount)
-        }
-      },
-      fromMg: {
-        toKg () {
-          return fromMgToKg(amount)
-        },
-        toGr () {
-          return fromMgToGr(amount)
-        },
-        toOz () {
-          return fromMgToOz(amount)
-        },
-        toLb () {
-          return fromMgToLb(amount)
-        },
-        toSt () {
-          return fromMgToSt(amount)
-        }
-      },
-      fromOz: {
-        toKg () {
-          return fromOzToKg(amount)
-        },
-        toGr () {
-          return fromOzToGr(amount)
-        },
-        toMg () {
-          return fromOzToMg(amount)
-        },
-        toLb () {
-          return fromOzToLb(amount)
-        },
-        toSt () {
-          return fromOzToSt(amount)
-        }
-      },
-      fromLb: {
-        toKg () {
-          return fromLbToKg(amount)
-        },
-        toGr () {
-          return fromLbToGr(amount)
-        },
-        toMg () {
-          return fromLbToMg(amount)
-        },
-        toOz () {
-          return fromLbToOz(amount)
-        },
-        toSt () {
-          return fromLbToSt(amount)
-        }
-      },
-      fromSt: {
-        toKg () {
-          return fromStToKg(amount)
-        },
-        toGr () {
-          return fromStToGr(amount)
-        },
-        toMg () {
-          return fromStToMg(amount)
-        },
-        toLb () {
-          return fromStToLb(amount)
-        },
-        toOz () {
-          return fromStToOz(amount)
-        }
-      }
-    }
-  }
+  static convert = convert
 }

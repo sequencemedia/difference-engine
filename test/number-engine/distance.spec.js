@@ -65,7 +65,9 @@ import Distance, {
   fromMiToMm,
   fromMiToIn,
   fromMiToFt,
-  fromMiToYd
+  fromMiToYd,
+
+  convert
 } from '@difference-engine/number-engine/distance'
 
 describe('Distance', () => {
@@ -2422,6 +2424,792 @@ describe('Distance', () => {
       expect(fromInToKm(36000)).to.equal(0.9144000000036575)
 
       expect(fromInToKm(480000)).to.equal(12.192000000048768)
+    })
+  })
+
+  describe('`convert()`', () => {
+    describe('`convert(n).fromKm.toMt()`', () => {
+      it('converts kilometre to metre', () => {
+        expect(convert(0).fromKm.toMt()).to.equal(0)
+
+        expect(convert(10).fromKm.toMt()).to.equal(10000)
+
+        expect(convert(200).fromKm.toMt()).to.equal(200000)
+
+        expect(convert(3000).fromKm.toMt()).to.equal(3000000)
+
+        expect(convert(40000).fromKm.toMt()).to.equal(40000000)
+      })
+    })
+
+    describe('`convert(n).fromKm.toCm()`', () => {
+      it('converts kilometre to centimetre', () => {
+        expect(convert(0).fromKm.toCm()).to.equal(0)
+
+        expect(convert(10).fromKm.toCm()).to.equal(1000000)
+
+        expect(convert(200).fromKm.toCm()).to.equal(20000000)
+
+        expect(convert(3000).fromKm.toCm()).to.equal(300000000)
+
+        expect(convert(40000).fromKm.toCm()).to.equal(4000000000)
+      })
+    })
+
+    describe('`convert(n).fromKm.toMm()`', () => {
+      it('converts kilometre to milimetre', () => {
+        expect(convert(0).fromKm.toMm()).to.equal(0)
+
+        expect(convert(10).fromKm.toMm()).to.equal(10000000)
+
+        expect(convert(200).fromKm.toMm()).to.equal(200000000)
+
+        expect(convert(3000).fromKm.toMm()).to.equal(3000000000)
+
+        expect(convert(40000).fromKm.toMm()).to.equal(40000000000)
+      })
+    })
+
+    describe('`convert(n).fromKm.toMi()`', () => {
+      it('converts kilometre to mile', () => {
+        expect(convert(0).fromKm.toMi()).to.equal(0)
+
+        expect(convert(10).fromKm.toMi()).to.equal(6.213711922348486)
+
+        expect(convert(200).fromKm.toMi()).to.equal(124.2742384469697)
+
+        expect(convert(3000).fromKm.toMi()).to.equal(1864.1135767045455)
+
+        expect(convert(40000).fromKm.toMi()).to.equal(24854.84768939394)
+      })
+    })
+
+    describe('`convert(n).fromKm.toYd()`', () => {
+      it('converts kilometre to yard', () => {
+        expect(convert(0).fromKm.toYd()).to.equal(0)
+
+        expect(convert(10).fromKm.toYd()).to.equal(10936.132983333335)
+
+        expect(convert(200).fromKm.toYd()).to.equal(218722.65966666667)
+
+        expect(convert(3000).fromKm.toYd()).to.equal(3280839.895)
+
+        expect(convert(40000).fromKm.toYd()).to.equal(43744531.93333334)
+      })
+    })
+
+    describe('`convert(n).fromKm.toFt()`', () => {
+      it('converts kilometre to feet', () => {
+        expect(convert(0).fromKm.toFt()).to.equal(0)
+
+        expect(convert(10).fromKm.toFt()).to.equal(32808.39895)
+
+        expect(convert(200).fromKm.toFt()).to.equal(656167.979)
+
+        expect(convert(3000).fromKm.toFt()).to.equal(9842519.685)
+
+        expect(convert(40000).fromKm.toFt()).to.equal(131233595.80000001)
+      })
+    })
+
+    describe('`convert(n).fromKm.toIn()`', () => {
+      it('converts kilometre to inch', () => {
+        expect(convert(0).fromKm.toIn()).to.equal(0)
+
+        expect(convert(10).fromKm.toIn()).to.equal(393700.78740000003)
+
+        expect(convert(200).fromKm.toIn()).to.equal(7874015.748000001)
+
+        expect(convert(3000).fromKm.toIn()).to.equal(118110236.22)
+
+        expect(convert(40000).fromKm.toIn()).to.equal(1574803149.6000001)
+      })
+    })
+
+    describe('`convert(n).fromMt.toKm()`', () => {
+      it('converts metre to kilometre', () => {
+        expect(convert(0).fromMt.toKm()).to.equal(0)
+
+        expect(convert(10).fromMt.toKm()).to.equal(0.01)
+
+        expect(convert(200).fromMt.toKm()).to.equal(0.2)
+
+        expect(convert(3000).fromMt.toKm()).to.equal(3)
+
+        expect(convert(40000).fromMt.toKm()).to.equal(40)
+      })
+    })
+
+    describe('`convert(n).fromMt.toCm()`', () => {
+      it('converts metre to centimetre', () => {
+        expect(convert(0).fromMt.toCm()).to.equal(0)
+
+        expect(convert(10).fromMt.toCm()).to.equal(1000)
+
+        expect(convert(200).fromMt.toCm()).to.equal(20000)
+
+        expect(convert(3000).fromMt.toCm()).to.equal(300000)
+
+        expect(convert(40000).fromMt.toCm()).to.equal(4000000)
+      })
+    })
+
+    describe('`convert(n).fromMt.toMm()`', () => {
+      it('converts metre to milimetre', () => {
+        expect(convert(0).fromMt.toMm()).to.equal(0)
+
+        expect(convert(10).fromMt.toMm()).to.equal(10000)
+
+        expect(convert(200).fromMt.toMm()).to.equal(200000)
+
+        expect(convert(3000).fromMt.toMm()).to.equal(3000000)
+
+        expect(convert(40000).fromMt.toMm()).to.equal(40000000)
+      })
+    })
+
+    describe('`convert(n).fromMt.toMi()`', () => {
+      it('converts metre to mile', () => {
+        expect(convert(0).fromMt.toMi()).to.equal(0)
+
+        expect(convert(10).fromMt.toMi()).to.equal(0.006213711922348486)
+
+        expect(convert(200).fromMt.toMi()).to.equal(0.1242742384469697)
+
+        expect(convert(3000).fromMt.toMi()).to.equal(1.8641135767045458)
+
+        expect(convert(40000).fromMt.toMi()).to.equal(24.854847689393942)
+      })
+    })
+
+    describe('`convert(n).fromMt.toYd()`', () => {
+      it('converts metre to yard', () => {
+        expect(convert(0).fromMt.toYd()).to.equal(0)
+
+        expect(convert(10).fromMt.toYd()).to.equal(10.936132983333335)
+
+        expect(convert(200).fromMt.toYd()).to.equal(218.7226596666667)
+
+        expect(convert(3000).fromMt.toYd()).to.equal(3280.8398950000005)
+
+        expect(convert(40000).fromMt.toYd()).to.equal(43744.53193333334)
+      })
+    })
+
+    describe('`convert(n).fromMt.toFt()`', () => {
+      it('converts metre to feet', () => {
+        expect(convert(0).fromMt.toFt()).to.equal(0)
+
+        expect(convert(10).fromMt.toFt()).to.equal(32.808398950000004)
+
+        expect(convert(200).fromMt.toFt()).to.equal(656.1679790000001)
+
+        expect(convert(3000).fromMt.toFt()).to.equal(9842.519685000001)
+
+        expect(convert(40000).fromMt.toFt()).to.equal(131233.5958)
+      })
+    })
+
+    describe('`convert(n).fromMt.toIn()`', () => {
+      it('converts metre to inch', () => {
+        expect(convert(0).fromMt.toIn()).to.equal(0)
+
+        expect(convert(10).fromMt.toIn()).to.equal(393.7007874)
+
+        expect(convert(200).fromMt.toIn()).to.equal(7874.015748000001)
+
+        expect(convert(3000).fromMt.toIn()).to.equal(118110.23622)
+
+        expect(convert(40000).fromMt.toIn()).to.equal(1574803.1496000001)
+      })
+    })
+
+    describe('`convert(n).fromCm.toKm()`', () => {
+      it('converts centimetre to kilometre', () => {
+        expect(convert(0).fromCm.toKm()).to.equal(0)
+
+        expect(convert(10).fromCm.toKm()).to.equal(0.0001)
+
+        expect(convert(200).fromCm.toKm()).to.equal(0.002)
+
+        expect(convert(3000).fromCm.toKm()).to.equal(0.03)
+
+        expect(convert(40000).fromCm.toKm()).to.equal(0.4)
+      })
+    })
+
+    describe('`convert(n).fromCm.toMt()`', () => {
+      it('converts centimetre to metre', () => {
+        expect(convert(0).fromCm.toMt()).to.equal(0)
+
+        expect(convert(10).fromCm.toMt()).to.equal(0.1)
+
+        expect(convert(200).fromCm.toMt()).to.equal(2)
+
+        expect(convert(3000).fromCm.toMt()).to.equal(30)
+
+        expect(convert(40000).fromCm.toMt()).to.equal(400)
+      })
+    })
+
+    describe('`convert(n).fromCm.toMm()`', () => {
+      it('converts centimetre to milimetre', () => {
+        expect(convert(0).fromCm.toMm()).to.equal(0)
+
+        expect(convert(10).fromCm.toMm()).to.equal(100)
+
+        expect(convert(200).fromCm.toMm()).to.equal(2000)
+
+        expect(convert(3000).fromCm.toMm()).to.equal(30000)
+
+        expect(convert(40000).fromCm.toMm()).to.equal(400000)
+      })
+    })
+
+    describe('`convert(n).fromCm.toMi()`', () => {
+      it('converts centimetre to mile', () => {
+        expect(convert(0).fromCm.toMi()).to.equal(0)
+
+        expect(convert(10).fromCm.toMi()).to.equal(0.00006213711922348485)
+
+        expect(convert(200).fromCm.toMi()).to.equal(0.001242742384469697)
+
+        expect(convert(3000).fromCm.toMi()).to.equal(0.018641135767045458)
+
+        expect(convert(40000).fromCm.toMi()).to.equal(0.2485484768939394)
+      })
+    })
+
+    describe('`convert(n).fromCm.toYd()`', () => {
+      it('converts centimetre to yard', () => {
+        expect(convert(0).fromCm.toYd()).to.equal(0)
+
+        expect(convert(10).fromCm.toYd()).to.equal(0.10936132983333334)
+
+        expect(convert(200).fromCm.toYd()).to.equal(2.1872265966666666)
+
+        expect(convert(3000).fromCm.toYd()).to.equal(32.808398950000004)
+
+        expect(convert(40000).fromCm.toYd()).to.equal(437.4453193333334)
+      })
+    })
+
+    describe('`convert(n).fromCm.toFt()`', () => {
+      it('converts centimetre to feet', () => {
+        expect(convert(0).fromCm.toFt()).to.equal(0)
+
+        expect(convert(10).fromCm.toFt()).to.equal(0.3280839895)
+
+        expect(convert(200).fromCm.toFt()).to.equal(6.56167979)
+
+        expect(convert(3000).fromCm.toFt()).to.equal(98.42519685)
+
+        expect(convert(40000).fromCm.toFt()).to.equal(1312.3359580000001)
+      })
+    })
+
+    describe('`convert(n).fromCm.toIn()`', () => {
+      it('converts centimetre to inch', () => {
+        expect(convert(0).fromCm.toIn()).to.equal(0)
+
+        expect(convert(10).fromCm.toIn()).to.equal(3.9370078740000003)
+
+        expect(convert(200).fromCm.toIn()).to.equal(78.74015748000001)
+
+        expect(convert(3000).fromCm.toIn()).to.equal(1181.1023622)
+
+        expect(convert(40000).fromCm.toIn()).to.equal(15748.031496000001)
+      })
+    })
+
+    describe('`convert(n).fromMm.toMi()`', () => {
+      it('converts milimetre to mile', () => {
+        expect(convert(0).fromMm.toMi()).to.equal(0)
+
+        expect(convert(10).fromMm.toMi()).to.equal(0.000006213711922348486)
+
+        expect(convert(200).fromMm.toMi()).to.equal(0.0001242742384469697)
+
+        expect(convert(3000).fromMm.toMi()).to.equal(0.0018641135767045456)
+
+        expect(convert(40000).fromMm.toMi()).to.equal(0.024854847689393944)
+      })
+    })
+
+    describe('`convert(n).fromMm.toYd()`', () => {
+      it('converts milimetre to yard', () => {
+        expect(convert(0).fromMm.toYd()).to.equal(0)
+
+        expect(convert(10).fromMm.toYd()).to.equal(0.010936132983333334)
+
+        expect(convert(200).fromMm.toYd()).to.equal(0.21872265966666668)
+
+        expect(convert(3000).fromMm.toYd()).to.equal(3.280839895)
+
+        expect(convert(40000).fromMm.toYd()).to.equal(43.74453193333334)
+      })
+    })
+
+    describe('`convert(n).fromMm.toFt()`', () => {
+      it('converts milimetre to feet', () => {
+        expect(convert(0).fromMm.toFt()).to.equal(0)
+
+        expect(convert(10).fromMm.toFt()).to.equal(0.032808398950000005)
+
+        expect(convert(200).fromMm.toFt()).to.equal(0.656167979)
+
+        expect(convert(3000).fromMm.toFt()).to.equal(9.842519685000001)
+
+        expect(convert(40000).fromMm.toFt()).to.equal(131.23359580000002)
+      })
+    })
+
+    describe('`convert(n).fromMm.toIn()`', () => {
+      it('converts milimetre to inch', () => {
+        expect(convert(0).fromMm.toIn()).to.equal(0)
+
+        expect(convert(10).fromMm.toIn()).to.equal(0.39370078740000003)
+
+        expect(convert(200).fromMm.toIn()).to.equal(7.874015748000001)
+
+        expect(convert(3000).fromMm.toIn()).to.equal(118.11023622)
+
+        expect(convert(40000).fromMm.toIn()).to.equal(1574.8031496)
+      })
+    })
+
+    describe('`convert(n).fromMi.toKm()`', () => {
+      it('converts mile to kilometre', () => {
+        expect(convert(0).fromMi.toKm()).to.equal(0)
+
+        expect(convert(10).fromMi.toKm()).to.equal(16.093440000064373)
+
+        expect(convert(200).fromMi.toKm()).to.equal(321.86880000128747)
+
+        expect(convert(3000).fromMi.toKm()).to.equal(4828.032000019311)
+
+        expect(convert(40000).fromMi.toKm()).to.equal(64373.76000025749)
+      })
+    })
+
+    describe('`convert(n).fromMi.toMt()`', () => {
+      it('converts mile to metre', () => {
+        expect(convert(0).fromMi.toMt()).to.equal(0)
+
+        expect(convert(10).fromMi.toMt()).to.equal(16093.440000064373)
+
+        expect(convert(200).fromMi.toMt()).to.equal(321868.8000012875)
+
+        expect(convert(3000).fromMi.toMt()).to.equal(4828032.000019312)
+
+        expect(convert(40000).fromMi.toMt()).to.equal(64373760.00025749)
+      })
+    })
+
+    describe('`convert(n).fromMi.toCm()`', () => {
+      it('converts mile to centimetre', () => {
+        expect(convert(0).fromMi.toCm()).to.equal(0)
+
+        expect(convert(10).fromMi.toCm()).to.equal(1609344.0000064373)
+
+        expect(convert(200).fromMi.toCm()).to.equal(32186880.000128746)
+
+        expect(convert(3000).fromMi.toCm()).to.equal(482803200.0019312)
+
+        expect(convert(40000).fromMi.toCm()).to.equal(6437376000.025749)
+      })
+    })
+
+    describe('`convert(n).fromMi.toMm()`', () => {
+      it('converts mile to milimetre', () => {
+        expect(convert(0).fromMi.toMm()).to.equal(0)
+
+        expect(convert(10).fromMi.toMm()).to.equal(16093440.000064373)
+
+        expect(convert(200).fromMi.toMm()).to.equal(321868800.00128746)
+
+        expect(convert(3000).fromMi.toMm()).to.equal(4828032000.019312)
+
+        expect(convert(40000).fromMi.toMm()).to.equal(64373760000.25749)
+      })
+    })
+
+    describe('`convert(n).fromMm.toKm()`', () => {
+      it('converts milimetre to kilometre', () => {
+        expect(convert(0).fromMm.toKm()).to.equal(0)
+
+        expect(convert(10).fromMm.toKm()).to.equal(0.00001)
+
+        expect(convert(200).fromMm.toKm()).to.equal(0.0002)
+
+        expect(convert(3000).fromMm.toKm()).to.equal(0.003)
+
+        expect(convert(40000).fromMm.toKm()).to.equal(0.04)
+      })
+    })
+
+    describe('`convert(n).fromMm.toMt()`', () => {
+      it('converts milimetre to metre', () => {
+        expect(convert(0).fromMm.toMt()).to.equal(0)
+
+        expect(convert(10).fromMm.toMt()).to.equal(0.01)
+
+        expect(convert(200).fromMm.toMt()).to.equal(0.2)
+
+        expect(convert(3000).fromMm.toMt()).to.equal(3)
+
+        expect(convert(40000).fromMm.toMt()).to.equal(40)
+      })
+    })
+
+    describe('`convert(n).fromMm.toCm()`', () => {
+      it('converts milimetre to centimetre', () => {
+        expect(convert(0).fromMm.toCm()).to.equal(0)
+
+        expect(convert(10).fromMm.toCm()).to.equal(1)
+
+        expect(convert(200).fromMm.toCm()).to.equal(20)
+
+        expect(convert(3000).fromMm.toCm()).to.equal(300)
+
+        expect(convert(40000).fromMm.toCm()).to.equal(4000)
+      })
+    })
+
+    describe('`convert(n).fromMi.toYd()`', () => {
+      it('converts mile to yard', () => {
+        expect(convert(0).fromMi.toYd()).to.equal(0)
+
+        expect(convert(10).fromMi.toYd()).to.equal(17600)
+
+        expect(convert(200).fromMi.toYd()).to.equal(352000)
+
+        expect(convert(3000).fromMi.toYd()).to.equal(5280000)
+
+        expect(convert(40000).fromMi.toYd()).to.equal(70400000)
+      })
+    })
+
+    describe('`convert(n).fromMi.toFt()`', () => {
+      it('converts mile to feet', () => {
+        expect(convert(0).fromMi.toFt()).to.equal(0)
+
+        expect(convert(10).fromMi.toFt()).to.equal(52800)
+
+        expect(convert(200).fromMi.toFt()).to.equal(1056000)
+
+        expect(convert(3000).fromMi.toFt()).to.equal(15840000)
+
+        expect(convert(40000).fromMi.toFt()).to.equal(211200000)
+      })
+    })
+
+    describe('`convert(n).fromMi.toIn()`', () => {
+      it('converts mile to inch', () => {
+        expect(convert(0).fromMi.toIn()).to.equal(0)
+
+        expect(convert(10).fromMi.toIn()).to.equal(633600)
+
+        expect(convert(200).fromMi.toIn()).to.equal(12672000)
+
+        expect(convert(3000).fromMi.toIn()).to.equal(190080000)
+
+        expect(convert(40000).fromMi.toIn()).to.equal(2534400000)
+      })
+    })
+
+    describe('`convert(n).fromYd.toKm()`', () => {
+      it('converts yard to kilometre', () => {
+        expect(convert(0).fromYd.toKm()).to.equal(0)
+
+        expect(convert(10).fromYd.toKm()).to.equal(0.009144000000036578)
+
+        expect(convert(200).fromYd.toKm()).to.equal(0.1828800000007315)
+
+        expect(convert(3000).fromYd.toKm()).to.equal(2.743200000010973)
+
+        expect(convert(40000).fromYd.toKm()).to.equal(36.57600000014631)
+      })
+    })
+
+    describe('`convert(n).fromYd.toMt()`', () => {
+      it('converts yard to metre', () => {
+        expect(convert(0).fromYd.toMt()).to.equal(0)
+
+        expect(convert(10).fromYd.toMt()).to.equal(9.144000000036577)
+
+        expect(convert(200).fromYd.toMt()).to.equal(182.8800000007315)
+
+        expect(convert(3000).fromYd.toMt()).to.equal(2743.200000010973)
+
+        expect(convert(40000).fromYd.toMt()).to.equal(36576.000000146305)
+      })
+    })
+
+    describe('`convert(n).fromYd.toCm()`', () => {
+      it('converts yard to centimetre', () => {
+        expect(convert(0).fromYd.toCm()).to.equal(0)
+
+        expect(convert(10).fromYd.toCm()).to.equal(914.4000000036576)
+
+        expect(convert(200).fromYd.toCm()).to.equal(18288.000000073152)
+
+        expect(convert(3000).fromYd.toCm()).to.equal(274320.0000010973)
+
+        expect(convert(40000).fromYd.toCm()).to.equal(3657600.00001463)
+      })
+    })
+
+    describe('`convert(n).fromYd.toMm()`', () => {
+      it('converts yard to milimetre', () => {
+        expect(convert(0).fromYd.toMm()).to.equal(0)
+
+        expect(convert(10).fromYd.toMm()).to.equal(9144.000000036576)
+
+        expect(convert(200).fromYd.toMm()).to.equal(182880.00000073152)
+
+        expect(convert(3000).fromYd.toMm()).to.equal(2743200.000010973)
+
+        expect(convert(40000).fromYd.toMm()).to.equal(36576000.0001463)
+      })
+    })
+
+    describe('`convert(n).fromYd.toMi()`', () => {
+      it('converts yard to mile', () => {
+        expect(convert(0).fromYd.toMi()).to.equal(0)
+
+        expect(convert(10).fromYd.toMi()).to.equal(0.005681818181818182)
+
+        expect(convert(200).fromYd.toMi()).to.equal(0.11363636363636363)
+
+        expect(convert(3000).fromYd.toMi()).to.equal(1.7045454545454546)
+
+        expect(convert(40000).fromYd.toMi()).to.equal(22.727272727272727)
+      })
+    })
+
+    describe('`convert(n).fromYd.toFt()`', () => {
+      it('converts yard to feet', () => {
+        expect(convert(0).fromYd.toFt()).to.equal(0)
+
+        expect(convert(10).fromYd.toFt()).to.equal(30)
+
+        expect(convert(200).fromYd.toFt()).to.equal(600)
+
+        expect(convert(3000).fromYd.toFt()).to.equal(9000)
+
+        expect(convert(40000).fromYd.toFt()).to.equal(120000)
+      })
+    })
+
+    describe('`convert(n).fromYd.toIn()`', () => {
+      it('converts yard to inch', () => {
+        expect(convert(0).fromYd.toIn()).to.equal(0)
+
+        expect(convert(10).fromYd.toIn()).to.equal(360)
+
+        expect(convert(200).fromYd.toIn()).to.equal(7200)
+
+        expect(convert(3000).fromYd.toIn()).to.equal(108000)
+
+        expect(convert(40000).fromYd.toIn()).to.equal(1440000)
+      })
+    })
+
+    describe('`convert(n).fromFt.toKm()`', () => {
+      it('converts feet to kilometre', () => {
+        expect(convert(0).fromFt.toKm()).to.equal(0)
+
+        expect(convert(10).fromFt.toKm()).to.equal(0.003048000000012192)
+
+        expect(convert(200).fromFt.toKm()).to.equal(0.06096000000024384)
+
+        expect(convert(3000).fromFt.toKm()).to.equal(0.9144000000036575)
+
+        expect(convert(40000).fromFt.toKm()).to.equal(12.192000000048769)
+      })
+    })
+
+    describe('`convert(n).fromFt.toMt()`', () => {
+      it('converts feet to metre', () => {
+        expect(convert(0).fromFt.toMt()).to.equal(0)
+
+        expect(convert(10).fromFt.toMt()).to.equal(3.048000000012192)
+
+        expect(convert(200).fromFt.toMt()).to.equal(60.96000000024384)
+
+        expect(convert(3000).fromFt.toMt()).to.equal(914.4000000036575)
+
+        expect(convert(40000).fromFt.toMt()).to.equal(12192.000000048769)
+      })
+    })
+
+    describe('`convert(n).fromFt.toCm()`', () => {
+      it('converts feet to centimetre', () => {
+        expect(convert(0).fromFt.toCm()).to.equal(0)
+
+        expect(convert(10).fromFt.toCm()).to.equal(304.8000000012192)
+
+        expect(convert(200).fromFt.toCm()).to.equal(6096.000000024384)
+
+        expect(convert(3000).fromFt.toCm()).to.equal(91440.00000036575)
+
+        expect(convert(40000).fromFt.toCm()).to.equal(1219200.0000048769)
+      })
+    })
+
+    describe('`convert(n).fromFt.toMm()`', () => {
+      it('converts feet to milimetre', () => {
+        expect(convert(0).fromFt.toMm()).to.equal(0)
+
+        expect(convert(10).fromFt.toMm()).to.equal(3048.000000012192)
+
+        expect(convert(200).fromFt.toMm()).to.equal(60960.00000024384)
+
+        expect(convert(3000).fromFt.toMm()).to.equal(914400.0000036575)
+
+        expect(convert(40000).fromFt.toMm()).to.equal(12192000.000048768)
+      })
+    })
+
+    describe('`convert(n).fromFt.toMi()`', () => {
+      it('converts feet to mile', () => {
+        expect(convert(0).fromFt.toMi()).to.equal(0)
+
+        expect(convert(10).fromFt.toMi()).to.equal(0.001893939393939394)
+
+        expect(convert(200).fromFt.toMi()).to.equal(0.03787878787878788)
+
+        expect(convert(3000).fromFt.toMi()).to.equal(0.5681818181818182)
+
+        expect(convert(40000).fromFt.toMi()).to.equal(7.575757575757576)
+      })
+    })
+
+    describe('`convert(n).fromFt.toYd()`', () => {
+      it('converts feet to yard', () => {
+        expect(convert(0).fromFt.toYd()).to.equal(0)
+
+        expect(convert(10).fromFt.toYd()).to.equal(3.3333333333333335)
+
+        expect(convert(200).fromFt.toYd()).to.equal(66.66666666666667)
+
+        expect(convert(3000).fromFt.toYd()).to.equal(1000)
+
+        expect(convert(40000).fromFt.toYd()).to.equal(13333.333333333334)
+      })
+    })
+
+    describe('`convert(n).fromFt.toIn()`', () => {
+      it('converts feet to inch', () => {
+        expect(convert(0).fromFt.toIn()).to.equal(0)
+
+        expect(convert(10).fromFt.toIn()).to.equal(120)
+
+        expect(convert(200).fromFt.toIn()).to.equal(2400)
+
+        expect(convert(3000).fromFt.toIn()).to.equal(36000)
+
+        expect(convert(40000).fromFt.toIn()).to.equal(480000)
+      })
+    })
+
+    describe('`convert(n).fromIn.toMi()`', () => {
+      it('converts inch to mile', () => {
+        expect(convert(0).fromIn.toMi()).to.equal(0)
+
+        expect(convert(10).fromIn.toMi()).to.equal(0.00015782828282828284)
+
+        expect(convert(200).fromIn.toMi()).to.equal(0.003156565656565657)
+
+        expect(convert(3000).fromIn.toMi()).to.equal(0.04734848484848485)
+
+        expect(convert(40000).fromIn.toMi()).to.equal(0.6313131313131313)
+      })
+    })
+
+    describe('`convert(n).fromIn.toYd()`', () => {
+      it('converts inch to yard', () => {
+        expect(convert(0).fromIn.toYd()).to.equal(0)
+
+        expect(convert(10).fromIn.toYd()).to.equal(0.2777777777777778)
+
+        expect(convert(200).fromIn.toYd()).to.equal(5.555555555555556)
+
+        expect(convert(1000).fromIn.toYd()).to.equal(27.777777777777775)
+
+        expect(convert(40000).fromIn.toYd()).to.equal(1111.111111111111)
+      })
+    })
+
+    describe('`convert(n).fromIn.toFt()`', () => {
+      it('converts inch to feet', () => {
+        expect(convert(0).fromIn.toFt()).to.equal(0)
+
+        expect(convert(120).fromIn.toFt()).to.equal(10)
+
+        expect(convert(2400).fromIn.toFt()).to.equal(200)
+
+        expect(convert(36000).fromIn.toFt()).to.equal(3000)
+
+        expect(convert(480000).fromIn.toFt()).to.equal(40000)
+      })
+    })
+
+    describe('`convert(n).fromIn.toMm()`', () => {
+      it('converts inch to milimetre', () => {
+        expect(convert(0).fromIn.toMm()).to.equal(0)
+
+        expect(convert(120).fromIn.toMm()).to.equal(3048.000000012192)
+
+        expect(convert(2400).fromIn.toMm()).to.equal(60960.00000024384)
+
+        expect(convert(36000).fromIn.toMm()).to.equal(914400.0000036575)
+
+        expect(convert(480000).fromIn.toMm()).to.equal(12192000.000048768)
+      })
+    })
+
+    describe('`convert(n).fromIn.toCm()`', () => {
+      it('converts inch to centimetre', () => {
+        expect(convert(0).fromIn.toCm()).to.equal(0)
+
+        expect(convert(120).fromIn.toCm()).to.equal(304.8000000012192)
+
+        expect(convert(2400).fromIn.toCm()).to.equal(6096.000000024384)
+
+        expect(convert(36000).fromIn.toCm()).to.equal(91440.00000036575)
+
+        expect(convert(480000).fromIn.toCm()).to.equal(1219200.0000048769)
+      })
+    })
+
+    describe('`convert(n).fromIn.toMt()`', () => {
+      it('converts inch to metre', () => {
+        expect(convert(0).fromIn.toMt()).to.equal(0)
+
+        expect(convert(120).fromIn.toMt()).to.equal(3.048000000012192)
+
+        expect(convert(2400).fromIn.toMt()).to.equal(60.96000000024384)
+
+        expect(convert(36000).fromIn.toMt()).to.equal(914.4000000036575)
+
+        expect(convert(480000).fromIn.toMt()).to.equal(12192.000000048769)
+      })
+    })
+
+    describe('`convert(n).fromIn.toKm()`', () => {
+      it('converts inch to kilometre', () => {
+        expect(convert(0).fromIn.toKm()).to.equal(0)
+
+        expect(convert(120).fromIn.toKm()).to.equal(0.003048000000012192)
+
+        expect(convert(2400).fromIn.toKm()).to.equal(0.06096000000024384)
+
+        expect(convert(36000).fromIn.toKm()).to.equal(0.9144000000036575)
+
+        expect(convert(480000).fromIn.toKm()).to.equal(12.192000000048768)
+      })
     })
   })
 })

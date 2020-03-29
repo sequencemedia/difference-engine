@@ -37,7 +37,9 @@ import Weight, {
   fromStToGr,
   fromStToMg,
   fromStToLb,
-  fromStToOz
+  fromStToOz,
+
+  convert
 } from '@difference-engine/number-engine/weight'
 
 describe('Weight', () => {
@@ -464,7 +466,7 @@ describe('Weight', () => {
   })
 
   describe('`Weight.convert()`', () => {
-    describe('`Weight.fromKg.toGr()`', () => {
+    describe('`Weight.convert(n).fromKg.toGr()`', () => {
       it('converts kilogram to gram', () => {
         expect(Weight.convert(0).fromKg.toGr()).to.equal(0)
 
@@ -478,7 +480,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromKg.toMg()`', () => {
+    describe('`Weight.convert(n).fromKg.toMg()`', () => {
       it('converts kilogram to miligram', () => {
         expect(Weight.convert(0).fromKg.toMg()).to.equal(0)
 
@@ -492,7 +494,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromKg.toOz()`', () => {
+    describe('`Weight.convert(n).fromKg.toOz()`', () => {
       it('converts kilogram to ounce', () => {
         expect(Weight.convert(0).fromKg.toOz()).to.equal(0)
 
@@ -506,7 +508,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromKg.toLb()`', () => {
+    describe('`Weight.convert(n).fromKg.toLb()`', () => {
       it('converts kilogram to pound', () => {
         expect(Weight.convert(0).fromKg.toLb()).to.equal(0)
 
@@ -520,7 +522,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromKg.toSt()`', () => {
+    describe('`Weight.convert(n).fromKg.toSt()`', () => {
       it('converts kilogram to stone', () => {
         expect(Weight.convert(0).fromKg.toSt()).to.equal(0)
 
@@ -534,7 +536,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromGr.toKg()`', () => {
+    describe('`Weight.convert(n).fromGr.toKg()`', () => {
       it('converts gram to kilogram', () => {
         expect(Weight.convert(0).fromGr.toKg()).to.equal(0)
 
@@ -548,7 +550,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromGr.toMg()`', () => {
+    describe('`Weight.convert(n).fromGr.toMg()`', () => {
       it('converts gram to miligram', () => {
         expect(Weight.convert(0).fromGr.toMg()).to.equal(0)
 
@@ -562,7 +564,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromGr.toOz()`', () => {
+    describe('`Weight.convert(n).fromGr.toOz()`', () => {
       it('converts gram to ounce', () => {
         expect(Weight.convert(0).fromGr.toOz()).to.equal(0)
 
@@ -576,7 +578,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromGr.toLb()`', () => {
+    describe('`Weight.convert(n).fromGr.toLb()`', () => {
       it('converts gram to pound', () => {
         expect(Weight.convert(0).fromGr.toLb()).to.equal(0)
 
@@ -590,7 +592,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromGr.toSt()`', () => {
+    describe('`Weight.convert(n).fromGr.toSt()`', () => {
       it('converts gram to stone', () => {
         expect(Weight.convert(0).fromGr.toSt()).to.equal(0)
 
@@ -604,7 +606,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromMg.toKg()`', () => {
+    describe('`Weight.convert(n).fromMg.toKg()`', () => {
       it('converts miligram to kilogram', () => {
         expect(Weight.convert(0).fromMg.toKg()).to.equal(0)
 
@@ -618,7 +620,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromMg.toGr()`', () => {
+    describe('`Weight.convert(n).fromMg.toGr()`', () => {
       it('converts miligram to gram', () => {
         expect(Weight.convert(0).fromMg.toGr()).to.equal(0)
 
@@ -632,7 +634,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromMg.toOz()`', () => {
+    describe('`Weight.convert(n).fromMg.toOz()`', () => {
       it('converts miligram to ounce', () => {
         expect(Weight.convert(0).fromMg.toOz()).to.equal(0)
 
@@ -646,7 +648,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromMg.toLb()`', () => {
+    describe('`Weight.convert(n).fromMg.toLb()`', () => {
       it('converts miligram to pound', () => {
         expect(Weight.convert(0).fromMg.toLb()).to.equal(0)
 
@@ -660,7 +662,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromMg.toSt()`', () => {
+    describe('`Weight.convert(n).fromMg.toSt()`', () => {
       it('converts miligram to stone', () => {
         expect(Weight.convert(0).fromMg.toSt()).to.equal(0)
 
@@ -674,7 +676,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromOz.toKg()`', () => {
+    describe('`Weight.convert(n).fromOz.toKg()`', () => {
       it('converts ounce to kilogram', () => {
         expect(Weight.convert(0).fromOz.toKg()).to.equal(0)
 
@@ -688,7 +690,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromOz.toGr()`', () => {
+    describe('`Weight.convert(n).fromOz.toGr()`', () => {
       it('converts ounce to gram', () => {
         expect(Weight.convert(0).fromOz.toGr()).to.equal(0)
 
@@ -702,7 +704,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromOz.toMg()`', () => {
+    describe('`Weight.convert(n).fromOz.toMg()`', () => {
       it('converts ounce to miligram', () => {
         expect(Weight.convert(0).fromOz.toMg()).to.equal(0)
 
@@ -716,7 +718,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromOz.toLb()`', () => {
+    describe('`Weight.convert(n).fromOz.toLb()`', () => {
       it('converts ounce to pound', () => {
         expect(Weight.convert(0).fromOz.toLb()).to.equal(0)
 
@@ -730,7 +732,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromOz.toSt()`', () => {
+    describe('`Weight.convert(n).fromOz.toSt()`', () => {
       it('converts ounce to stone', () => {
         expect(Weight.convert(0).fromOz.toSt()).to.equal(0)
 
@@ -744,7 +746,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromLb.toKg()`', () => {
+    describe('`Weight.convert(n).fromLb.toKg()`', () => {
       it('converts pound to kilogram', () => {
         expect(Weight.convert(0).fromLb.toKg()).to.equal(0)
 
@@ -758,7 +760,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromLb.toGr()`', () => {
+    describe('`Weight.convert(n).fromLb.toGr()`', () => {
       it('converts pound to gram', () => {
         expect(Weight.convert(0).fromLb.toGr()).to.equal(0)
 
@@ -772,7 +774,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromLb.toMg()`', () => {
+    describe('`Weight.convert(n).fromLb.toMg()`', () => {
       it('converts pound to miligram', () => {
         expect(Weight.convert(0).fromLb.toMg()).to.equal(0)
 
@@ -786,7 +788,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromLb.toOz()`', () => {
+    describe('`Weight.convert(n).fromLb.toOz()`', () => {
       it('converts pound to pound', () => {
         expect(Weight.convert(0).fromLb.toOz()).to.equal(0)
 
@@ -800,7 +802,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromLb.toSt()`', () => {
+    describe('`Weight.convert(n).fromLb.toSt()`', () => {
       it('converts pound to stone', () => {
         expect(Weight.convert(0).fromLb.toSt()).to.equal(0)
 
@@ -814,7 +816,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromSt.toKg()`', () => {
+    describe('`Weight.convert(n).fromSt.toKg()`', () => {
       it('converts stone to kilogram', () => {
         expect(Weight.convert(0).fromSt.toKg()).to.equal(0)
 
@@ -828,7 +830,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromSt.toGr()`', () => {
+    describe('`Weight.convert(n).fromSt.toGr()`', () => {
       it('converts stone to gram', () => {
         expect(Weight.convert(0).fromSt.toGr()).to.equal(0)
 
@@ -842,7 +844,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromSt.toMg()`', () => {
+    describe('`Weight.convert(n).fromSt.toMg()`', () => {
       it('converts stone to miligram', () => {
         expect(Weight.convert(0).fromSt.toMg()).to.equal(0)
 
@@ -856,7 +858,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromSt.toOz()`', () => {
+    describe('`Weight.convert(n).fromSt.toOz()`', () => {
       it('converts stone to ounce', () => {
         expect(Weight.convert(0).fromSt.toOz()).to.equal(0)
 
@@ -870,7 +872,7 @@ describe('Weight', () => {
       })
     })
 
-    describe('`Weight.fromSt.toLb()`', () => {
+    describe('`Weight.convert(n).fromSt.toLb()`', () => {
       it('converts stone to pound', () => {
         expect(Weight.convert(0).fromSt.toLb()).to.equal(0)
 
@@ -1302,6 +1304,428 @@ describe('Weight', () => {
       expect(fromStToLb(3000)).to.equal(42000)
 
       expect(fromStToLb(40000)).to.equal(560000)
+    })
+  })
+
+  describe('`convert()`', () => {
+    describe('`convert(n).fromKg.toGr()`', () => {
+      it('converts kilogram to gram', () => {
+        expect(convert(0).fromKg.toGr()).to.equal(0)
+
+        expect(convert(10).fromKg.toGr()).to.equal(10000)
+
+        expect(convert(200).fromKg.toGr()).to.equal(200000)
+
+        expect(convert(3000).fromKg.toGr()).to.equal(3000000)
+
+        expect(convert(40000).fromKg.toGr()).to.equal(40000000)
+      })
+    })
+
+    describe('`convert(n).fromKg.toMg()`', () => {
+      it('converts kilogram to miligram', () => {
+        expect(convert(0).fromKg.toMg()).to.equal(0)
+
+        expect(convert(10).fromKg.toMg()).to.equal(10000000)
+
+        expect(convert(200).fromKg.toMg()).to.equal(200000000)
+
+        expect(convert(3000).fromKg.toMg()).to.equal(3000000000)
+
+        expect(convert(40000).fromKg.toMg()).to.equal(40000000000)
+      })
+    })
+
+    describe('`convert(n).fromKg.toOz()`', () => {
+      it('converts kilogram to ounce', () => {
+        expect(convert(0).fromKg.toOz()).to.equal(0)
+
+        expect(convert(10).fromKg.toOz()).to.equal(352.7396195)
+
+        expect(convert(200).fromKg.toOz()).to.equal(7054.7923900000005)
+
+        expect(convert(3000).fromKg.toOz()).to.equal(105821.88585)
+
+        expect(convert(40000).fromKg.toOz()).to.equal(1410958.4780000001)
+      })
+    })
+
+    describe('`convert(n).fromKg.toLb()`', () => {
+      it('converts kilogram to pound', () => {
+        expect(convert(0).fromKg.toLb()).to.equal(0)
+
+        expect(convert(10).fromKg.toLb()).to.equal(22.04622621875)
+
+        expect(convert(200).fromKg.toLb()).to.equal(440.92452437500003)
+
+        expect(convert(3000).fromKg.toLb()).to.equal(6613.867865625)
+
+        expect(convert(40000).fromKg.toLb()).to.equal(88184.90487500001)
+      })
+    })
+
+    describe('`convert(n).fromKg.toSt()`', () => {
+      it('converts kilogram to stone', () => {
+        expect(convert(0).fromKg.toSt()).to.equal(0)
+
+        expect(convert(10).fromKg.toSt()).to.equal(1.5747304441964285)
+
+        expect(convert(200).fromKg.toSt()).to.equal(31.494608883928574)
+
+        expect(convert(3000).fromKg.toSt()).to.equal(472.4191332589286)
+
+        expect(convert(40000).fromKg.toSt()).to.equal(6298.921776785714)
+      })
+    })
+
+    describe('`convert(n).fromGr.toKg()`', () => {
+      it('converts gram to kilogram', () => {
+        expect(convert(0).fromGr.toKg()).to.equal(0)
+
+        expect(convert(10).fromGr.toKg()).to.equal(0.01)
+
+        expect(convert(200).fromGr.toKg()).to.equal(0.2)
+
+        expect(convert(3000).fromGr.toKg()).to.equal(3)
+
+        expect(convert(40000).fromGr.toKg()).to.equal(40)
+      })
+    })
+
+    describe('`convert(n).fromGr.toMg()`', () => {
+      it('converts gram to miligram', () => {
+        expect(convert(0).fromGr.toMg()).to.equal(0)
+
+        expect(convert(10).fromGr.toMg()).to.equal(10000)
+
+        expect(convert(200).fromGr.toMg()).to.equal(200000)
+
+        expect(convert(3000).fromGr.toMg()).to.equal(3000000)
+
+        expect(convert(40000).fromGr.toMg()).to.equal(40000000)
+      })
+    })
+
+    describe('`convert(n).fromGr.toOz()`', () => {
+      it('converts gram to ounce', () => {
+        expect(convert(0).fromGr.toOz()).to.equal(0)
+
+        expect(convert(10).fromGr.toOz()).to.equal(0.3527396195)
+
+        expect(convert(200).fromGr.toOz()).to.equal(7.05479239)
+
+        expect(convert(3000).fromGr.toOz()).to.equal(105.82188585)
+
+        expect(convert(40000).fromGr.toOz()).to.equal(1410.958478)
+      })
+    })
+
+    describe('`convert(n).fromGr.toLb()`', () => {
+      it('converts gram to pound', () => {
+        expect(convert(0).fromGr.toLb()).to.equal(0)
+
+        expect(convert(10).fromGr.toLb()).to.equal(0.02204622621875)
+
+        expect(convert(200).fromGr.toLb()).to.equal(0.440924524375)
+
+        expect(convert(3000).fromGr.toLb()).to.equal(6.613867865625)
+
+        expect(convert(40000).fromGr.toLb()).to.equal(88.184904875)
+      })
+    })
+
+    describe('`convert(n).fromGr.toSt()`', () => {
+      it('converts gram to stone', () => {
+        expect(convert(0).fromGr.toSt()).to.equal(0)
+
+        expect(convert(10).fromGr.toSt()).to.equal(0.0015747304441964284)
+
+        expect(convert(200).fromGr.toSt()).to.equal(0.03149460888392857)
+
+        expect(convert(3000).fromGr.toSt()).to.equal(0.4724191332589286)
+
+        expect(convert(40000).fromGr.toSt()).to.equal(6.298921776785714)
+      })
+    })
+
+    describe('`convert(n).fromMg.toKg()`', () => {
+      it('converts miligram to kilogram', () => {
+        expect(convert(0).fromMg.toKg()).to.equal(0)
+
+        expect(convert(10).fromMg.toKg()).to.equal(0.00001)
+
+        expect(convert(200).fromMg.toKg()).to.equal(0.0002)
+
+        expect(convert(3000).fromMg.toKg()).to.equal(0.003)
+
+        expect(convert(40000).fromMg.toKg()).to.equal(0.04)
+      })
+    })
+
+    describe('`convert(n).fromMg.toGr()`', () => {
+      it('converts miligram to gram', () => {
+        expect(convert(0).fromMg.toGr()).to.equal(0)
+
+        expect(convert(10).fromMg.toGr()).to.equal(0.01)
+
+        expect(convert(200).fromMg.toGr()).to.equal(0.2)
+
+        expect(convert(3000).fromMg.toGr()).to.equal(3)
+
+        expect(convert(40000).fromMg.toGr()).to.equal(40)
+      })
+    })
+
+    describe('`convert(n).fromMg.toOz()`', () => {
+      it('converts miligram to ounce', () => {
+        expect(convert(0).fromMg.toOz()).to.equal(0)
+
+        expect(convert(10).fromMg.toOz()).to.equal(0.00035273961950000004)
+
+        expect(convert(200).fromMg.toOz()).to.equal(0.007054792390000001)
+
+        expect(convert(3000).fromMg.toOz()).to.equal(0.10582188585)
+
+        expect(convert(40000).fromMg.toOz()).to.equal(1.410958478)
+      })
+    })
+
+    describe('`convert(n).fromMg.toLb()`', () => {
+      it('converts miligram to pound', () => {
+        expect(convert(0).fromMg.toLb()).to.equal(0)
+
+        expect(convert(10).fromMg.toLb()).to.equal(0.000022046226218750003)
+
+        expect(convert(200).fromMg.toLb()).to.equal(0.00044092452437500005)
+
+        expect(convert(3000).fromMg.toLb()).to.equal(0.006613867865625)
+
+        expect(convert(40000).fromMg.toLb()).to.equal(0.088184904875)
+      })
+    })
+
+    describe('`convert(n).fromMg.toSt()`', () => {
+      it('converts miligram to stone', () => {
+        expect(convert(0).fromMg.toSt()).to.equal(0)
+
+        expect(convert(10).fromMg.toSt()).to.equal(0.0000015747304441964287)
+
+        expect(convert(200).fromMg.toSt()).to.equal(0.000031494608883928574)
+
+        expect(convert(3000).fromMg.toSt()).to.equal(0.0004724191332589286)
+
+        expect(convert(40000).fromMg.toSt()).to.equal(0.006298921776785714)
+      })
+    })
+
+    describe('`convert(n).fromOz.toKg()`', () => {
+      it('converts ounce to kilogram', () => {
+        expect(convert(0).fromOz.toKg()).to.equal(0)
+
+        expect(convert(10).fromOz.toKg()).to.equal(0.2834952312466278)
+
+        expect(convert(200).fromOz.toKg()).to.equal(5.669904624932555)
+
+        expect(convert(3000).fromOz.toKg()).to.equal(85.04856937398833)
+
+        expect(convert(40000).fromOz.toKg()).to.equal(1133.980924986511)
+      })
+    })
+
+    describe('`convert(n).fromOz.toGr()`', () => {
+      it('converts ounce to gram', () => {
+        expect(convert(0).fromOz.toGr()).to.equal(0)
+
+        expect(convert(10).fromOz.toGr()).to.equal(283.4952312466278)
+
+        expect(convert(200).fromOz.toGr()).to.equal(5669.904624932556)
+
+        expect(convert(3000).fromOz.toGr()).to.equal(85048.56937398833)
+
+        expect(convert(40000).fromOz.toGr()).to.equal(1133980.924986511)
+      })
+    })
+
+    describe('`convert(n).fromOz.toMg()`', () => {
+      it('converts ounce to miligram', () => {
+        expect(convert(0).fromOz.toMg()).to.equal(0)
+
+        expect(convert(10).fromOz.toMg()).to.equal(283495.2312466278)
+
+        expect(convert(200).fromOz.toMg()).to.equal(5669904.6249325555)
+
+        expect(convert(3000).fromOz.toMg()).to.equal(85048569.37398833)
+
+        expect(convert(40000).fromOz.toMg()).to.equal(1133980924.986511)
+      })
+    })
+
+    describe('`convert(n).fromOz.toLb()`', () => {
+      it('converts ounce to pound', () => {
+        expect(convert(0).fromOz.toLb()).to.equal(0)
+
+        expect(convert(10).fromOz.toLb()).to.equal(0.625)
+
+        expect(convert(200).fromOz.toLb()).to.equal(12.5)
+
+        expect(convert(3000).fromOz.toLb()).to.equal(187.5)
+
+        expect(convert(40000).fromOz.toLb()).to.equal(2500)
+      })
+    })
+
+    describe('`convert(n).fromOz.toSt()`', () => {
+      it('converts ounce to stone', () => {
+        expect(convert(0).fromOz.toSt()).to.equal(0)
+
+        expect(convert(10).fromOz.toSt()).to.equal(0.044642857142857144)
+
+        expect(convert(200).fromOz.toSt()).to.equal(0.8928571428571429)
+
+        expect(convert(3000).fromOz.toSt()).to.equal(13.392857142857142)
+
+        expect(convert(40000).fromOz.toSt()).to.equal(178.57142857142858)
+      })
+    })
+
+    describe('`convert(n).fromLb.toKg()`', () => {
+      it('converts pound to kilogram', () => {
+        expect(convert(0).fromLb.toKg()).to.equal(0)
+
+        expect(convert(10).fromLb.toKg()).to.equal(4.535923699946045)
+
+        expect(convert(200).fromLb.toKg()).to.equal(90.71847399892089)
+
+        expect(convert(3000).fromLb.toKg()).to.equal(1360.7771099838133)
+
+        expect(convert(40000).fromLb.toKg()).to.equal(18143.694799784174)
+      })
+    })
+
+    describe('`convert(n).fromLb.toGr()`', () => {
+      it('converts pound to gram', () => {
+        expect(convert(0).fromLb.toGr()).to.equal(0)
+
+        expect(convert(10).fromLb.toGr()).to.equal(4535.9236999460445)
+
+        expect(convert(200).fromLb.toGr()).to.equal(90718.47399892089)
+
+        expect(convert(3000).fromLb.toGr()).to.equal(1360777.1099838133)
+
+        expect(convert(40000).fromLb.toGr()).to.equal(18143694.799784176)
+      })
+    })
+
+    describe('`convert(n).fromLb.toMg()`', () => {
+      it('converts pound to miligram', () => {
+        expect(convert(0).fromLb.toMg()).to.equal(0)
+
+        expect(convert(10).fromLb.toMg()).to.equal(4535923.699946045)
+
+        expect(convert(200).fromLb.toMg()).to.equal(90718473.99892089)
+
+        expect(convert(3000).fromLb.toMg()).to.equal(1360777109.9838133)
+
+        expect(convert(40000).fromLb.toMg()).to.equal(18143694799.784176)
+      })
+    })
+
+    describe('`convert(n).fromLb.toOz()`', () => {
+      it('converts pound to pound', () => {
+        expect(convert(0).fromLb.toOz()).to.equal(0)
+
+        expect(convert(10).fromLb.toOz()).to.equal(160)
+
+        expect(convert(200).fromLb.toOz()).to.equal(3200)
+
+        expect(convert(3000).fromLb.toOz()).to.equal(48000)
+
+        expect(convert(40000).fromLb.toOz()).to.equal(640000)
+      })
+    })
+
+    describe('`convert(n).fromLb.toSt()`', () => {
+      it('converts pound to stone', () => {
+        expect(convert(0).fromLb.toSt()).to.equal(0)
+
+        expect(convert(10).fromLb.toSt()).to.equal(0.7142857142857143)
+
+        expect(convert(200).fromLb.toSt()).to.equal(14.285714285714286)
+
+        expect(convert(3000).fromLb.toSt()).to.equal(214.28571428571428)
+
+        expect(convert(40000).fromLb.toSt()).to.equal(2857.1428571428573)
+      })
+    })
+
+    describe('`convert(n).fromSt.toKg()`', () => {
+      it('converts stone to kilogram', () => {
+        expect(convert(0).fromSt.toKg()).to.equal(0)
+
+        expect(convert(10).fromSt.toKg()).to.equal(63.50293179924462)
+
+        expect(convert(200).fromSt.toKg()).to.equal(1270.0586359848926)
+
+        expect(convert(3000).fromSt.toKg()).to.equal(19050.879539773385)
+
+        expect(convert(40000).fromSt.toKg()).to.equal(254011.7271969785)
+      })
+    })
+
+    describe('`convert(n).fromSt.toGr()`', () => {
+      it('converts stone to gram', () => {
+        expect(convert(0).fromSt.toGr()).to.equal(0)
+
+        expect(convert(10).fromSt.toGr()).to.equal(63502.93179924462)
+
+        expect(convert(200).fromSt.toGr()).to.equal(1270058.6359848925)
+
+        expect(convert(3000).fromSt.toGr()).to.equal(19050879.539773386)
+
+        expect(convert(40000).fromSt.toGr()).to.equal(254011727.19697848)
+      })
+    })
+
+    describe('`convert(n).fromSt.toMg()`', () => {
+      it('converts stone to miligram', () => {
+        expect(convert(0).fromSt.toMg()).to.equal(0)
+
+        expect(convert(10).fromSt.toMg()).to.equal(63502931.79924462)
+
+        expect(convert(200).fromSt.toMg()).to.equal(1270058635.9848926)
+
+        expect(convert(3000).fromSt.toMg()).to.equal(19050879539.773384)
+
+        expect(convert(40000).fromSt.toMg()).to.equal(254011727196.9785)
+      })
+    })
+
+    describe('`convert(n).fromSt.toOz()`', () => {
+      it('converts stone to ounce', () => {
+        expect(convert(0).fromSt.toOz()).to.equal(0)
+
+        expect(convert(10).fromSt.toOz()).to.equal(2240)
+
+        expect(convert(200).fromSt.toOz()).to.equal(44800)
+
+        expect(convert(3000).fromSt.toOz()).to.equal(672000)
+
+        expect(convert(40000).fromSt.toOz()).to.equal(8960000)
+      })
+    })
+
+    describe('`convert(n).fromSt.toLb()`', () => {
+      it('converts stone to pound', () => {
+        expect(convert(0).fromSt.toLb()).to.equal(0)
+
+        expect(convert(10).fromSt.toLb()).to.equal(140)
+
+        expect(convert(200).fromSt.toLb()).to.equal(2800)
+
+        expect(convert(3000).fromSt.toLb()).to.equal(42000)
+
+        expect(convert(40000).fromSt.toLb()).to.equal(560000)
+      })
     })
   })
 })
