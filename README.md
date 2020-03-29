@@ -714,7 +714,7 @@ const {
   fromMiToYd,
 
   convert
-} = require('./lib/number-engine/temperature')
+} = require('./lib/number-engine/distance')
 ```
 
 Examples use the _static_ form.
