@@ -52,7 +52,7 @@ ${a.map(({ value, decimal, label }) => getCharFromEntityNameFor(value, decimal, 
 `)
 }
 
-export default async () => {
+export default async function preCommit () {
   const v = await curl(URL)
   const x = new RegExp(X, 'g')
   const m = v.match(x)
