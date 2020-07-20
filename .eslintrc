@@ -3,13 +3,12 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "standard"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 6
-  },
+  "extends": "standard",
   "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
   "globals": {
     "ArrayEngine": "readonly",
     "DifferenceEngine": "readonly",
