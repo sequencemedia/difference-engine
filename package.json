@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sequencemedia/DifferenceEngine.git"
+    "url": "git://github.com/sequencemedia/difference-engine.git"
   },
   "scripts": {
     "babel": "babel src -d lib",

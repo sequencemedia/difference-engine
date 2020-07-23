@@ -1,10 +1,10 @@
-# difference-engine
+## `difference-engine`
+
+# Difference Engine
 
 ```sh
 npm i -P difference-engine
 ```
-
-## DifferenceEngine
 
 Features are available as static methods on the class:
 
