@@ -4,11 +4,14 @@
     "es6": true,
     "node": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
+  "plugins": [
+    "standard"
+  ],
   "overrides": [
     {
       "files": [
@@ -23,6 +26,11 @@
       }
     }
   ],
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
   "globals": {
     "ArrayEngine": "readonly",
     "DifferenceEngine": "readonly",
