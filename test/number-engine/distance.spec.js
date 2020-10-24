@@ -671,7 +671,7 @@ describe('Distance', () => {
 
       expect(Distance.fromFtToKm(3000)).to.equal(0.9144000000036575)
 
-      expect(Distance.fromFtToKm(40000)).to.equal(12.192000000048769)
+      expect(Distance.fromFtToKm(40000)).to.equal(12.192000000048768) // (12.192000000048769)
     })
   })
 
@@ -1456,7 +1456,7 @@ describe('Distance', () => {
 
         expect(Distance.convert(3000).fromFt.toKm()).to.equal(0.9144000000036575)
 
-        expect(Distance.convert(40000).fromFt.toKm()).to.equal(12.192000000048769)
+        expect(Distance.convert(40000).fromFt.toKm()).to.equal(12.192000000048768) // (12.192000000048769)
       })
     })
 
@@ -2241,7 +2241,7 @@ describe('Distance', () => {
 
       expect(fromFtToKm(3000)).to.equal(0.9144000000036575)
 
-      expect(fromFtToKm(40000)).to.equal(12.192000000048769)
+      expect(fromFtToKm(40000)).to.equal(12.192000000048768) // (12.192000000048769)
     })
   })
 
@@ -3026,7 +3026,7 @@ describe('Distance', () => {
 
         expect(convert(3000).fromFt.toKm()).to.equal(0.9144000000036575)
 
-        expect(convert(40000).fromFt.toKm()).to.equal(12.192000000048769)
+        expect(convert(40000).fromFt.toKm()).to.equal(12.192000000048768) // (12.192000000048769)
       })
     })
 
