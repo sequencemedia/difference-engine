@@ -1307,7 +1307,7 @@ describe('ArrayEngine', () => {
 
   describe('`ArrayEngine.indexOf()`', () => {
     it('Gets the index of the argument in the array', () => {
-      var i, j
+      let i, j
 
       /*
        * Forward
@@ -2599,7 +2599,7 @@ describe('ArrayEngine', () => {
 
   describe('`indexOf()`', () => {
     it('Gets the index of the argument in the array', () => {
-      var i, j
+      let i, j
 
       /*
        * Forward

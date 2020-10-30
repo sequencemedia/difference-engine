@@ -48,7 +48,7 @@ export function bite (a = [], x = 0, y = 0) {
   return []
 }
 
-export function indexOf (a = [], v, i = 0, j = a.length) {
+export function indexOf (a = [], v = undefined, i = 0, j = a.length) {
   for (i, j; i < j; i = i + 1) {
     if (a[i] === v) {
       return i
@@ -165,7 +165,7 @@ export function min (a = [], j = a.length) {
  * @class ArrayEngine
  */
 export default class ArrayEngine {
-  static indexOf (a = [], v, i = 0) {
+  static indexOf (a = [], v = undefined, i = 0) {
     const j = a.length
 
     if (j) {
