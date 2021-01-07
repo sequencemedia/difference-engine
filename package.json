@@ -43,12 +43,12 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "gulp": "^4.0.2",
-    "husky": "^4.3.6",
+    "husky": "^4.3.7",
     "mocha": "^8.2.1",
     "moment": "^2.29.1",
     "rimraf": "^3.0.2",
     "sacred-fs": "^1.2.1",
-    "sinon": "^9.2.2"
+    "sinon": "^9.2.3"
   },
   "husky": {
     "hooks": {
