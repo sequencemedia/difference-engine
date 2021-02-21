@@ -43,16 +43,11 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
     "gulp": "^4.0.2",
-    "husky": "4.3.8",
+    "husky": "^5.0.9",
     "mocha": "^8.3.0",
     "moment": "^2.29.1",
     "rimraf": "^3.0.2",
     "sacred-fs": "^1.2.1",
     "sinon": "^9.2.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pre-commit"
-    }
   }
 }
