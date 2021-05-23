@@ -22,7 +22,7 @@
     "test": "mocha test --recursive -r @babel/register",
     "lint": "eslint *.js src build test",
     "lint:fix": "npm run lint -- --fix",
-    "pre-commit": "gulp pre-commit && npm run lint:fix && git add src/common/string"
+    "pre-commit": "gulp pre-commit && npm run lint:fix && npm run test && git add src/common/string"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",
