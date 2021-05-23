@@ -271,35 +271,35 @@ describe('StringEngine', () => {
     })
   })
 
-  describe('`fromCharCode()`', () => {
+  describe('`fromCodePoint()`', () => {
     it('gets the char for the index', () => {
-      expect(StringEngine.fromCharCode(0)).to.equal(String.fromCharCode(0))
+      expect(StringEngine.fromCodePoint(0)).to.equal(String.fromCodePoint(0))
 
-      expect(StringEngine.fromCharCode(1000)).to.equal(String.fromCharCode(1000))
+      expect(StringEngine.fromCodePoint(1000)).to.equal(String.fromCodePoint(1000))
 
-      expect(StringEngine.fromCharCode(1000000)).to.equal(String.fromCharCode(1000000))
+      expect(StringEngine.fromCodePoint(1000000)).to.equal(String.fromCodePoint(1000000))
     })
   })
 
   describe('`charFromEntityCode()`', () => {
     it('gets the char for the entity code', () => {
-      expect(StringEngine.charFromEntityCode('&#0;')).to.equal(String.fromCharCode(0))
+      expect(StringEngine.charFromEntityCode('&#0;')).to.equal(String.fromCodePoint(0))
 
-      expect(StringEngine.charFromEntityCode('&#1000;')).to.equal(String.fromCharCode(1000))
+      expect(StringEngine.charFromEntityCode('&#1000;')).to.equal(String.fromCodePoint(1000))
 
-      expect(StringEngine.charFromEntityCode('&#1000000;')).to.equal(String.fromCharCode(1000000))
+      expect(StringEngine.charFromEntityCode('&#1000000;')).to.equal(String.fromCodePoint(1000000))
     })
   })
 
   describe('`charFromEntityName()`', () => {
     it('gets the char for the entity name', () => {
-      expect(StringEngine.charFromEntityName('&Tab;')).to.equal(String.fromCharCode(9))
+      expect(StringEngine.charFromEntityName('&Tab;')).to.equal(String.fromCodePoint(9))
 
-      expect(StringEngine.charFromEntityName('&nsub;')).to.equal(String.fromCharCode(8836))
+      expect(StringEngine.charFromEntityName('&nsub;')).to.equal(String.fromCodePoint(8836))
 
-      expect(StringEngine.charFromEntityName('&nsup;')).to.equal(String.fromCharCode(8837))
+      expect(StringEngine.charFromEntityName('&nsup;')).to.equal(String.fromCodePoint(8837))
 
-      expect(StringEngine.charFromEntityName('&zopf;')).to.equal(String.fromCharCode(120171))
+      expect(StringEngine.charFromEntityName('&zopf;')).to.equal(String.fromCodePoint(120171))
     })
   })
 

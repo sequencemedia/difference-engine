@@ -6,7 +6,7 @@ import {
 } from '@difference-engine/common'
 
 import {
-  getFromCharCode,
+  getFromCodePoint,
   getCharFromEntityCode,
   getCharFromEntityName,
   getEntityCodeFromChar,
@@ -21,7 +21,7 @@ const HEX = 16
 const X = /\u0026[\w]+\u003b|\u0026\u0023(?:[1-9]+[\d]+|[1-9])\u003b+/g
 const XCODE = /\u0026\u0023(?:[1-9]+[\d]+|[1-9]+)\u003b+/g
 const XNAME = /\u0026[\w]+\u003b+/g
-const ACHAR = '&' // String.fromCharCode(38) // '\u0026'
+const ACHAR = '&' // String.fromCodePoint(38) // '\u0026'
 const ACHARCODE = 38
 const AENTITYNAME = '&amp;'
 const AENTITYCODE = '&#38;'
@@ -321,10 +321,10 @@ export function entityOf (s) {
 }
 
 /*
- *  Char from char code
+ *  Char from code point
  */
-export function fromCharCode (i) {
-  return isNumber(i) ? getFromCharCode(i) : null
+export function fromCodePoint (i) {
+  return isNumber(i) ? getFromCodePoint(i) : null
 }
 
 /*
@@ -447,7 +447,7 @@ export default class StringEngine {
   static entityNameAt = entityNameAt
   static entityOf = entityOf
 
-  static fromCharCode = fromCharCode
+  static fromCodePoint = fromCodePoint
   static charFromEntityCode = charFromEntityCode
   static charFromEntityName = charFromEntityName
 

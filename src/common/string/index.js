@@ -5,7 +5,7 @@
 import CHAR_FROM_ENTITY_NAME from './char-from-entity-name'
 import ENTITY_NAME_FROM_CHAR from './entity-name-from-char'
 
-export const fromCharCodeMap = new Map()
+export const fromCodePointMap = new Map()
 
 export const charFromEntityCodeMap = new Map()
 export const charFromEntityNameMap = new Map(Object.entries(CHAR_FROM_ENTITY_NAME))
@@ -18,11 +18,11 @@ export {
   ENTITY_NAME_FROM_CHAR
 }
 
-export function getFromCharCode (index) {
-  if (fromCharCodeMap.has(index)) return fromCharCodeMap.get(index)
+export function getFromCodePoint (index) {
+  if (fromCodePointMap.has(index)) return fromCodePointMap.get(index)
 
-  const char = String.fromCharCode(index)
-  fromCharCodeMap.set(index, char)
+  const char = String.fromCodePoint(index)
+  fromCodePointMap.set(index, char)
   return char
 }
 
@@ -39,7 +39,7 @@ export function getCharFromEntityCode (entityCode) {
 
     const n = m && Number(v)
     if (!isNaN(n)) {
-      const char = String.fromCharCode(n)
+      const char = String.fromCodePoint(n)
       charFromEntityCodeMap.set(entityCode, char)
       return char
     }
