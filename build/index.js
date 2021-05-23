@@ -19,11 +19,11 @@ const NOW = moment().format('MMMM Do YYYY, h:mm:ss')
 const X = /<td class="named"><code>(?:(?:&amp;(\w+);\s?)*)<\/code>.*<td class="dec"><code>&amp;#(\d+);<\/code>.*<td class="desc">(.+)/
 
 function getEntityNameFromCharFor (decimal, value, label) {
-  return `[String.fromCharCode(${decimal})]: '&${value};' /* ${label} */`
+  return `[String.fromCodePoint(${decimal})]: '&${value};' /* ${label} */`
 }
 
 function getCharFromEntityNameFor (value, decimal, label) {
-  return `'&${value};': String.fromCharCode(${decimal}) /* ${label} */`
+  return `'&${value};': String.fromCodePoint(${decimal}) /* ${label} */`
 }
 
 function transformToEntityNameFromChar (a = []) {
@@ -34,7 +34,7 @@ function transformToEntityNameFromChar (a = []) {
  */
 
 export default {
-${a.map(({ decimal, value, label }) => getEntityNameFromCharFor(decimal, value, label)).join(String.fromCharCode(44).concat(String.fromCharCode(10)))}
+${a.map(({ decimal, value, label }) => getEntityNameFromCharFor(decimal, value, label)).join(String.fromCodePoint(44).concat(String.fromCodePoint(10)))}
 }
 `)
 }
@@ -47,7 +47,7 @@ function transformToCharFromEntityName (a = []) {
  */
 
 export default {
-${a.map(({ value, decimal, label }) => getCharFromEntityNameFor(value, decimal, label)).join(String.fromCharCode(44).concat(String.fromCharCode(10)))}
+${a.map(({ value, decimal, label }) => getCharFromEntityNameFor(value, decimal, label)).join(String.fromCodePoint(44).concat(String.fromCodePoint(10)))}
 }
 `)
 }
@@ -64,7 +64,7 @@ export default async function preCommit () {
         label
       ] = v.match(X)
 
-      return accumulator.concat(entitites.split(String.fromCharCode(32)).reduce((accumulator, value) => ({ value, decimal, label }), []))
+      return accumulator.concat(entitites.split(String.fromCodePoint(32)).reduce((accumulator, value) => ({ value, decimal, label }), []))
     }, [])
 
     if (a.length) {
