@@ -1,9 +1,21 @@
-.npmrc
-.npmignore
+.DS_Store
+
 .editorconfig
 
+.eslintignore
+.eslintrc
+
+.gitignore
+
+# NPM
+.npmignore
+.npmrc
+
+# Test
 test
 
+# Gulp
 gulpfile.js
 
+# Etc
 array-engine.js
