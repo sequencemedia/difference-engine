@@ -43,38 +43,38 @@ describe('StringEngine', () => {
     })
   })
 
-  describe('`charCodeAt()`', () => {
+  describe('`codePointAt()`', () => {
     describe('The string is an HTML entity', () => {
       describe('The index is zero', () => {
         it('gets the char code for the entity at the index', () => {
-          expect(StringEngine.charCodeAt('&amp;', 0)).to.equal(38)
+          expect(StringEngine.codePointAt('&amp;', 0)).to.equal(38)
 
-          expect(StringEngine.charCodeAt('&#65;', 0)).to.equal(65)
+          expect(StringEngine.codePointAt('&#65;', 0)).to.equal(65)
         })
       })
 
       describe('The index is not zero', () => {
         it('gets the char code for the char at the index', () => {
-          expect(StringEngine.charCodeAt('&amp;', 1)).to.equal(97)
+          expect(StringEngine.codePointAt('&amp;', 1)).to.equal(97)
 
-          expect(StringEngine.charCodeAt('&#65;', 2)).to.equal(54)
+          expect(StringEngine.codePointAt('&#65;', 2)).to.equal(54)
         })
       })
     })
 
     describe('The string is not an HTML entity', () => {
       it('gets the char code at the index', () => {
-        expect(StringEngine.charCodeAt('ABCDE', 0)).to.equal(65)
+        expect(StringEngine.codePointAt('ABCDE', 0)).to.equal(65)
 
-        expect(StringEngine.charCodeAt('ABCDE', 2)).to.equal(67)
+        expect(StringEngine.codePointAt('ABCDE', 2)).to.equal(67)
 
-        expect(StringEngine.charCodeAt('ABCDE', 4)).to.equal(69)
+        expect(StringEngine.codePointAt('ABCDE', 4)).to.equal(69)
 
-        expect(StringEngine.charCodeAt('&  ', 0)).to.equal(38)
+        expect(StringEngine.codePointAt('&  ', 0)).to.equal(38)
 
-        expect(StringEngine.charCodeAt(' & ', 1)).to.equal(38)
+        expect(StringEngine.codePointAt(' & ', 1)).to.equal(38)
 
-        expect(StringEngine.charCodeAt('  &', 2)).to.equal(38)
+        expect(StringEngine.codePointAt('  &', 2)).to.equal(38)
       })
     })
   })
@@ -101,24 +101,24 @@ describe('StringEngine', () => {
     })
   })
 
-  describe('`charCodeOf()`', () => {
+  describe('`codePointOf()`', () => {
     describe('The string is an HTML entity', () => {
       it('gets the char code for the entity', () => {
-        expect(StringEngine.charCodeOf('&amp;')).to.equal(38)
+        expect(StringEngine.codePointOf('&amp;')).to.equal(38)
 
-        expect(StringEngine.charCodeOf('&#65;')).to.equal(65)
+        expect(StringEngine.codePointOf('&#65;')).to.equal(65)
       })
     })
 
     describe('The string is not an HTML entity', () => {
       it('gets the char code for the char', () => {
-        expect(StringEngine.charCodeOf('ABCDE')).to.equal(65)
+        expect(StringEngine.codePointOf('ABCDE')).to.equal(65)
 
-        expect(StringEngine.charCodeOf('&  ')).to.equal(38)
+        expect(StringEngine.codePointOf('&  ')).to.equal(38)
 
-        expect(StringEngine.charCodeOf(' & ')).to.equal(32)
+        expect(StringEngine.codePointOf(' & ')).to.equal(32)
 
-        expect(StringEngine.charCodeOf('  &')).to.equal(32)
+        expect(StringEngine.codePointOf('  &')).to.equal(32)
       })
     })
   })

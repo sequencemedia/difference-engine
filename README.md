@@ -1337,12 +1337,12 @@ const string = StringEngine.entityOf(',') // returns '&comma;'
 const string = StringEngine.entityOf(' ') // returns '&#32;'
 ```
 
-### `fromCharCode`
+### `fromCodePoint`
 
-Accepts a number which is a character code. Returns the character for that code.
+Accepts a number which is a character code point. Returns the character for that code point.
 
 ```javascript
-const string = StringEngine.charFromEntityCode('&#43;') // returns '+'
+const string = StringEngine.fromCodePoint(43) // returns '+'
 ```
 
 ### `charFromEntityCode`

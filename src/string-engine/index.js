@@ -72,13 +72,13 @@ export function charAt (s, i) {
 /*
  *  Char code
  */
-export function charCodeAt (s, i) {
+export function codePointAt (s, i) {
   if (isString(s) && isNumber(i)) {
     /*
-     *  "String.charCodeAt()" is fast so retrieve the character at position i and compare to
+     *  "String.codePointAt()" is fast so retrieve the character at position i and compare to
      *  the index of ampersand
      */
-    let v = s.charCodeAt(i)
+    let v = s.codePointAt(i)
     if (v === ACHARCODE) {
       /*
        *  The character at position i is an ampersand. Examine the rest of the string with an HTML
@@ -99,8 +99,8 @@ export function charCodeAt (s, i) {
         v = m.shift()
         let c
 
-        if ((c = getCharFromEntityName(v)) !== null) return c.charCodeAt(0) // eslint-disable-line
-        if ((c = getCharFromEntityCode(v)) !== null) return c.charCodeAt(0) // eslint-disable-line
+        if ((c = getCharFromEntityName(v)) !== null) return c.codePointAt(0) // eslint-disable-line
+        if ((c = getCharFromEntityCode(v)) !== null) return c.codePointAt(0) // eslint-disable-line
         return ACHARCODE
       }
     } else {
@@ -163,16 +163,16 @@ export function charOf (s) {
 /*
  *  Char code
  */
-export function charCodeOf (s) {
+export function codePointOf (s) {
   if (isString(s)) {
     if (s.length < 4) {
-      return s.charCodeAt(0)
+      return s.codePointAt(0)
     } else {
       /*
-       *  "String.charCodeAt()" is fast so retrieve the character at position i and compare to
+       *  "String.codePointAt()" is fast so retrieve the character at position i and compare to
        *  the index of ampersand
        */
-      let v = s.charCodeAt(0)
+      let v = s.codePointAt(0)
       if (v === ACHARCODE) {
         /*
          *  The character at position i is an ampersand. Examine the rest of the string with an HTML
@@ -193,8 +193,8 @@ export function charCodeOf (s) {
           v = m.shift()
           let c
 
-          if ((c = getCharFromEntityName(v)) !== null) return c.charCodeAt(0) // eslint-disable-line
-          if ((c = getCharFromEntityCode(v)) !== null) return c.charCodeAt(0) // eslint-disable-line
+          if ((c = getCharFromEntityName(v)) !== null) return c.codePointAt(0) // eslint-disable-line
+          if ((c = getCharFromEntityCode(v)) !== null) return c.codePointAt(0) // eslint-disable-line
           return ACHARCODE
         }
       } else {
@@ -438,9 +438,9 @@ export function reverse (string) {
  */
 export default class StringEngine {
   static charAt = charAt
-  static charCodeAt = charCodeAt
+  static codePointAt = codePointAt
   static charOf = charOf
-  static charCodeOf = charCodeOf
+  static codePointOf = codePointOf
 
   static entityAt = entityAt
   static entityCodeAt = entityCodeAt
