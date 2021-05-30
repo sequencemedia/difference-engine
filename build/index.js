@@ -16,7 +16,7 @@ const curl = (url) => (
 
 const lint = () => (
   new Promise((resolve, reject) => {
-    exec('npx eslint . --fix', (e, v) => (!e) ? resolve(v) : reject(e))
+    exec('npx eslint . --fix', (e) => (!e) ? resolve() : reject(e))
   })
 )
 
