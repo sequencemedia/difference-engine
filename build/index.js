@@ -34,7 +34,7 @@ function transformToEntityNameFromChar (a = []) {
  */
 
 export default {
-${a.map(({ decimal, value, label }) => getEntityNameFromCharFor(decimal, value, label)).join(String.fromCodePoint(44).concat(String.fromCodePoint(10)))}
+  ${a.map(({ decimal, value, label }) => getEntityNameFromCharFor(decimal, value, label)).join(String.fromCodePoint(44).concat(String.fromCodePoint(10)))}
 }
 `)
 }
@@ -47,7 +47,7 @@ function transformToCharFromEntityName (a = []) {
  */
 
 export default {
-${a.map(({ value, decimal, label }) => getCharFromEntityNameFor(value, decimal, label)).join(String.fromCodePoint(44).concat(String.fromCodePoint(10)))}
+  ${a.map(({ value, decimal, label }) => getCharFromEntityNameFor(value, decimal, label)).join(String.fromCodePoint(44).concat(String.fromCodePoint(10)))}
 }
 `)
 }
