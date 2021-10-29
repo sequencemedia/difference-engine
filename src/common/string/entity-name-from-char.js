@@ -1,7 +1,7 @@
 /*
  *  https://dev.w3.org/html5/html-author/charref
  *
- *  October 28th 2021, 4:32:14
+ *  October 29th 2021, 4:32:24
  */
 
 export default {
