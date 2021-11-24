@@ -40,8 +40,6 @@ pids
 coverage/
 npm-debug.log*
 
-/array-engine.js
-
 # User-defined NPM configuration
 .npmrc
 
