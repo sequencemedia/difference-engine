@@ -1,7 +1,7 @@
 /*
  *  https://dev.w3.org/html5/html-author/charref
  *
- *  December 17th 2021, 4:31:40
+ *  December 18th 2021, 4:31:55
  */
 
 export default {
