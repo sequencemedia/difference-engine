@@ -25,7 +25,7 @@
     "pre-commit": "gulp pre-commit && npm run lint:fix && npm run test && npm run build && git add src/common/string lib"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.3",
+    "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
