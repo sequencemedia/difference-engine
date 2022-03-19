@@ -6,7 +6,7 @@ import moment from 'moment'
 
 import {
   writeFile
-} from 'sacred-fs'
+} from 'fs/promises'
 
 const curl = (url) => (
   new Promise((resolve, reject) => {
