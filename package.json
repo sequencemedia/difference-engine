@@ -25,13 +25,13 @@
     "pre-commit": "gulp pre-commit && npm run lint:fix && npm run test && npm run build && git add src/common/string lib"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.9",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-export-default-from": "^7.16.7",
     "@babel/plugin-proposal-export-namespace-from": "^7.16.7",
-    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-env": "^7.17.10",
     "@babel/register": "^7.17.7",
     "babel-plugin-module-resolver": "^4.1.0",
     "chai": "^4.3.6",
