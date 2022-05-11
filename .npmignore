@@ -1,24 +1,33 @@
+# NPM
+.npmignore
+.npmrc
+
+# Deps
 .DS_Store
 
 .circleci
-.github
+.husky
 
 .editorconfig
 
 .eslintignore
 .eslintrc
 
+.github
 .gitignore
+
+# Test
+test
 
 # NPM
 .npmignore
 .npmrc
 
-# Test
-test
+# NVM
+.nvmrc
 
-# Gulp
-gulpfile.js
+# Deps
+.depsrc
 
-# Etc
-array-engine.js
+gulpfile.*
+
