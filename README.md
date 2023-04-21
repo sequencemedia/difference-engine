@@ -9,17 +9,16 @@ npm i -P difference-engine
 Features are available as static methods on the class:
 
 ```javascript
-const { DifferenceEngine } = require('./lib')
+import DifferenceEngine from '#difference-engine'
 ```
 
 And as functions exported from the module:
 
 ```javascript
-const {
-  default: DifferenceEngine,
+import {
   inclusive,
   exclusive
-} = require('./lib/difference-engine')
+} from '#difference-engine'
 ```
 
 Examples use the _static_ form.
@@ -51,14 +50,13 @@ const array = DifferenceEngine.exclusive(alpha, omega) // returns ['A', 'B']
 Features are available as static methods on the class:
 
 ```javascript
-const { ArrayEngine } = require('./lib')
+import { ArrayEngine } from 'difference-engine'
 ```
 
 And as functions exported from the module:
 
 ```javascript
-const {
-  default: ArrayEngine,
+import ArrayEngine, {
   indexOf,
   iterateForward,
   iterateReverse,
@@ -66,7 +64,7 @@ const {
   max,
   min,
   bite
-} = require('./lib/array-engine')
+} from 'difference-engine/array-engine'
 ```
 
 Examples use the _static_ form.
@@ -212,14 +210,13 @@ const value = ArrayEngine.min(array) // returns 1
 Features are available as static methods on the class:
 
 ```javascript
-const { NumberEngine } = require('./lib')
+import { NumberEngine } from 'difference-engine'
 ```
 
 And as functions exported from the module:
 
 ```javascript
-const {
-  default: NumberEngine,
+import NumberEngine, {
   fibonacci,
   haversine,
   fromOctToDec,
@@ -227,7 +224,7 @@ const {
   Weight,
   Temperature,
   Distance
-} = require('./lib/number-engine')
+} from 'difference-engine/number-engine'
 ```
 
 Examples use the _static_ form.
@@ -288,15 +285,13 @@ Convert a number from one unit to another.
 As static methods on the class:
 
 ```javascript
-const { NumberEngine: { Weight } } = require('./lib')
+import { NumberEngine: { Weight } } from 'difference-engine'
 ```
 
 And as functions exported from the module:
 
 ```javascript
-const {
-  default: Weight,
-
+import Weight, {
   fromKgToGr,
   fromKgToMg,
   fromKgToOz,
@@ -334,7 +329,7 @@ const {
   fromStToOz,
 
   convert
-} = require('./lib/number-engine/weight')
+} from 'difference-engine/number-engine/weight'
 ```
 
 Examples use the _static_ form.
@@ -609,18 +604,16 @@ Convert a number from one unit to another.
 As static methods on the class:
 
 ```javascript
-const { NumberEngine: { Temperature } } = require('./lib')
+import { NumberEngine: { Temperature } } from 'difference-engine'
 ```
 
 And as functions exported from the module:
 
 ```javascript
-const {
-  default: Temperature,
-
+import Temperature, {
   fromCToF,
   fromFToC
-} = require('./lib/number-engine/temperature')
+} from 'difference-engine/number-engine/temperature'
 ```
 
 Examples use the _static_ form.
@@ -640,15 +633,13 @@ Convert a number from one unit to another.
 As static methods on the class:
 
 ```javascript
-const { NumberEngine: { Distance } } = require('./lib')
+import { NumberEngine: { Distance } } from 'difference-engine'
 ```
 
 And as functions exported from the module:
 
 ```javascript
-const {
-  default: Distance,
-
+import Distance, {
   fromKmToMt,
   fromKmToCm,
   fromKmToMm,
@@ -714,7 +705,7 @@ const {
   fromMiToYd,
 
   convert
-} = require('./lib/number-engine/distance')
+} from 'difference-engine/number-engine/distance'
 ```
 
 Examples use the _static_ form.
@@ -1202,7 +1193,7 @@ const yd = Distance.convert(10).fromMi.toYd()
 ## StringEngine
 
 ```javascript
-const { StringEngine } = require('./lib')
+import { StringEngine } from 'difference-engine'
 ```
 
 ### `charAt`

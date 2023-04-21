@@ -41,6 +41,17 @@
     "rimraf": "^5.0.0",
     "sinon": "^15.0.4"
   },
+  "exports": {
+    ".": "./src/index.mjs",
+    "./array-engine/*": "./src/array-engine/*.mjs",
+    "./array-engine": "./src/array-engine/index.mjs",
+    "./difference-engine/*": "./src/difference-engine/*.mjs",
+    "./difference-engine": "./src/difference-engine/index.mjs",
+    "./number-engine/*": "./src/number-engine/*.mjs",
+    "./number-engine": "./src/number-engine/index.mjs",
+    "./string-engine/*": "./src/string-engine/*.mjs",
+    "./string-engine": "./src/string-engine/index.mjs"
+  },
   "imports": {
     "#common/*": "./src/common/*.mjs",
     "#common/string": "./src/common/string/index.mjs",
