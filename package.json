@@ -2,7 +2,7 @@
   "name": "difference-engine",
   "version": "1.1.3",
   "description": "Difference Engine",
-  "main": "./index.js",
+  "main": "./index.cjs",
   "author": {
     "email": "sequencemedia@sequencemedia.net",
     "name": "Jonathan Perry for Sequence Media Limited",
@@ -20,7 +20,7 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run build",
     "test": "cross-env NODE_ENV=test mocha test --recursive -r @babel/register",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js --ext .cjs --ext .mjs",
     "lint:fix": "npm run lint -- --fix"
   },
   "devDependencies": {
