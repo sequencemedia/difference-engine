@@ -8,17 +8,28 @@ import {
   writeFile
 } from 'fs/promises'
 
-const curl = (url) => (
+function curl (url) {
+  return (
   new Promise((resolve, reject) => {
-    exec(`curl ${url}`, (e, v) => (!e) ? resolve(v) : reject(e))
+    exec(`curl ${url}`, (e, v) => {
+      (!e)
+        ? resolve(v)
+        : reject(e)
+    })
   })
-)
+)}
 
-const lint = () => (
+function lint () {
+  return (
   new Promise((resolve, reject) => {
-    exec('npx eslint . --fix', (e) => (!e) ? resolve() : reject(e))
+    exec('npx eslint . --fix', (e) => {
+      (!e)
+        ? resolve()
+        : reject(e)
+    })
   })
 )
+}
 
 const URL = 'https://dev.w3.org/html5/html-author/charref'
 const NOW = moment().format('MMMM Do YYYY, h:mm:ss')
@@ -67,7 +78,7 @@ ${a.map(mapCharFromEntityNameFor).join(JOIN)}
 `)
 }
 
-export default async function preCommit () {
+export default async function commonString () {
   const v = await curl(URL)
   const x = new RegExp(X, 'g')
   const m = v.match(x)
@@ -79,7 +90,15 @@ export default async function preCommit () {
         label
       ] = v.match(X)
 
-      return accumulator.concat(entitites.split(String.fromCodePoint(32)).reduce((accumulator, value) => ({ value, decimal, label }), []))
+      function map (value) {
+        return {
+          value,
+          decimal,
+          label
+        }
+      }
+
+      return accumulator.concat(entitites.split(String.fromCodePoint(32)).map(map))
     }, [])
 
     if (a.length) {

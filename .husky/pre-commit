@@ -1,4 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run pre-commit
+node pre-commit.mjs
+npm run lint:fix
+npm run test
+npm run build
+git add src/common/string lib
