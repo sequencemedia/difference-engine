@@ -9,7 +9,7 @@ npm i -P difference-engine
 Features are available as static methods on the class:
 
 ```javascript
-import DifferenceEngine from '#difference-engine'
+import DifferenceEngine from 'difference-engine'
 ```
 
 And as functions exported from the module:
@@ -18,7 +18,7 @@ And as functions exported from the module:
 import {
   inclusive,
   exclusive
-} from '#difference-engine'
+} from 'difference-engine'
 ```
 
 Examples use the _static_ form.
