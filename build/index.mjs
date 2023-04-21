@@ -85,29 +85,31 @@ ${a.map(mapCharFromEntityNameFor).join(JOIN)}
 `).trim()
 }
 
+function reduce (accumulator, v) {
+  const [,
+    entitites,
+    decimal,
+    label
+  ] = v.match(X)
+
+  function map (value) {
+    return {
+      value,
+      decimal,
+      label
+    }
+  }
+
+  return accumulator.concat(entitites.split(String.fromCodePoint(32)).map(map))
+}
+
 export default async function commonString () {
   const v = await curl(URL)
   const x = new RegExp(X, 'g')
   const m = v.match(x)
 
   if (Array.isArray(m)) {
-    const a = m.reduce((accumulator, v) => {
-      const [,
-        entitites,
-        decimal,
-        label
-      ] = v.match(X)
-
-      function map (value) {
-        return {
-          value,
-          decimal,
-          label
-        }
-      }
-
-      return accumulator.concat(entitites.split(String.fromCodePoint(32)).map(map))
-    }, [])
+    const a = m.reduce(reduce, [])
 
     if (a.length) {
       await writeFile(ENTITY_NAME_FROM_CHAR, transformToEntityNameFromChar(a))
