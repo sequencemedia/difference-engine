@@ -3,16 +3,16 @@
 import {
   isString,
   isNumber
-} from '@difference-engine/common'
+} from '#common'
 
-import fibonacci from './fibonacci'
-import haversine from './haversine'
+import fibonacci from './fibonacci.mjs'
+import haversine from './haversine.mjs'
 
-import Weight from './weight'
+import Weight from './weight.mjs'
 
-import Temperature from './temperature'
+import Temperature from './temperature.mjs'
 
-import Distance from './distance'
+import Distance from './distance.mjs'
 
 const OCT = 8
 const HEX = 16

@@ -1,4 +1,6 @@
-import { isNumber } from '@difference-engine/common'
+import {
+  isNumber
+} from '#common'
 
 const MMIN = 0.03937007874 // milimetre to inch (inches in a milimetre)
 const INMM = 25.4000000001016 // inch to milimetre (milimetres in an inch)

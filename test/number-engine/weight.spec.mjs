@@ -40,7 +40,7 @@ import Weight, {
   fromStToOz,
 
   convert
-} from '@difference-engine/number-engine/weight'
+} from '#number-engine/weight'
 
 describe('Weight', () => {
   it('is a class', () => expect(Weight).to.be.a('function'))

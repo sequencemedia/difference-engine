@@ -1,4 +1,6 @@
-import { isNumber } from '@difference-engine/common'
+import {
+  isNumber
+} from '#common'
 
 const OZGR = 28.349523124662777 // ounce to gram (grams in an ounce)
 const GROZ = 0.03527396195 // gram to ounce (ounces in a gram)

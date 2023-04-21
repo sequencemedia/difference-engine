@@ -68,7 +68,7 @@ import Distance, {
   fromMiToYd,
 
   convert
-} from '@difference-engine/number-engine/distance'
+} from '#number-engine/distance'
 
 describe('Distance', () => {
   it('is a class', () => expect(Distance).to.be.a('function'))

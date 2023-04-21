@@ -2,8 +2,8 @@
  * @module common/string
  */
 
-import CHAR_FROM_ENTITY_NAME from './char-from-entity-name'
-import ENTITY_NAME_FROM_CHAR from './entity-name-from-char'
+import CHAR_FROM_ENTITY_NAME from './char-from-entity-name.mjs'
+import ENTITY_NAME_FROM_CHAR from './entity-name-from-char.mjs'
 
 export const fromCodePointMap = new Map()
 

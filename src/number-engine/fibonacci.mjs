@@ -1,4 +1,6 @@
-import { isNumber } from '@difference-engine/common'
+import {
+  isNumber
+} from '#common'
 
 const FIBONACCI = [0, 1, 1]
 

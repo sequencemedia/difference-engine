@@ -12,7 +12,7 @@ import ArrayEngine, {
   iterateReverse,
   iterateBetween,
   indexOf
-} from '@difference-engine/array-engine'
+} from '#array-engine'
 
 const ARRAY = [
   'A',

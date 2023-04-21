@@ -28,5 +28,3 @@ test
 
 # Deps
 .depsrc
-
-gulpfile.*

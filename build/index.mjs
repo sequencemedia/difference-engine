@@ -8,27 +8,32 @@ import {
   writeFile
 } from 'fs/promises'
 
+const ENTITY_NAME_FROM_CHAR = './src/common/string/entity-name-from-char.mjs'
+
+const CHAR_FROM_ENTITY_NAME = './src/common/string/char-from-entity-name.mjs'
+
 function curl (url) {
   return (
-  new Promise((resolve, reject) => {
-    exec(`curl ${url}`, (e, v) => {
-      (!e)
-        ? resolve(v)
-        : reject(e)
+    new Promise((resolve, reject) => {
+      exec(`curl ${url}`, (e, v) => {
+        (!e)
+          ? resolve(v)
+          : reject(e)
+      })
     })
-  })
-)}
+  )
+}
 
 function lint () {
   return (
-  new Promise((resolve, reject) => {
-    exec('npx eslint . --fix', (e) => {
-      (!e)
-        ? resolve()
-        : reject(e)
+    new Promise((resolve, reject) => {
+      exec('npx eslint . --fix', (e) => {
+        (!e)
+          ? resolve()
+          : reject(e)
+      })
     })
-  })
-)
+  )
 }
 
 const URL = 'https://dev.w3.org/html5/html-author/charref'
@@ -53,7 +58,8 @@ function mapCharFromEntityNameFor ({ value, decimal, label }) {
 }
 
 function transformToEntityNameFromChar (a = []) {
-  return (`/*
+  return (`
+/*
  *  ${URL}
  *
  *  ${NOW}
@@ -62,11 +68,12 @@ function transformToEntityNameFromChar (a = []) {
 export default {
 ${a.map(mapEntityNameFromCharFor).join(JOIN)}
 }
-`)
+`).trim()
 }
 
 function transformToCharFromEntityName (a = []) {
-  return (`/*
+  return (`
+/*
  *  ${URL}
  *
  *  ${NOW}
@@ -75,13 +82,14 @@ function transformToCharFromEntityName (a = []) {
 export default {
 ${a.map(mapCharFromEntityNameFor).join(JOIN)}
 }
-`)
+`).trim()
 }
 
 export default async function commonString () {
   const v = await curl(URL)
   const x = new RegExp(X, 'g')
   const m = v.match(x)
+
   if (Array.isArray(m)) {
     const a = m.reduce((accumulator, v) => {
       const [,
@@ -102,8 +110,8 @@ export default async function commonString () {
     }, [])
 
     if (a.length) {
-      await writeFile('./src/common/string/entity-name-from-char.js', transformToEntityNameFromChar(a))
-      await writeFile('./src/common/string/char-from-entity-name.js', transformToCharFromEntityName(a))
+      await writeFile(ENTITY_NAME_FROM_CHAR, transformToEntityNameFromChar(a))
+      await writeFile(CHAR_FROM_ENTITY_NAME, transformToCharFromEntityName(a))
       await lint()
     }
   }

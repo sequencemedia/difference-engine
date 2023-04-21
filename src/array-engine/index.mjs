@@ -1,6 +1,8 @@
 /** @module ArrayEngine */
 
-import { isNumber } from '@difference-engine/common'
+import {
+  isNumber
+} from '#common'
 
 export function bite (a = [], x = 0, y = 0) {
   if (isNumber(x)) {

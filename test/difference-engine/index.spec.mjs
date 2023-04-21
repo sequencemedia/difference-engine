@@ -2,7 +2,7 @@ import {
   expect
 } from 'chai'
 
-import DifferenceEngine, { inclusive, exclusive } from '@difference-engine/difference-engine'
+import DifferenceEngine, { inclusive, exclusive } from '#difference-engine'
 
 const ARRAY = [
   'A',

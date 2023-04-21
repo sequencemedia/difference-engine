@@ -24,7 +24,9 @@
  *    var d = R * c;
  */
 
-import { isObject } from '@difference-engine/common'
+import {
+  isObject
+} from '#common'
 
 const KM = 6378
 const MI = 3963

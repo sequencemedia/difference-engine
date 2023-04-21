@@ -2,7 +2,7 @@ import {
   expect
 } from 'chai'
 
-import StringEngine from '@difference-engine/string-engine'
+import StringEngine from '#string-engine'
 
 describe('StringEngine', () => {
   it('is a class', () => expect(StringEngine).to.be.a('function'))

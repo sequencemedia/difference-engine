@@ -4,5 +4,4 @@
 node pre-commit.mjs
 npm run lint:fix
 npm run test
-npm run build
-git add src/common/string lib
+git add src/common/string

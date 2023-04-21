@@ -1,4 +1,6 @@
-import { isNumber } from '@difference-engine/common'
+import {
+  isNumber
+} from '#common'
 
 /*
  * Temperature

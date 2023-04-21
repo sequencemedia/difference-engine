@@ -7,7 +7,7 @@ import NumberEngine, {
   fromOctToDec,
   fibonacci,
   haversine
-} from '@difference-engine/number-engine'
+} from '#number-engine'
 
 describe('NumberEngine', () => {
   it('is a class', () => expect(NumberEngine).to.be.a('function'))

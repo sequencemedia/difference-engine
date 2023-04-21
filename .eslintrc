@@ -1,39 +1,9 @@
 {
   "root": true,
   "extends": "standard",
-  "env": {
-    "es6": true,
-    "node": true
-  },
   "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
-  },
-  "overrides": [
-    {
-      "files": [
-        "lib/js/ArrayEngine.js",
-        "lib/js/DifferenceEngine.js",
-        "lib/js/NumberEngine.js",
-        "lib/js/ObjectEngine.js",
-        "lib/js/StringEngine.js"
-      ],
-      "rules": {
-        "no-return-assign": "off"
-      }
-    }
-  ],
-  "settings": {
-    "import/resolver": {
-      "babel-module": {}
-    }
-  },
-  "globals": {
-    "ArrayEngine": "readonly",
-    "DifferenceEngine": "readonly",
-    "NumberEngine": "readonly",
-    "ObjectEngine": "readonly",
-    "StringEngine": "readonly"
   }
 }

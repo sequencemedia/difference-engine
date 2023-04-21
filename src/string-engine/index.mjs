@@ -3,7 +3,7 @@
 import {
   isString,
   isNumber
-} from '@difference-engine/common'
+} from '#common'
 
 import {
   getFromCodePoint,
@@ -12,7 +12,7 @@ import {
   getEntityCodeFromChar,
   getEntityNameFromChar,
   entityNameFromCharMap
-} from '@difference-engine/common/string'
+} from '#common/string'
 
 const OCT = 8
 const DEC = 10

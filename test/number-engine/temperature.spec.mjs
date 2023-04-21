@@ -5,7 +5,7 @@ import {
 import Temperature, {
   fromFToC,
   fromCToF
-} from '@difference-engine/number-engine/temperature'
+} from '#number-engine/temperature'
 
 describe('Temperature', () => {
   it('is a class', () => expect(Temperature).to.be.a('function'))
