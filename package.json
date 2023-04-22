@@ -2,8 +2,8 @@
   "name": "difference-engine",
   "version": "1.2.2",
   "description": "Difference Engine",
-  "type": "module",
   "main": "./src/index.mjs",
+  "type": "module",
   "author": {
     "email": "sequencemedia@sequencemedia.net",
     "name": "Jonathan Perry for Sequence Media Limited",
@@ -30,7 +30,7 @@
     "chai": "^4.3.7",
     "core-js": "^3.30.1",
     "cross-env": "^7.0.3",
-    "eslint": "^8.38.0",
+    "eslint": "^8.39.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-node": "^11.1.0",
@@ -40,17 +40,6 @@
     "moment": "^2.29.4",
     "rimraf": "^5.0.0",
     "sinon": "^15.0.4"
-  },
-  "exports": {
-    ".": "./src/index.mjs",
-    "./array-engine/*": "./src/array-engine/*.mjs",
-    "./array-engine": "./src/array-engine/index.mjs",
-    "./difference-engine/*": "./src/difference-engine/*.mjs",
-    "./difference-engine": "./src/difference-engine/index.mjs",
-    "./number-engine/*": "./src/number-engine/*.mjs",
-    "./number-engine": "./src/number-engine/index.mjs",
-    "./string-engine/*": "./src/string-engine/*.mjs",
-    "./string-engine": "./src/string-engine/index.mjs"
   },
   "imports": {
     "#common/*": "./src/common/*.mjs",
@@ -64,5 +53,16 @@
     "#number-engine": "./src/number-engine/index.mjs",
     "#string-engine/*": "./src/string-engine/*.mjs",
     "#string-engine": "./src/string-engine/index.mjs"
+  },
+  "exports": {
+    ".": "./src/index.mjs",
+    "./array-engine/*": "./src/array-engine/*.mjs",
+    "./array-engine": "./src/array-engine/index.mjs",
+    "./difference-engine/*": "./src/difference-engine/*.mjs",
+    "./difference-engine": "./src/difference-engine/index.mjs",
+    "./number-engine/*": "./src/number-engine/*.mjs",
+    "./number-engine": "./src/number-engine/index.mjs",
+    "./string-engine/*": "./src/string-engine/*.mjs",
+    "./string-engine": "./src/string-engine/index.mjs"
   }
 }
