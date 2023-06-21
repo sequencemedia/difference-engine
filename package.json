@@ -39,7 +39,7 @@
     "mocha": "^10.2.0",
     "moment": "^2.29.4",
     "rimraf": "^5.0.1",
-    "sinon": "^15.1.2"
+    "sinon": "^15.2.0"
   },
   "imports": {
     "#common/*": "./src/common/*.mjs",
