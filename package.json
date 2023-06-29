@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha test --recursive",
-    "lint": "eslint . --ext .mjs --ext .cjs",
+    "lint": "eslint . --ext .mjs,.cjs",
     "lint:fix": "npm run lint -- --fix"
   },
   "devDependencies": {
@@ -32,9 +32,6 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.43.0",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
     "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "moment": "^2.29.4",
