@@ -27,7 +27,7 @@
     "@babel/plugin-proposal-export-default-from": "^7.22.5",
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@babel/preset-env": "^7.22.9",
-    "chai": "^5.0.0-alpha.1",
+    "chai": "4.3.7",
     "core-js": "^3.32.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.46.0",
