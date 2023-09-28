@@ -27,7 +27,7 @@
     "@babel/plugin-proposal-export-default-from": "^7.22.17",
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@babel/preset-env": "^7.22.20",
-    "chai": "^4.3.8",
+    "chai": "^4.3.9",
     "core-js": "^3.32.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.50.0",
@@ -35,7 +35,7 @@
     "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "moment": "^2.29.4",
-    "rimraf": "^5.0.4",
+    "rimraf": "^5.0.5",
     "sinon": "^16.0.0"
   },
   "imports": {
