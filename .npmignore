@@ -1,12 +1,6 @@
-# NPM
-.npmignore
-.npmrc
-
-# Deps
 .DS_Store
 
 .circleci
-.github
 .husky
 
 .editorconfig
@@ -14,6 +8,7 @@
 .eslintignore
 .eslintrc
 
+.github
 .gitattributes
 .gitignore
 
