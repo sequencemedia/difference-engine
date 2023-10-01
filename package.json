@@ -17,7 +17,8 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha test --recursive",
     "lint": "eslint . --ext .mjs,.cjs",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
