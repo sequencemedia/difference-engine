@@ -21,10 +21,10 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.9",
-    "@babel/core": "^7.24.0",
-    "@babel/eslint-parser": "^7.23.10",
-    "@babel/preset-env": "^7.24.0",
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.1",
+    "@babel/eslint-parser": "^7.24.1",
+    "@babel/preset-env": "^7.24.1",
     "chai": "^5.1.0",
     "core-js": "^3.36.1",
     "cross-env": "^7.0.3",
