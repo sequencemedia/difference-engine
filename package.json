@@ -15,10 +15,10 @@
     "url": "git://github.com/sequencemedia/difference-engine.git"
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha test --recursive",
     "lint": "eslint . --ext .mjs,.cjs",
     "lint:fix": "npm run lint -- --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "cross-env NODE_ENV=test mocha test --recursive"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.6",
@@ -37,27 +37,27 @@
     "sinon": "^18.0.0"
   },
   "imports": {
+    "#array-engine": "./src/array-engine/index.mjs",
+    "#array-engine/*": "./src/array-engine/*.mjs",
+    "#common": "./src/common/index.mjs",
     "#common/*": "./src/common/*.mjs",
     "#common/string": "./src/common/string/index.mjs",
-    "#common": "./src/common/index.mjs",
-    "#array-engine/*": "./src/array-engine/*.mjs",
-    "#array-engine": "./src/array-engine/index.mjs",
-    "#difference-engine/*": "./src/difference-engine/*.mjs",
     "#difference-engine": "./src/difference-engine/index.mjs",
-    "#number-engine/*": "./src/number-engine/*.mjs",
+    "#difference-engine/*": "./src/difference-engine/*.mjs",
     "#number-engine": "./src/number-engine/index.mjs",
-    "#string-engine/*": "./src/string-engine/*.mjs",
-    "#string-engine": "./src/string-engine/index.mjs"
+    "#number-engine/*": "./src/number-engine/*.mjs",
+    "#string-engine": "./src/string-engine/index.mjs",
+    "#string-engine/*": "./src/string-engine/*.mjs"
   },
   "exports": {
     ".": "./src/index.mjs",
-    "./array-engine/*": "./src/array-engine/*.mjs",
     "./array-engine": "./src/array-engine/index.mjs",
-    "./difference-engine/*": "./src/difference-engine/*.mjs",
+    "./array-engine/*": "./src/array-engine/*.mjs",
     "./difference-engine": "./src/difference-engine/index.mjs",
-    "./number-engine/*": "./src/number-engine/*.mjs",
+    "./difference-engine/*": "./src/difference-engine/*.mjs",
     "./number-engine": "./src/number-engine/index.mjs",
-    "./string-engine/*": "./src/string-engine/*.mjs",
-    "./string-engine": "./src/string-engine/index.mjs"
+    "./number-engine/*": "./src/number-engine/*.mjs",
+    "./string-engine": "./src/string-engine/index.mjs",
+    "./string-engine/*": "./src/string-engine/*.mjs"
   }
 }
