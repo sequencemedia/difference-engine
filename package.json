@@ -9,7 +9,7 @@
     "name": "Jonathan Perry for Sequence Media Limited",
     "url": "http://www.sequencemedia.net"
   },
-  "license": "MIT",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git://github.com/sequencemedia/difference-engine.git"
