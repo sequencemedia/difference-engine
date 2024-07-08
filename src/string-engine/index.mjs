@@ -55,8 +55,8 @@ export function charAt (s, i) {
         v = m.shift()
         let c
 
-        if ((c = getCharFromEntityName(v)) !== null) return c // eslint-disable-line
-        if ((c = getCharFromEntityCode(v)) !== null) return c // eslint-disable-line
+        if ((c = getCharFromEntityName(v)) !== null) return c
+        if ((c = getCharFromEntityCode(v)) !== null) return c
         return ACHAR
       }
     } else {
@@ -99,8 +99,8 @@ export function codePointAt (s, i) {
         v = m.shift()
         let c
 
-        if ((c = getCharFromEntityName(v)) !== null) return c.codePointAt(0) // eslint-disable-line
-        if ((c = getCharFromEntityCode(v)) !== null) return c.codePointAt(0) // eslint-disable-line
+        if ((c = getCharFromEntityName(v)) !== null) return c.codePointAt(0)
+        if ((c = getCharFromEntityCode(v)) !== null) return c.codePointAt(0)
         return ACHARCODE
       }
     } else {
@@ -145,8 +145,8 @@ export function charOf (s) {
           v = m.shift()
           let c
 
-          if ((c = getCharFromEntityName(v)) !== null) return c // eslint-disable-line
-          if ((c = getCharFromEntityCode(v)) !== null) return c // eslint-disable-line
+          if ((c = getCharFromEntityName(v)) !== null) return c
+          if ((c = getCharFromEntityCode(v)) !== null) return c
           return ACHAR
         }
       } else {
@@ -193,8 +193,8 @@ export function codePointOf (s) {
           v = m.shift()
           let c
 
-          if ((c = getCharFromEntityName(v)) !== null) return c.codePointAt(0) // eslint-disable-line
-          if ((c = getCharFromEntityCode(v)) !== null) return c.codePointAt(0) // eslint-disable-line
+          if ((c = getCharFromEntityName(v)) !== null) return c.codePointAt(0)
+          if ((c = getCharFromEntityCode(v)) !== null) return c.codePointAt(0)
           return ACHARCODE
         }
       } else {
@@ -228,8 +228,8 @@ export function entityAt (s, i) {
     } else {
       let c
 
-      if ((c = getEntityNameFromChar(v)) !== null) return c // eslint-disable-line
-      if ((c = getEntityCodeFromChar(v)) !== null) return c // eslint-disable-line
+      if ((c = getEntityNameFromChar(v)) !== null) return c
+      if ((c = getEntityCodeFromChar(v)) !== null) return c
       return v
     }
   }
@@ -257,7 +257,7 @@ export function entityCodeAt (s, i) {
     } else {
       let c
 
-      if ((c = getEntityCodeFromChar(v)) !== null) return c // eslint-disable-line
+      if ((c = getEntityCodeFromChar(v)) !== null) return c
       return v
     }
   }
@@ -285,7 +285,7 @@ export function entityNameAt (s, i) {
     } else {
       let c
 
-      if ((c = getEntityNameFromChar(v)) !== null) return c // eslint-disable-line
+      if ((c = getEntityNameFromChar(v)) !== null) return c
       return v
     }
   }
@@ -312,8 +312,8 @@ export function entityOf (s) {
     } else {
       let c
 
-      if ((c = getEntityNameFromChar(v)) !== null) return c // eslint-disable-line
-      if ((c = getEntityCodeFromChar(v)) !== null) return c // eslint-disable-line
+      if ((c = getEntityNameFromChar(v)) !== null) return c
+      if ((c = getEntityCodeFromChar(v)) !== null) return c
       return v
     }
   }
