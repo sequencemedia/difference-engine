@@ -24,3 +24,6 @@ test
 
 # Deps
 .depsrc
+
+# Hooks
+.husky/hooks
