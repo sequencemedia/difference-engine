@@ -1,6 +1,6 @@
 {
   "name": "difference-engine",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Difference Engine",
   "main": "./src/index.mjs",
   "type": "module",
