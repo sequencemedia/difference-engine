@@ -86,11 +86,7 @@ ${a.map(mapCharFromEntityNameFor).join(JOIN)}
 }
 
 function reduce (accumulator, v) {
-  const [,
-    entitites,
-    decimal,
-    label
-  ] = v.match(X)
+  const [, entitites, decimal, label] = v.match(X)
 
   function map (value) {
     return {
