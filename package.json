@@ -57,5 +57,8 @@
     "./number-engine/*": "./src/number-engine/*.mjs",
     "./string-engine": "./src/string-engine/index.mjs",
     "./string-engine/*": "./src/string-engine/*.mjs"
+  },
+  "allowScripts": {
+    "core-js@3.51.0": true
   }
 }
